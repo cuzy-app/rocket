@@ -1,0 +1,20 @@
+{
+    "id": "web-syndication",
+    "name": "Web Syndication",
+    "description": "",
+    "keywords": [],
+    "version": "0.1",
+    "humhub": {
+        "minVersion": "1.7"
+    },
+    "homepage": "https://cuzy.app",
+    "authors": [
+        {
+            "name": "Marc FARRE",
+            "homepage": "https://marc.fun",
+            "role": "Developer"
+        }
+    ],
+    "screenshots": [
+    ]
+}
