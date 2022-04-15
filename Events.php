@@ -50,9 +50,11 @@ class Events
      */
     public static function onModelGroupAfterInsert($event)
     {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('rocket');
         if (
             empty($event->sender)
-            || !Yii::$app->getModule('rocket')->settings->get('syncOnGroupAdd')
+            || !$module->settings->get('syncOnGroupAdd')
         ) {
             return;
         }
@@ -70,9 +72,11 @@ class Events
      */
     public static function onModelGroupAfterDelete($event)
     {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('rocket');
         if (
             empty($event->sender)
-            || !Yii::$app->getModule('rocket')->settings->get('syncOnGroupDelete')
+            || !$module->settings->get('syncOnGroupDelete')
         ) {
             return;
         }
@@ -90,10 +94,12 @@ class Events
      */
     public static function onModelGroupAfterUpdate($event)
     {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('rocket');
         if (
             empty($event->sender)
             || !isset($event->changedAttributes)
-            || !Yii::$app->getModule('rocket')->settings->get('syncOnGroupRename')
+            || !$module->settings->get('syncOnGroupRename')
         ) {
             return;
         }
@@ -117,9 +123,11 @@ class Events
      */
     public static function onModelGroupUserAfterInsert($event)
     {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('rocket');
         if (
             empty($event->sender)
-            || !Yii::$app->getModule('rocket')->settings->get('syncOnUserGroupAdd')
+            || !$module->settings->get('syncOnUserGroupAdd')
         ) {
             return;
         }
@@ -143,9 +151,11 @@ class Events
      */
     public static function onModelGroupUserAfterDelete($event)
     {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('rocket');
         if (
             empty($event->sender)
-            || !Yii::$app->getModule('rocket')->settings->get('syncOnUserGroupRemove')
+            || !$module->settings->get('syncOnUserGroupRemove')
         ) {
             return;
         }
