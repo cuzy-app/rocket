@@ -1,20 +1,20 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
  */
 
-namespace humhub\modules\webSyndication\controllers;
+namespace humhub\modules\rocket\controllers;
 
 use humhub\modules\admin\permissions\ManageSpaces;
-use humhub\modules\content\components\ContentContainerController;
-use humhub\modules\webSyndication\models\ModuleSettings;
+use humhub\modules\rocket\models\ModuleSettings;
+use humhub\modules\space\modules\manage\components\Controller;
 use Yii;
 
 
-class ContainerConfigController extends ContentContainerController
+class ContainerConfigController extends Controller
 {
     /**
      * @inheritdoc

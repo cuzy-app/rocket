@@ -1,4 +1,6 @@
-# Web Syndication
+# Rocket
+
+Show Humhub activity in [Rocket.chat](https://rocket.chat/) and sync Humhub groups.
 
 Module under construction.
 Not ready to be used.
@@ -6,9 +8,10 @@ Not ready to be used.
 
 ## Overview
 
-Show a Humhub space's activity in a Rocket.Chat channel. 
-- If logged out Humhub: you see activity for guests
-- If logged in Humhub: you see others user's activity, including private contents
+- Show a Humhub space's activity in a Rocket.Chat channel:
+  - If logged out Humhub: you see activity for guests
+  - If logged in Humhub: you see others user's activity, including private contents
+- Groups synchronization from Humhub to Rocket
 
 
 ## Configuration
@@ -31,7 +34,7 @@ $(function() {
     $('#humhub').detach();
     let pathname = window.location.pathname.split('/');
     if ((pathname[1] === 'channel' || pathname[1] === 'group') && pathname[2]) {
-      let src = humhubUrl + '/web-syndication/redirect?rocketChannel=' + pathname[2];
+      let src = humhubUrl + '/rocket/redirect?rocketChannel=' + pathname[2];
       $('#rocket-chat').append('<div id="humhub"><iframe src="' + src + '" height="100%"></iframe></div>');
     }
   };

@@ -1,7 +1,7 @@
 <?php
-return array (
-  '' => '',
-  'Rocket.chat channel name' => 'Rocket.chat kanalnavn',
-  'Web Syndication' => 'Websyndikering',
-  'Web Syndication module configuration' => 'Web Syndication modul konfiguration',
+return array(
+    '' => '',
+    'Rocket.chat channel name' => 'Rocket.chat kanalnavn',
+    'Rocket' => 'Websyndikering',
+    'Rocket module configuration' => 'Rocket modul konfiguration',
 );

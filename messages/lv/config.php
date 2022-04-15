@@ -1,7 +1,7 @@
 <?php
-return array (
-  '' => '',
-  'Rocket.chat channel name' => 'Rocket.chat kanāla nosaukums',
-  'Web Syndication' => 'Tīmekļa sindikācija',
-  'Web Syndication module configuration' => 'Web sindikācijas moduļa konfigurācija',
+return array(
+    '' => '',
+    'Rocket.chat channel name' => 'Rocket.chat kanāla nosaukums',
+    'Rocket' => 'Tīmekļa sindikācija',
+    'Rocket module configuration' => 'Web sindikācijas moduļa konfigurācija',
 );

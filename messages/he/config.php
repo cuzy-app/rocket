@@ -1,7 +1,7 @@
 <?php
-return array (
-  '' => '',
-  'Rocket.chat channel name' => 'שם ערוץ Rocket.chat',
-  'Web Syndication' => 'הפצת אינטרנט',
-  'Web Syndication module configuration' => 'תצורת מודול הפצת אינטרנט',
+return array(
+    '' => '',
+    'Rocket.chat channel name' => 'שם ערוץ Rocket.chat',
+    'Rocket' => 'הפצת אינטרנט',
+    'Rocket module configuration' => 'תצורת מודול הפצת אינטרנט',
 );

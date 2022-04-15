@@ -1,6 +1,6 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
@@ -19,7 +19,7 @@ use yii\bootstrap\ActiveForm;
 
 <div class="panel panel-default">
 
-    <div class="panel-heading"><?= Yii::t('WebSyndicationModule.config', 'Web Syndication module configuration') ?></div>
+    <div class="panel-heading"><?= Yii::t('RocketModule.config', 'Rocket.chat module configuration') ?></div>
 
     <hr>
 

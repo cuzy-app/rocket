@@ -1,12 +1,12 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
  */
 
-namespace humhub\modules\webSyndication\controllers;
+namespace humhub\modules\rocket\controllers;
 
 use humhub\modules\content\components\ContentContainerController;
 

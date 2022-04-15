@@ -1,12 +1,12 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
  */
 
-namespace humhub\modules\webSyndication\assets;
+namespace humhub\modules\rocket\assets;
 
 use humhub\components\assets\AssetBundle;
 
@@ -14,13 +14,13 @@ use humhub\components\assets\AssetBundle;
 
 class Assets extends AssetBundle
 {
-    public $sourcePath = '@web-syndication/resources';
+    public $sourcePath = '@rocket/resources';
 
     public $css = [
-        'css/humhub.web-syndication.css',
+        'css/humhub.rocket.css',
     ];
 
     public $js = [
-//        'js/humhub.web-syndication.js',
+//        'js/humhub.rocket.js',
     ];
 }

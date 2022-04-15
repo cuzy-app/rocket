@@ -1,4 +1,4 @@
-humhub.module('web-syndication', function (module, require, $) {
+humhub.module('rocket', function (module, require, $) {
 
     // Get varName
     // Caution : value is not set right away 

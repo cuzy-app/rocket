@@ -3,6 +3,6 @@
 return [
     '' => '',
     'Rocket.chat channel name' => '',
-    'Web Syndication' => '',
-    'Web Syndication module configuration' => '',
+    'Rocket' => '',
+    'Rocket module configuration' => '',
 ];

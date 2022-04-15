@@ -1,9 +1,9 @@
 {
-    "id": "web-syndication",
-    "name": "Web Syndication",
+    "id": "rocket",
+    "name": "Rocket.chat",
     "description": "",
     "keywords": [],
-    "version": "0.1",
+    "version": "0.1-beta-2",
     "humhub": {
         "minVersion": "1.7"
     },

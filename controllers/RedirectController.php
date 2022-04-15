@@ -1,12 +1,12 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
  */
 
-namespace humhub\modules\webSyndication\controllers;
+namespace humhub\modules\rocket\controllers;
 
 use humhub\components\Controller;
 use humhub\modules\content\models\ContentContainerSetting;
@@ -28,9 +28,9 @@ class RedirectController extends Controller
             && ($contentContainer = $setting->contentcontainer) !== null
             && ($space = $contentContainer->getPolymorphicRelation()) instanceof Space
             && ($moduleManager = $space->getModuleManager())
-            && $moduleManager->isEnabled('web-syndication')
+            && $moduleManager->isEnabled('rocket')
         ) {
-            return $this->redirect($space->createUrl('/web-syndication/activity/index'));
+            return $this->redirect($space->createUrl('/rocket/activity/index'));
         }
         return '';
     }

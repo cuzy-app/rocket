@@ -1,17 +1,18 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
  */
 
-namespace humhub\modules\webSyndication;
+namespace humhub\modules\rocket;
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\space\models\Space;
 use Yii;
+use yii\helpers\Url;
 
 class Module extends ContentContainerModule
 {
@@ -19,7 +20,7 @@ class Module extends ContentContainerModule
     /**
      * @var string defines the icon
      */
-    public $icon = 'eye';
+    public $icon = 'commenting-o';
 
     /**
      * @var string defines path for resources, including the screenshots path for the marketplace
@@ -36,30 +37,19 @@ class Module extends ContentContainerModule
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getContentContainerName(ContentContainerActiveRecord $container)
-    {
-        return $this->getName();
-    }
-
     public function getName()
     {
-        return Yii::t('WebSyndicationModule.config', 'Web Syndication');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getContentContainerDescription(ContentContainerActiveRecord $container)
-    {
-        return $this->getDescription();
+        return 'Rocket.chat';
     }
 
     public function getDescription()
     {
-        return Yii::t('WebSyndicationModule.config', '');
+        return Yii::t('RocketModule.config', '');
+    }
+
+    public function getConfigUrl()
+    {
+        return Url::to(['/rocket/config']);
     }
 
     /**
@@ -67,6 +57,6 @@ class Module extends ContentContainerModule
      */
     public function getContentContainerConfigUrl(ContentContainerActiveRecord $container)
     {
-        return $container->createUrl('/web-syndication/container-config');
+        return $container->createUrl('/rocket/container-config');
     }
 }

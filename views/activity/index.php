@@ -1,15 +1,15 @@
 <?php
 /**
- * Web Syndication
+ * Rocket
  * @link https://www.cuzy.app
  * @license https://www.cuzy.app/cuzy-license
  * @author [Marc FARRE](https://marc.fun)
  */
 
 use humhub\modules\activity\widgets\ActivityStreamViewer;
+use humhub\modules\rocket\assets\Assets;
 use humhub\modules\space\models\Space;
 use humhub\modules\ui\view\components\View;
-use humhub\modules\webSyndication\assets\Assets;
 
 /**
  * @var $this View
@@ -23,5 +23,5 @@ Assets::register($this);
 
 <?= ActivityStreamViewer::widget([
     'contentContainer' => $space,
-    'view' => '@web-syndication/widgets/views/activityStream',
+    'view' => '@rocket/widgets/views/activityStream',
 ]) ?>

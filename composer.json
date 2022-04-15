@@ -1,0 +1,10 @@
+{
+  "name": "funkycram/humhub-modules-rocket",
+  "description": "Rocket.chat module for Humhub",
+  "minimum-stability": "stable",
+  "type": "library",
+  "require": {
+    "php": ">=7.3.0",
+    "atdev/rocket-chat": "~1.0"
+  }
+}
