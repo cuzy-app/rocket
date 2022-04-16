@@ -13,6 +13,7 @@ use ATDev\RocketChat\Chat as RocketChat;
 use ATDev\RocketChat\Groups\Group as RocketGroup;
 use ATDev\RocketChat\Users\User as RocketUser;
 use humhub\modules\rocket\models\ModuleSettings;
+use humhub\modules\user\models\User;
 use Yii;
 use yii\base\Component;
 use yii\helpers\BaseInflector;
@@ -35,17 +36,22 @@ class RocketApi extends Component
     /**
      * @var string[]
      */
-    public $users;
+    public $rocketUserUsernames;
 
     /**
      * @var string[]
      */
-    public $groups;
+    public $rocketUserEmails;
 
     /**
      * @var string[]
      */
-    public $channels;
+    public $rocketGroupNames;
+
+    /**
+     * @var string[]
+     */
+    public $rocketChannelNames;
 
     /**
      * @var bool
@@ -90,264 +96,273 @@ class RocketApi extends Component
     }
 
     /**
-     * @param $rocketGroupName
+     * @param string $rocketGroupName
      * @return bool
      */
-    public function createGroup($rocketGroupName)
+    public function createGroup(string $rocketGroupName)
     {
         if (
             !$this->loggedIn
-            || $this->groupNameToGroupId($rocketGroupName) // exists already
+            || $this->getRocketGroupId($rocketGroupName) !== null // exists already
         ) {
             return false;
         }
 
-        $group = new RocketGroup();
-        $group->setName($rocketGroupName);
-        $group->setReadOnlyValue(true);
+        $rocketGroup = new RocketGroup();
+        $rocketGroup->setName($rocketGroupName);
+        $rocketGroup->setReadOnlyValue(true);
 
-        return $this->resultIsValid($group->create(), __METHOD__);
+        return $this->resultIsValid($rocketGroup->create(), __METHOD__);
     }
 
     /**
-     * @param $groupName
-     * @return false|string
+     * @param string $groupName
+     * @return null|string
      */
-    public function groupNameToGroupId($groupName)
+    public function getRocketGroupId(string $groupName)
     {
-        return array_search(BaseInflector::slug($groupName), $this->getGroups(), true);
+        $this->initRocketGroupNames();
+        return array_search(BaseInflector::slug($groupName), $this->rocketGroupNames, true) ?: null;
     }
 
     /**
-     * @return string[]
+     * @return void
      */
-    public function getGroups($flushCache = false)
+    public function initRocketGroupNames($flushCache = false)
     {
-        if (!$this->loggedIn) {
-            return [];
+        if (!$this->loggedIn || $this->rocketGroupNames === null) {
+            return;
         }
 
-        if ($this->groups === null) {
-            $cacheKey = static::CACHE_KEY_PREFIX . 'groups';
-            if ($flushCache) {
-                Yii::$app->cache->delete($cacheKey);
-            }
-            $this->groups = Yii::$app->cache->getOrSet($cacheKey, function () {
-                $groupListing = RocketGroup::listing();
-                if ($this->resultIsValid($groupListing, __METHOD__, RocketGroup::class)) {
-                    $groups = [];
-                    /** @var RocketGroup $group */
-                    foreach ($groupListing as $group) {
-                        $groups[$group->getGroupId()] = BaseInflector::slug($group->getName());
-                    }
-                    return $groups;
+        $cacheKey = static::CACHE_KEY_PREFIX . 'groups';
+        if ($flushCache) {
+            Yii::$app->cache->delete($cacheKey);
+        }
+        $this->rocketGroupNames = Yii::$app->cache->getOrSet($cacheKey, function () {
+            $groupListing = RocketGroup::listing();
+            if ($this->resultIsValid($groupListing, __METHOD__, RocketGroup::class)) {
+                $groups = [];
+                /** @var RocketGroup $group */
+                foreach ($groupListing as $group) {
+                    $groups[$group->getGroupId()] = BaseInflector::slug($group->getName());
                 }
-                return [];
-            }, static::CACHE_DURATION);
-        }
-
-        return $this->groups;
-    }
-
-    /**
-     * @param $rocketGroupName
-     * @return bool
-     */
-    public function deleteGroup($rocketGroupName)
-    {
-        if (
-            !$this->loggedIn
-            || !($groupId = $this->groupNameToGroupId($rocketGroupName))
-        ) {
-            return false;
-        }
-
-        $group = new RocketGroup($groupId);
-
-        return $this->resultIsValid($group->delete(), __METHOD__);
-    }
-
-    /**
-     * @param $rocketGroupName
-     * @param $rocketGroupNewName
-     * @return bool
-     */
-    public function renameGroup($rocketGroupName, $rocketGroupNewName)
-    {
-        if (
-            !$this->loggedIn
-            || !($groupId = $this->groupNameToGroupId($rocketGroupName))
-        ) {
-            return false;
-        }
-
-        $group = new RocketGroup($groupId);
-
-        return $this->resultIsValid($group->rename($rocketGroupNewName), __METHOD__);
-    }
-
-    /**
-     * @param $rocketUserUsername
-     * @param $rocketGroupName
-     * @return bool
-     */
-    public function inviteUserToGroup($rocketUserUsername, $rocketGroupName)
-    {
-        if (
-            !$this->loggedIn
-            || !($userId = $this->userUsernameToUserId($rocketUserUsername))
-            || !($groupId = $this->groupNameToGroupId($rocketGroupName))
-        ) {
-            return false;
-        }
-
-        $user = new RocketUser($userId);
-        $group = new RocketGroup($groupId);
-
-        return $this->resultIsValid($group->invite($user), __METHOD__);
-    }
-
-    /**
-     * @param $userUsername
-     * @return false|string
-     */
-    public function userUsernameToUserId($userUsername)
-    {
-        return array_search(BaseInflector::slug($userUsername), $this->getUsers(), true);
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getUsers($flushCache = false)
-    {
-        if (!$this->loggedIn) {
-            return [];
-        }
-
-        if ($this->users === null) {
-            $cacheKey = static::CACHE_KEY_PREFIX . 'users';
-            if ($flushCache) {
-                Yii::$app->cache->delete($cacheKey);
+                return $groups;
             }
-            $this->users = Yii::$app->cache->getOrSet($cacheKey, function () {
-                $userListing = RocketUser::listing();
-                if ($this->resultIsValid($userListing, __METHOD__, RocketUser::class)) {
-                    $users = [];
-                    /** @var RocketUser $user */
-                    foreach ($userListing as $user) {
-                        $users[$user->getUserId()] = BaseInflector::slug($user->getUsername());
-                    }
-                    return $users;
+            return [];
+        }, static::CACHE_DURATION);
+    }
+
+    /**
+     * @param string $rocketGroupName
+     * @return bool
+     */
+    public function deleteGroup(string $rocketGroupName)
+    {
+        if (
+            !$this->loggedIn
+            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+        ) {
+            return false;
+        }
+
+        $rocketGroup = new RocketGroup($groupId);
+
+        return $this->resultIsValid($rocketGroup->delete(), __METHOD__);
+    }
+
+    /**
+     * @param string $rocketGroupName
+     * @param string $rocketGroupNewName
+     * @return bool
+     */
+    public function renameGroup(string $rocketGroupName, string $rocketGroupNewName)
+    {
+        if (
+            !$this->loggedIn
+            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+        ) {
+            return false;
+        }
+
+        $rocketGroup = new RocketGroup($groupId);
+
+        return $this->resultIsValid($rocketGroup->rename($rocketGroupNewName), __METHOD__);
+    }
+
+    /**
+     * @param User $user
+     * @param string $rocketGroupName
+     * @return bool
+     */
+    public function inviteUserToGroup(User $user, string $rocketGroupName)
+    {
+        if (
+            !$this->loggedIn
+            || ($userId = $this->getRocketUserId($user)) === null
+            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+        ) {
+            return false;
+        }
+
+        $rocketUser = new RocketUser($userId);
+        $rocketGroup = new RocketGroup($groupId);
+
+        return $this->resultIsValid($rocketGroup->invite($rocketUser), __METHOD__);
+    }
+
+    /**
+     * Search Rocket User ID from Humhub email and username
+     * @param User $humhubUser
+     * @return null|string
+     */
+    public function getRocketUserId(User $humhubUser)
+    {
+        $this->initRocketUsers();
+        $rocketUserId = array_search(BaseInflector::slug($humhubUser->username), $this->rocketUserUsernames, true) ?: null;
+        if ($rocketUserId !== false) {
+            return $rocketUserId;
+        }
+        return array_search(BaseInflector::slug($humhubUser->email), $this->rocketUserEmails, true) ?: null;
+    }
+
+    /**
+     * @return void
+     */
+    public function initRocketUsers($flushCache = false)
+    {
+        if (
+            !$this->loggedIn
+            || ($this->rocketUserUsernames !== null && $this->rocketUserEmails !== null)
+        ) {
+            return;
+        }
+
+        $cacheKey = static::CACHE_KEY_PREFIX . 'users';
+        if ($flushCache) {
+            Yii::$app->cache->delete($cacheKey);
+        }
+        $users = Yii::$app->cache->getOrSet($cacheKey, function () {
+            $userListing = RocketUser::listing();
+            if ($this->resultIsValid($userListing, __METHOD__, RocketUser::class)) {
+                $users = [];
+                /** @var RocketUser $user */
+                foreach ($userListing as $user) {
+                    $users[$user->getUserId()] = [
+                        'username' => BaseInflector::slug(trim($user->getUsername())),
+                        'email' => trim($user->getEmail()),
+                    ];
                 }
-                return [];
-            }, static::CACHE_DURATION);
-        }
+                return $users;
+            }
+            return [];
+        }, static::CACHE_DURATION);
 
-        return $this->users;
+        $this->rocketUserUsernames = [];
+        $this->rocketUserEmails = [];
+        foreach ($users as $userId => $user) {
+            $this->rocketUserUsernames[$userId] = $user['username'];
+            $this->rocketUserEmails[$userId] = $user['email'];
+        }
     }
 
     /**
-     * @param $rocketUserUsername
-     * @param $rocketGroupName
+     * @param User $user
+     * @param string $rocketGroupName
      * @return bool
      */
-    public function kickUserOutOfGroup($rocketUserUsername, $rocketGroupName)
+    public function kickUserOutOfGroup(User $user, string $rocketGroupName)
     {
         if (
             !$this->loggedIn
-            || !($userId = $this->userUsernameToUserId($rocketUserUsername))
-            || !($groupId = $this->groupNameToGroupId($rocketGroupName))
+            || ($userId = $this->getRocketUserId($user)) === null
+            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
         ) {
             return false;
         }
 
-        $user = new RocketUser($userId);
-        $group = new RocketGroup($groupId);
+        $rocketUser = new RocketUser($userId);
+        $rocketGroup = new RocketGroup($groupId);
 
-        return $this->resultIsValid($group->kick($user), __METHOD__);
+        return $this->resultIsValid($rocketGroup->kick($rocketUser), __METHOD__);
     }
 
     /**
-     * @param $rocketUserUsername
-     * @param $rocketChannelName
+     * @param User $user
+     * @param string $rocketChannelName
      * @return bool
      */
-    public function inviteUserToChannel($rocketUserUsername, $rocketChannelName)
+    public function inviteUserToChannel(User $user, string $rocketChannelName)
     {
         if (
             !$this->loggedIn
-            || !($userId = $this->userUsernameToUserId($rocketUserUsername))
-            || !($channelId = $this->channelNameToChannelId($rocketChannelName))
+            || ($userId = $this->getRocketUserId($user)) === null
+            || ($channelId = $this->getRocketChannelId($rocketChannelName)) === null
         ) {
             return false;
         }
 
-        $user = new RocketUser($userId);
-        $channel = new RocketChannel($channelId);
+        $rocketUser = new RocketUser($userId);
+        $rocketChannel = new RocketChannel($channelId);
 
-        return $this->resultIsValid($channel->invite($user), __METHOD__);
+        return $this->resultIsValid($rocketChannel->invite($rocketUser), __METHOD__);
     }
 
     /**
      * @param $channelName
-     * @return false|string
+     * @return null|string
      */
-    public function channelNameToChannelId($channelName)
+    public function getRocketChannelId($channelName)
     {
-        return array_search(BaseInflector::slug($channelName), $this->getChannels(), true);
+        $this->initRocketChannelNames();
+        return array_search(BaseInflector::slug($channelName), $this->rocketChannelNames, true) ?: null;
     }
 
     /**
-     * @return string[]
+     * @return void
      */
-    public function getChannels($flushCache = false)
+    public function initRocketChannelNames($flushCache = false)
     {
-        if (!$this->loggedIn) {
-            return [];
+        if (!$this->loggedIn || $this->rocketChannelNames === null) {
+            return;
         }
 
-        if ($this->channels === null) {
-            $cacheKey = static::CACHE_KEY_PREFIX . 'channels';
-            if ($flushCache) {
-                Yii::$app->cache->delete($cacheKey);
-            }
-            $this->channels = Yii::$app->cache->getOrSet($cacheKey, function () {
-                $channelListing = RocketChannel::listing();
-                if ($this->resultIsValid($channelListing, __METHOD__, RocketChannel::class)) {
-                    $channels = [];
-                    /** @var RocketChannel $channel */
-                    foreach ($channelListing as $channel) {
-                        $channels[$channel->getChannelId()] = BaseInflector::slug($channel->getName());
-                    }
-                    return $channels;
+        $cacheKey = static::CACHE_KEY_PREFIX . 'channels';
+        if ($flushCache) {
+            Yii::$app->cache->delete($cacheKey);
+        }
+        $this->rocketChannelNames = Yii::$app->cache->getOrSet($cacheKey, function () {
+            $channelListing = RocketChannel::listing();
+            if ($this->resultIsValid($channelListing, __METHOD__, RocketChannel::class)) {
+                $channels = [];
+                /** @var RocketChannel $channel */
+                foreach ($channelListing as $channel) {
+                    $channels[$channel->getChannelId()] = BaseInflector::slug($channel->getName());
                 }
-                return [];
-            }, static::CACHE_DURATION);
-        }
-
-        return $this->channels;
+                return $channels;
+            }
+            return [];
+        }, static::CACHE_DURATION);
     }
 
     /**
-     * @param $rocketUserUsername
-     * @param $rocketChannelName
+     * @param User $user
+     * @param string $rocketChannelName
      * @return bool
      */
-    public function kickUserOutOfChannel($rocketUserUsername, $rocketChannelName)
+    public function kickUserOutOfChannel(User $user, string $rocketChannelName)
     {
         if (
             !$this->loggedIn
-            || !($userId = $this->userUsernameToUserId($rocketUserUsername))
-            || !($channelId = $this->channelNameToChannelId($rocketChannelName))
+            || ($userId = $this->getRocketUserId($user)) === null
+            || ($channelId = $this->getRocketChannelId($rocketChannelName)) === null
         ) {
             return false;
         }
 
-        $user = new RocketUser($userId);
-        $channel = new RocketChannel($channelId);
+        $rocketUser = new RocketUser($userId);
+        $rocketChannel = new RocketChannel($channelId);
 
-        return $this->resultIsValid($channel->kick($user), __METHOD__);
+        return $this->resultIsValid($rocketChannel->kick($rocketUser), __METHOD__);
     }
 
     /**

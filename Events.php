@@ -11,7 +11,7 @@ namespace humhub\modules\rocket;
 
 use humhub\modules\admin\permissions\ManageSettings;
 use humhub\modules\admin\widgets\SettingsMenu;
-use humhub\modules\rocket\components\RocketApi;
+use humhub\modules\moduleModel\jobs\SendApiRequest;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
@@ -62,7 +62,10 @@ class Events
         /** @var Group $group */
         $group = $event->sender;
 
-        (new RocketApi())->createGroup($group->name);
+        Yii::$app->queue->push(new SendApiRequest([
+            'method' => 'createGroup',
+            'arguments' => [$group->name]
+        ]));
     }
 
 
@@ -84,7 +87,10 @@ class Events
         /** @var Group $group */
         $group = $event->sender;
 
-        (new RocketApi())->deleteGroup($group->name);
+        Yii::$app->queue->push(new SendApiRequest([
+            'method' => 'deleteGroup',
+            'arguments' => [$group->name]
+        ]));
     }
 
 
@@ -112,7 +118,10 @@ class Events
 
         // If name has changed
         if (array_key_exists('name', $changedAttributes)) {
-            (new RocketApi())->renameGroup($changedAttributes['name'], $group->name);
+            Yii::$app->queue->push(new SendApiRequest([
+                'method' => 'renameGroup',
+                'arguments' => [$changedAttributes['name'], $group->name]
+            ]));
         }
     }
 
@@ -141,7 +150,10 @@ class Events
             return;
         }
 
-        (new RocketApi())->inviteUserToGroup($user->username, $group->name);
+        Yii::$app->queue->push(new SendApiRequest([
+            'method' => 'inviteUserToGroup',
+            'arguments' => [$user->username, $group->name]
+        ]));
     }
 
 
@@ -169,6 +181,9 @@ class Events
             return;
         }
 
-        (new RocketApi())->kickUserOutOfGroup($user->username, $group->name);
+        Yii::$app->queue->push(new SendApiRequest([
+            'method' => 'kickUserOutOfGroup',
+            'arguments' => [$user->username, $group->name]
+        ]));
     }
 }

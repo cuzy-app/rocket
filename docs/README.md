@@ -1,26 +1,32 @@
 # Rocket
 
-Show Humhub activity in [Rocket.chat](https://rocket.chat/) and sync Humhub groups.
-
-Module under construction.
-Not ready to be used.
+Show Humhub spaces' activity in [Rocket.chat](https://rocket.chat/) and sync Humhub groups.
 
 
 ## Overview
 
-- Show a Humhub space's activity in a Rocket.Chat channel:
+- Embed Humhub space's activity in a Rocket.Chat channel:
   - If logged out Humhub: you see activity for guests
   - If logged in Humhub: you see others user's activity, including private contents
 - Groups synchronization from Humhub to Rocket
 
 
+## Embed a Rocket.chat channel on Humhub
+
+You don't need this module, you can do it with the [Custom pages module](https://www.humhub.com/en/marketplace/custom_pages/), by adding an "iframe" page or a snippet containing this URL (replace uppercase characters): `https://ROCKET_DOMAIN_NAME.TDL/channel/CHANNEL_NAME?layout=embedded`
+
+
 ## Configuration
 
-### In Rocket.chat
+Go to "Administration" -> "Settings" -> "Rocket.chat"
 
-Go to https://my.rocket-chat.tdl/admin/Layout -> "Custom Scripts". And in "Custom Script for Logged In Users" add (update `humhubUrl` const):
+### Embed Humhub space's activity in a Rocket.Chat channel
+
+#### In Rocket.chat
+
+Go to https://ROCKET_DOMAIN_NAME.TDL/admin/Layout -> "Custom Scripts". And in "Custom Script for Logged In Users" add (update `HUMHUB_DOMAIN_NAME.TDL` const):
 ```
-const humhubUrl = 'https://my.humhub.dtl'; // Do not add a / at the end
+const humhubUrl = 'https://HUMHUB_DOMAIN_NAME.TDL'; // Do not add a trailing /
 
 $(function() {
   
@@ -56,6 +62,6 @@ $(function() {
 });
 ```
 
-### In Humhub
+#### In Humhub
 
 Activate the module in the space and go to the module configuration to setup the Rocket.chat channel. 
