@@ -9,6 +9,7 @@
 namespace humhub\modules\rocket\models;
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
+use humhub\modules\rocket\jobs\AddMissingToRocket;
 use humhub\modules\rocket\Module;
 use humhub\modules\space\models\Space;
 use Yii;
@@ -130,6 +131,9 @@ class ModuleSettings extends Model
             $settings = $module->settings->space($this->contentContainer);
             $this->rocketChannel = $settings->get('rocketChannel');
         }
+
+        // Add groups sync to jobs
+        Yii::$app->queue->push(new AddMissingToRocket(['firstSync' => true]));
 
         parent::init();
     }

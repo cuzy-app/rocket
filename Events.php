@@ -9,9 +9,11 @@
 namespace humhub\modules\rocket;
 
 
+use humhub\commands\CronController;
 use humhub\modules\admin\permissions\ManageSettings;
 use humhub\modules\admin\widgets\SettingsMenu;
-use humhub\modules\moduleModel\jobs\SendApiRequest;
+use humhub\modules\rocket\jobs\AddMissingToRocket;
+use humhub\modules\rocket\jobs\SendApiRequest;
 use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
@@ -41,6 +43,21 @@ class Events
             'isActive' => MenuLink::isActiveState('rocket', 'config'),
             'isVisible' => Yii::$app->user->can(ManageSettings::class)
         ]));
+    }
+
+
+    /**
+     * @param $event
+     * @return void
+     * @throws Throwable
+     */
+    public static function onCronDailyRun($event)
+    {
+        /** @var CronController $controller */
+        $controller = $event->sender;
+        $controller->stdout("Rocket.chat module: Adding to jobs Rocket.chat synchronization with the API ");
+
+        Yii::$app->queue->push(new AddMissingToRocket());
     }
 
 

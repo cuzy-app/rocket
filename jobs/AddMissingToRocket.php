@@ -11,24 +11,21 @@ namespace humhub\modules\rocket\jobs;
 
 use humhub\modules\queue\ActiveJob;
 use humhub\modules\rocket\components\RocketApi;
+use humhub\modules\user\models\Group;
+use humhub\modules\user\models\GroupUser;
 use yii\queue\RetryableJobInterface;
 
-class SendApiRequest extends ActiveJob implements RetryableJobInterface
+class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
 {
     /**
-     * @var string
+     * @var bool
      */
-    public $method;
-
-    /**
-     * @var array
-     */
-    public $arguments = [];
+    public $firstSync = false;
 
     /**
      * @inhertidoc
      */
-    private $maxExecutionTime = 3 * 60;
+    private $maxExecutionTime = 60 * 60;
 
     /**
      * @inheritdoc
@@ -36,7 +33,16 @@ class SendApiRequest extends ActiveJob implements RetryableJobInterface
     public function run()
     {
         $api = new RocketApi();
-        call_user_func_array([$api, $this->method], $this->arguments);
+
+        foreach (Group::find()->all() as $group) {
+            $api->createGroup($group->name);
+        }
+        foreach (GroupUser::find()->all() as $groupUser) {
+            $user = $groupUser->user;
+            $group = $groupUser->group;
+            $api->inviteUserToGroup($user, $group->name);
+        }
+
         $api->logout();
     }
 
