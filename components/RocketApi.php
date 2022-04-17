@@ -10,7 +10,7 @@ namespace humhub\modules\rocket\components;
 
 use ATDev\RocketChat\Channels\Channel as RocketChannel;
 use ATDev\RocketChat\Chat as RocketChat;
-use ATDev\RocketChat\Groups\Group as RocketGroup;
+use ATDev\RocketChat\Roles\Role as RocketRole;
 use ATDev\RocketChat\Users\User as RocketUser;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\user\models\User;
@@ -20,7 +20,7 @@ use yii\helpers\BaseInflector;
 
 
 /**
- * Doc: https://github.com/alekseykuleshov/rocket-chat
+ * Doc: https://github.com/alekseykuleshov/rocket-chat and https://developer.rocket.chat/reference/api/rest-api/endpoints/team-collaboration-endpoints
  */
 class RocketApi extends Component
 {
@@ -46,7 +46,7 @@ class RocketApi extends Component
     /**
      * @var string[]
      */
-    public $rocketGroupNames;
+    public $rocketRoleNames;
 
     /**
      * @var string[]
@@ -96,118 +96,120 @@ class RocketApi extends Component
     }
 
     /**
-     * @param string $rocketGroupName
+     * @param string $rocketRoleName
      * @return bool
      */
-    public function createGroup(string $rocketGroupName)
+    public function createRole(string $rocketRoleName)
     {
         if (
             !$this->loggedIn
-            || $this->getRocketGroupId($rocketGroupName) !== null // exists already
+            || $this->getRocketRoleId($rocketRoleName) !== null // exists already
         ) {
             return false;
         }
 
-        $rocketGroup = new RocketGroup();
-        $rocketGroup->setName($rocketGroupName);
-        $rocketGroup->setReadOnlyValue(true);
+        $rocketRole = new RocketRole();
+        $rocketRole->setName(BaseInflector::slug($rocketRoleName));
+        $rocketRole->setDescription($rocketRoleName);
 
-        return $this->resultIsValid($rocketGroup->create(), __METHOD__);
+        return $this->resultIsValid($rocketRole->create(), __METHOD__);
     }
 
     /**
-     * @param string $groupName
+     * @param string $roleName
      * @return null|string
      */
-    public function getRocketGroupId(string $groupName)
+    public function getRocketRoleId(string $roleName)
     {
-        $this->initRocketGroupNames();
-        return array_search(BaseInflector::slug($groupName), $this->rocketGroupNames, true) ?: null;
+        $this->initRocketRoleNames();
+        return array_search(BaseInflector::slug($roleName), $this->rocketRoleNames, true) ?: null;
     }
 
     /**
      * @return void
      */
-    public function initRocketGroupNames($flushCache = false)
+    public function initRocketRoleNames($flushCache = false)
     {
-        if (!$this->loggedIn || $this->rocketGroupNames === null) {
+        if (!$this->loggedIn || $this->rocketRoleNames !== null) {
             return;
         }
 
-        $cacheKey = static::CACHE_KEY_PREFIX . 'groups';
+        $cacheKey = static::CACHE_KEY_PREFIX . 'roles';
         if ($flushCache) {
             Yii::$app->cache->delete($cacheKey);
         }
-        $this->rocketGroupNames = Yii::$app->cache->getOrSet($cacheKey, function () {
-            $groupListing = RocketGroup::listing();
-            if ($this->resultIsValid($groupListing, __METHOD__, RocketGroup::class)) {
-                $groups = [];
-                /** @var RocketGroup $group */
-                foreach ($groupListing as $group) {
-                    $groups[$group->getGroupId()] = BaseInflector::slug($group->getName());
+        $this->rocketRoleNames = Yii::$app->cache->getOrSet($cacheKey, function () {
+            $roleListing = RocketRole::listing();
+            if ($this->resultIsValid($roleListing, __METHOD__, RocketRole::class)) {
+                $roles = [];
+                /** @var RocketRole $role */
+                foreach ($roleListing as $role) {
+                    $roles[$role->getRoleId()] = BaseInflector::slug($role->getName());
                 }
-                return $groups;
+                return $roles;
             }
             return [];
         }, static::CACHE_DURATION);
     }
 
     /**
-     * @param string $rocketGroupName
+     * @param string $rocketRoleName
      * @return bool
      */
-    public function deleteGroup(string $rocketGroupName)
+    public function deleteRole(string $rocketRoleName)
     {
         if (
             !$this->loggedIn
-            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+            || ($roleId = $this->getRocketRoleId($rocketRoleName)) === null
         ) {
             return false;
         }
 
-        $rocketGroup = new RocketGroup($groupId);
+        $rocketRole = new RocketRole();
+        $rocketRole->setName(BaseInflector::slug($rocketRoleName));
 
-        return $this->resultIsValid($rocketGroup->delete(), __METHOD__);
+        return $this->resultIsValid($rocketRole->delete($roleId), __METHOD__);
     }
 
     /**
-     * @param string $rocketGroupName
-     * @param string $rocketGroupNewName
+     * @param string $rocketRoleName
+     * @param string $rocketRoleNewName
      * @return bool
      */
-    public function renameGroup(string $rocketGroupName, string $rocketGroupNewName)
+    public function renameRole(string $rocketRoleName, string $rocketRoleNewName)
     {
         if (
             !$this->loggedIn
-            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+            || ($roleId = $this->getRocketRoleId($rocketRoleName)) === null
         ) {
             return false;
         }
 
-        $rocketGroup = new RocketGroup($groupId);
+        $rocketRole = new RocketRole();
+        $rocketRole->setName(BaseInflector::slug($rocketRoleNewName));
 
-        return $this->resultIsValid($rocketGroup->rename($rocketGroupNewName), __METHOD__);
+        return $this->resultIsValid($rocketRole->rename($roleId), __METHOD__);
     }
 
     /**
      * @param User $user
-     * @param string $rocketGroupName
+     * @param string $rocketRoleName
      * @return bool
      */
-    public function inviteUserToGroup(User $user, string $rocketGroupName)
+    public function addUserToRole(User $user, string $rocketRoleName)
     {
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+            || $this->getRocketRoleId($rocketRoleName) === null
         ) {
             return false;
         }
 
-        $rocketUser = new RocketUser($userId);
-        $rocketGroup = new RocketGroup($groupId);
+        $rocketUserUsername = $this->rocketUserUsernames[$userId];
+        $rocketRole = (new RocketRole())->setName(BaseInflector::slug($rocketRoleName));
 
-        return $this->resultIsValid($rocketGroup->invite($rocketUser), __METHOD__);
+        return $this->resultIsValid($rocketRole->addUserToRole($rocketUserUsername), __METHOD__);
     }
 
     /**
@@ -267,23 +269,23 @@ class RocketApi extends Component
 
     /**
      * @param User $user
-     * @param string $rocketGroupName
+     * @param string $rocketRoleName
      * @return bool
      */
-    public function kickUserOutOfGroup(User $user, string $rocketGroupName)
+    public function removeUserFromRole(User $user, string $rocketRoleName)
     {
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+            || $this->getRocketRoleId($rocketRoleName) === null
         ) {
             return false;
         }
 
-        $rocketUser = new RocketUser($userId);
-        $rocketGroup = new RocketGroup($groupId);
+        $rocketUserUsername = $this->rocketUserUsernames[$userId];
+        $rocketRole = (new RocketRole())->setName(BaseInflector::slug($rocketRoleName));
 
-        return $this->resultIsValid($rocketGroup->kick($rocketUser), __METHOD__);
+        return $this->resultIsValid($rocketRole->removeUserFromRole($rocketUserUsername), __METHOD__);
     }
 
     /**
@@ -322,7 +324,7 @@ class RocketApi extends Component
      */
     public function initRocketChannelNames($flushCache = false)
     {
-        if (!$this->loggedIn || $this->rocketChannelNames === null) {
+        if (!$this->loggedIn || $this->rocketChannelNames !== null) {
             return;
         }
 

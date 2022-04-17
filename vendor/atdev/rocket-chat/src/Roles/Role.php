@@ -10,7 +10,7 @@ use ATDev\RocketChat\Users\User;
  */
 class Role extends Request
 {
-    use \ATDev\RocketChat\Roles\Data;
+    use Data;
 
     /**
      * Gets role listing
@@ -77,6 +77,46 @@ class Role extends Request
     }
 
     /**
+     * Creates a new role in the system
+     *
+     * @param string $roleId
+     * @return Role|false
+     */
+    public function delete($roleId)
+    {
+        $data = [
+            'roleId' => $roleId
+        ];
+        static::send("roles.delete", "POST", $data);
+
+        if (!static::getSuccess()) {
+            return false;
+        }
+
+        return $this->updateOutOfResponse(static::getResponse()->role);
+    }
+
+    /**
+     * Creates a new role in the system
+     *
+     * @param string $roleId
+     * @return Role|false
+     */
+    public function update($roleId)
+    {
+        $data = [
+            'roleId' => $roleId
+        ];
+        static::send("roles.update", "POST", $data);
+
+        if (!static::getSuccess()) {
+            return false;
+        }
+
+        return $this->updateOutOfResponse(static::getResponse()->role);
+    }
+
+    /**
      * Assigns a role to an user
      *
      * @param string $username
@@ -93,6 +133,31 @@ class Role extends Request
             $data["roomId"] = $roomId;
         }
         static::send("roles.addUserToRole", "POST", $data);
+
+        if (!static::getSuccess()) {
+            return false;
+        }
+
+        return $this->updateOutOfResponse(static::getResponse()->role);
+    }
+
+    /**
+     * Assigns a role to an user
+     *
+     * @param string $username
+     * @param string $roomId
+     * @return Role|false
+     */
+    public function removeUserFromRole($username, $roomId = '')
+    {
+        $data = [
+            'roleName' => $this->name,
+            'username' => $username
+        ];
+        if (!empty($roomId)) {
+            $data["roomId"] = $roomId;
+        }
+        static::send("roles.removeUserFromRole", "POST", $data);
 
         if (!static::getSuccess()) {
             return false;
