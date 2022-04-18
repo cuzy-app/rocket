@@ -24,7 +24,14 @@ use yii\helpers\BaseInflector;
  */
 class RocketApi extends Component
 {
-    protected const CACHE_KEY_PREFIX = 'rocketApi';
+    public const ERRORS_TO_IGNORE = [
+        '[error-user-already-in-role]',
+        '[error-user-not-in-role]'
+    ];
+
+    protected const CACHE_KEY_PREFIX_USER = 'rocketApiUser';
+    protected const CACHE_KEY_PREFIX_ROLE = 'rocketApiRole';
+    protected const CACHE_KEY_PREFIX_CHANNEL = 'rocketApiChannel';
     protected const CACHE_DURATION = 60 * 60;
 
     /**
@@ -73,7 +80,7 @@ class RocketApi extends Component
         // Login to Rocket API
         if ($this->settings->apiUrl && $this->settings->apiUserLogin && $this->settings->apiUserPassword) {
             RocketChat::setUrl($this->settings->apiUrl);
-            $this->loggedIn = $this->resultIsValid(RocketChat::login($this->settings->apiUserLogin, $this->settings->apiUserPassword), __METHOD__, RocketChat::class);
+            $this->loggedIn = $this->resultIsValid(RocketChat::login($this->settings->apiUserLogin, $this->settings->apiUserPassword), RocketChat::class, __METHOD__);
         }
 
         parent::init();
@@ -81,15 +88,24 @@ class RocketApi extends Component
 
     /**
      * @param $result
+     * @param $classNameOrObject
      * @param string|null $methodName
-     * @param string|null $class
      * @return bool
      */
-    protected function resultIsValid($result, ?string $methodName = null, ?string $class = null)
+    protected function resultIsValid($result, $classNameOrObject, ?string $methodName = null)
     {
         if (!$result) {
-            $error = $class ? $class::getError() : $result->getError();
-            Yii::error('Rocket module error on API request' . ($methodName ? ' (' . $methodName . ')' : '') . ': ' . $error);
+            $error = is_string($classNameOrObject) ? $classNameOrObject::getError() : $classNameOrObject->getError();
+            $ignoreError = false;
+            foreach (self::ERRORS_TO_IGNORE as $errorToIgnore) {
+                if (strpos($error, $errorToIgnore) !== false) {
+                    $ignoreError = true;
+                    break;
+                }
+            }
+            if (!$ignoreError) {
+                Yii::error('Rocket module error on API request' . ($methodName ? ' (' . $methodName . ')' : '') . ': ' . $error);
+            }
             return false;
         }
         return true;
@@ -111,8 +127,15 @@ class RocketApi extends Component
         $rocketRole = new RocketRole();
         $rocketRole->setName(BaseInflector::slug($rocketRoleName));
         $rocketRole->setDescription($rocketRoleName);
+        $result = $rocketRole->create();
 
-        return $this->resultIsValid($rocketRole->create(), __METHOD__);
+        if ($this->resultIsValid($result, $rocketRole, __METHOD__)) {
+            $this->initRocketRoleNames(true);
+            $this->rocketRoleNames[$rocketRole->getRoleId()] = $rocketRole->getName();
+            $this->updateRocketRoleNamesCache();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -134,13 +157,12 @@ class RocketApi extends Component
             return;
         }
 
-        $cacheKey = static::CACHE_KEY_PREFIX . 'roles';
         if ($flushCache) {
-            Yii::$app->cache->delete($cacheKey);
+            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_ROLE);
         }
-        $this->rocketRoleNames = Yii::$app->cache->getOrSet($cacheKey, function () {
+        $this->rocketRoleNames = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_ROLE, function () {
             $roleListing = RocketRole::listing();
-            if ($this->resultIsValid($roleListing, __METHOD__, RocketRole::class)) {
+            if ($this->resultIsValid($roleListing, RocketRole::class, __METHOD__)) {
                 $roles = [];
                 /** @var RocketRole $role */
                 foreach ($roleListing as $role) {
@@ -150,6 +172,15 @@ class RocketApi extends Component
             }
             return [];
         }, static::CACHE_DURATION);
+    }
+
+    /**
+     * @return void
+     */
+    public function updateRocketRoleNamesCache()
+    {
+        Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_ROLE);
+        Yii::$app->cache->set(static::CACHE_KEY_PREFIX_ROLE, $this->rocketRoleNames, static::CACHE_DURATION);
     }
 
     /**
@@ -166,9 +197,15 @@ class RocketApi extends Component
         }
 
         $rocketRole = new RocketRole();
-        $rocketRole->setName(BaseInflector::slug($rocketRoleName));
+        $result = $rocketRole->delete($roleId);
 
-        return $this->resultIsValid($rocketRole->delete($roleId), __METHOD__);
+        if ($this->resultIsValid($result, $rocketRole, __METHOD__)) {
+            $this->initRocketRoleNames(true);
+            unset($this->rocketRoleNames[$roleId]);
+            $this->updateRocketRoleNamesCache();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -187,8 +224,15 @@ class RocketApi extends Component
 
         $rocketRole = new RocketRole();
         $rocketRole->setName(BaseInflector::slug($rocketRoleNewName));
+        $result = $rocketRole->update($roleId);
 
-        return $this->resultIsValid($rocketRole->rename($roleId), __METHOD__);
+        if ($this->resultIsValid($result, $rocketRole, __METHOD__)) {
+            $this->initRocketRoleNames(true);
+            $this->rocketRoleNames[$roleId] = $rocketRole->getName();
+            $this->updateRocketRoleNamesCache();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -209,7 +253,7 @@ class RocketApi extends Component
         $rocketUserUsername = $this->rocketUserUsernames[$userId];
         $rocketRole = (new RocketRole())->setName(BaseInflector::slug($rocketRoleName));
 
-        return $this->resultIsValid($rocketRole->addUserToRole($rocketUserUsername), __METHOD__);
+        return $this->resultIsValid($rocketRole->addUserToRole($rocketUserUsername), $rocketRole, __METHOD__);
     }
 
     /**
@@ -239,13 +283,12 @@ class RocketApi extends Component
             return;
         }
 
-        $cacheKey = static::CACHE_KEY_PREFIX . 'users';
         if ($flushCache) {
-            Yii::$app->cache->delete($cacheKey);
+            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_USER);
         }
-        $users = Yii::$app->cache->getOrSet($cacheKey, function () {
+        $users = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_USER, function () {
             $userListing = RocketUser::listing();
-            if ($this->resultIsValid($userListing, __METHOD__, RocketUser::class)) {
+            if ($this->resultIsValid($userListing, RocketUser::class, __METHOD__)) {
                 $users = [];
                 /** @var RocketUser $user */
                 foreach ($userListing as $user) {
@@ -285,7 +328,7 @@ class RocketApi extends Component
         $rocketUserUsername = $this->rocketUserUsernames[$userId];
         $rocketRole = (new RocketRole())->setName(BaseInflector::slug($rocketRoleName));
 
-        return $this->resultIsValid($rocketRole->removeUserFromRole($rocketUserUsername), __METHOD__);
+        return $this->resultIsValid($rocketRole->removeUserFromRole($rocketUserUsername), $rocketRole, __METHOD__);
     }
 
     /**
@@ -306,7 +349,7 @@ class RocketApi extends Component
         $rocketUser = new RocketUser($userId);
         $rocketChannel = new RocketChannel($channelId);
 
-        return $this->resultIsValid($rocketChannel->invite($rocketUser), __METHOD__);
+        return $this->resultIsValid($rocketChannel->invite($rocketUser), $rocketChannel, __METHOD__);
     }
 
     /**
@@ -328,13 +371,12 @@ class RocketApi extends Component
             return;
         }
 
-        $cacheKey = static::CACHE_KEY_PREFIX . 'channels';
         if ($flushCache) {
-            Yii::$app->cache->delete($cacheKey);
+            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_CHANNEL);
         }
-        $this->rocketChannelNames = Yii::$app->cache->getOrSet($cacheKey, function () {
+        $this->rocketChannelNames = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_CHANNEL, function () {
             $channelListing = RocketChannel::listing();
-            if ($this->resultIsValid($channelListing, __METHOD__, RocketChannel::class)) {
+            if ($this->resultIsValid($channelListing, RocketChannel::class, __METHOD__)) {
                 $channels = [];
                 /** @var RocketChannel $channel */
                 foreach ($channelListing as $channel) {
@@ -364,7 +406,7 @@ class RocketApi extends Component
         $rocketUser = new RocketUser($userId);
         $rocketChannel = new RocketChannel($channelId);
 
-        return $this->resultIsValid($rocketChannel->kick($rocketUser), __METHOD__);
+        return $this->resultIsValid($rocketChannel->kick($rocketUser), $rocketChannel, __METHOD__);
     }
 
     /**

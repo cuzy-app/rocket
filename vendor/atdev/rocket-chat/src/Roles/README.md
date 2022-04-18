@@ -55,6 +55,7 @@ $role = new \ATDev\RocketChat\Roles\Role();
 $role->setName("[ROLE NEW NAME]");
 $role->setScope("[ROLE NEW SCOPE]"); // optional
 $role->setDescription("[ROLE NEW DESCRIPTION]"); // optional
+$role->setMandatory2fa("[ROLE NEW MANDATORY 2 FA]"); // optional
 
 $result = $role->update("[ROLE ID]");
 
@@ -64,7 +65,7 @@ if (!$result) {
 }
 ```
 
-### ASSIGN A ROLE TO A USER
+### ADD A USER TO A ROLE
 ```php
 $role = (new \ATDev\RocketChat\Roles\Role())->setName("[ROLE NAME]");
 
@@ -76,11 +77,11 @@ if (!$result) {
 }
 ```
 
-### REMOVE A ROLE FROM A USER
+### REMOVE A USER FROM A ROLE
 ```php
 $role = (new \ATDev\RocketChat\Roles\Role())->setName("[ROLE NAME]");
 
-$result = $role->removeUserToRole("[USERNAME]", "[ROOM ID]"); // "[ROOM ID]" is optional
+$result = $role->removeUserFromRole("[USERNAME]", "[ROOM ID]"); // "[ROOM ID]" is optional
 
 if (!$result) {
 	// Log the error

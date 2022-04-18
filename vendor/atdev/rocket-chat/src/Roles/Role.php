@@ -77,36 +77,44 @@ class Role extends Request
     }
 
     /**
-     * Creates a new role in the system
+     * Delete a role in the system
      *
      * @param string $roleId
      * @return Role|false
      */
     public function delete($roleId)
     {
-        $data = [
-            'roleId' => $roleId
-        ];
+        $data = ['roleId' => $roleId];
         static::send("roles.delete", "POST", $data);
 
         if (!static::getSuccess()) {
             return false;
         }
 
-        return $this->updateOutOfResponse(static::getResponse()->role);
+        return $this->setRoleId(null);
     }
 
     /**
-     * Creates a new role in the system
+     * Updates a role
      *
      * @param string $roleId
      * @return Role|false
      */
     public function update($roleId)
     {
-        $data = [
-            'roleId' => $roleId
-        ];
+        $data = ['roleId' => $roleId];
+        if ($this->name !== null) {
+            $data['name'] = $this->name;
+        }
+        if ($this->description !== null) {
+            $data['description'] = $this->description;
+        }
+        if ($this->scope !== null) {
+            $data['scope'] = $this->scope;
+        }
+        if ($this->mandatory2fa !== null) {
+            $data['mandatory2fa'] = $this->mandatory2fa;
+        }
         static::send("roles.update", "POST", $data);
 
         if (!static::getSuccess()) {
@@ -117,7 +125,7 @@ class Role extends Request
     }
 
     /**
-     * Assigns a role to an user
+     * Add a user to a role
      *
      * @param string $username
      * @param string $roomId
@@ -142,7 +150,7 @@ class Role extends Request
     }
 
     /**
-     * Assigns a role to an user
+     * Remove a user from a role
      *
      * @param string $username
      * @param string $roomId

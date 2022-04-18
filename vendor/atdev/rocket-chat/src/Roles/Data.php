@@ -2,16 +2,16 @@
 
 namespace ATDev\RocketChat\Roles;
 
+use stdClass;
+
 /**
  * Role data trait
  */
 trait Data
 {
-    /* Required property for creation */
+    /* Optional properties for creation */
     /** @var string The name of the new role */
     private $name;
-
-    /* Optional properties for creation */
     /** @var string The scope of the new role */
     private $scope;
     /** @var string A description for the new role */
@@ -28,13 +28,50 @@ trait Data
     private $protected;
 
     /**
-     * Gets role id
+     * Creates role out of api response
      *
-     * @return string
+     * @param stdClass $response
+     *
+     * @return Data
      */
-    public function getRoleId()
+    public static function createOutOfResponse($response)
     {
-        return $this->roleId;
+        $role = new static($response->_id);
+
+        return $role->updateOutOfResponse($response);
+    }
+
+    /**
+     * Updates current role out of api response
+     *
+     * @param stdClass $response
+     * @return Data
+     */
+    public function updateOutOfResponse($response)
+    {
+        if (isset($response->_id)) {
+            $this->setRoleId($response->_id);
+        }
+        if (isset($response->_updatedAt)) {
+            $this->setUpdatedAt($response->_updatedAt);
+        }
+        if (isset($response->description)) {
+            $this->setDescription($response->description);
+        }
+        if (isset($response->mandatory2fa)) {
+            $this->setMandatory2fa($response->mandatory2fa);
+        }
+        if (isset($response->protected)) {
+            $this->setProtected($response->protected);
+        }
+        if (isset($response->name)) {
+            $this->setName($response->name);
+        }
+        if (isset($response->scope)) {
+            $this->setScope($response->scope);
+        }
+
+        return $this;
     }
 
     /**
@@ -51,16 +88,6 @@ trait Data
     }
 
     /**
-     * Gets updatedAt
-     *
-     * @return string
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
      * @param string $value
      * @return $this
      */
@@ -71,6 +98,52 @@ trait Data
         }
 
         return $this;
+    }
+
+    /**
+     * @param bool $value
+     * @return $this
+     */
+    private function setMandatory2fa($value)
+    {
+        if (is_bool($value)) {
+            $this->mandatory2fa = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param bool $value
+     * @return $this
+     */
+    private function setProtected($value)
+    {
+        if (is_bool($value)) {
+            $this->protected = $value;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Gets role id
+     *
+     * @return string
+     */
+    public function getRoleId()
+    {
+        return $this->roleId;
+    }
+
+    /**
+     * Gets updatedAt
+     *
+     * @return string
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 
     /**
@@ -99,6 +172,20 @@ trait Data
     }
 
     /**
+     * Sets data error
+     *
+     * @param string $error
+     *
+     * @return Data
+     */
+    private function setDataError($error)
+    {
+        static::setError($error);
+
+        return $this;
+    }
+
+    /**
      * Gets mandatory2fa
      *
      * @return bool
@@ -109,19 +196,6 @@ trait Data
     }
 
     /**
-     * @param bool $value
-     * @return $this
-     */
-    private function setMandatory2fa($value)
-    {
-        if (is_bool($value)) {
-            $this->mandatory2fa = $value;
-        }
-
-        return $this;
-    }
-
-    /**
      * Gets protected
      *
      * @return bool
@@ -129,19 +203,6 @@ trait Data
     public function getProtected()
     {
         return $this->protected;
-    }
-
-    /**
-     * @param bool $value
-     * @return $this
-     */
-    private function setProtected($value)
-    {
-        if (is_bool($value)) {
-            $this->protected = $value;
-        }
-
-        return $this;
     }
 
     /**
@@ -201,7 +262,9 @@ trait Data
      */
     public function jsonSerialize()
     {
-        $roleData = ['name' => $this->name];
+        if (!is_null($this->name)) {
+            $roleData = ['name' => $this->name];
+        }
         if (!is_null($this->scope)) {
             $roleData['scope'] = $this->scope;
         }
@@ -210,66 +273,5 @@ trait Data
         }
 
         return $roleData;
-    }
-
-    /**
-     * Creates role out of api response
-     *
-     * @param \stdClass $response
-     *
-     * @return \ATDev\RocketChat\Roles\Data
-     */
-    public static function createOutOfResponse($response)
-    {
-        $role = new static($response->_id);
-
-        return $role->updateOutOfResponse($response);
-    }
-
-    /**
-     * Updates current role out of api response
-     *
-     * @param \stdClass $response
-     * @return \ATDev\RocketChat\Roles\Data
-     */
-    public function updateOutOfResponse($response)
-    {
-        if (isset($response->_id)) {
-            $this->setRoleId($response->_id);
-        }
-        if (isset($response->_updatedAt)) {
-            $this->setUpdatedAt($response->_updatedAt);
-        }
-        if (isset($response->description)) {
-            $this->setDescription($response->description);
-        }
-        if (isset($response->mandatory2fa)) {
-            $this->setMandatory2fa($response->mandatory2fa);
-        }
-        if (isset($response->protected)) {
-            $this->setProtected($response->protected);
-        }
-        if (isset($response->name)) {
-            $this->setName($response->name);
-        }
-        if (isset($response->scope)) {
-            $this->setScope($response->scope);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Sets data error
-     *
-     * @param string $error
-     *
-     * @return \ATDev\RocketChat\Roles\Data
-     */
-    private function setDataError($error)
-    {
-        static::setError($error);
-
-        return $this;
     }
 }

@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '80fe0731b7c807f351f0aa664351cb33e46aec62',
+    'reference' => '8c7c48a8c6d144dfee3660c807b6f8bf0f9f92bc',
     'name' => 'funkycram/humhub-modules-rocket',
   ),
   'versions' => 
@@ -77,7 +77,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '80fe0731b7c807f351f0aa664351cb33e46aec62',
+      'reference' => '8c7c48a8c6d144dfee3660c807b6f8bf0f9f92bc',
     ),
     'guzzlehttp/guzzle' => 
     array (

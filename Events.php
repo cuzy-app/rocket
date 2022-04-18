@@ -58,6 +58,8 @@ class Events
         $controller->stdout("Rocket.chat module: Adding to jobs Rocket.chat synchronization with the API ");
 
         Yii::$app->queue->push(new AddMissingToRocket());
+
+        // TODO: In the spaces settings, remove channels that don't exist anymore on Rocket (if have been removed)
     }
 
 
