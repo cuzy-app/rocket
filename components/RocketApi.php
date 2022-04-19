@@ -21,7 +21,12 @@ use yii\helpers\BaseInflector;
 
 
 /**
- * Doc: https://github.com/alekseykuleshov/rocket-chat and https://developer.rocket.chat/reference/api/rest-api/endpoints/team-collaboration-endpoints
+ * Rocket.chat API PHP Wrapper Library doc: https://github.com/alekseykuleshov/rocket-chat
+ * Rocket.chat API doc: https://developer.rocket.chat/reference/api/rest-api/endpoints/team-collaboration-endpoints
+ *
+ * Role on Rocket.chat is equivalent to groups in Humhub
+ * Channel on Rocket.chat is a public channel
+ * Group on Rocket.chat is a private channel
  */
 class RocketApi extends Component
 {
@@ -342,16 +347,16 @@ class RocketApi extends Component
 
     /**
      * @param User|int|string $user
-     * @param string $rocketChannelName
+     * @param string $channelId
      * @return bool
      */
-    public function inviteUserToChannel($user, string $rocketChannelName)
+    public function inviteUserToChannel($user, string $channelId)
     {
         $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || ($channelId = $this->getRocketChannelId($rocketChannelName)) === null
+            || !$this->rocketChannelIdExists($channelId)
         ) {
             return false;
         }
@@ -364,22 +369,22 @@ class RocketApi extends Component
 
     /**
      * @param User|int|string $user
-     * @param string $rocketGroupName
+     * @param string $groupId
      * @return bool
      */
-    public function inviteUserToGroup($user, string $rocketGroupName)
+    public function inviteUserToGroup($user, string $groupId)
     {
         $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || ($GroupId = $this->getRocketGroupId($rocketGroupName)) === null
+            || !$this->rocketGroupIdExists($groupId)
         ) {
             return false;
         }
 
         $rocketUser = new RocketUser($userId);
-        $rocketGroup = new RocketGroup($GroupId);
+        $rocketGroup = new RocketGroup($groupId);
 
         return $this->resultIsValid($rocketGroup->invite($rocketUser), $rocketGroup, __METHOD__);
     }
@@ -392,6 +397,26 @@ class RocketApi extends Component
     {
         $this->initRocketChannelNames();
         return array_search(BaseInflector::slug($channelName), $this->rocketChannelNames, true) ?: null;
+    }
+
+    /**
+     * @param $rocketChannelId
+     * @return bool
+     */
+    public function rocketChannelIdExists($rocketChannelId)
+    {
+        $this->initRocketChannelNames();
+        return array_key_exists($rocketChannelId, $this->rocketChannelNames);
+    }
+
+    /**
+     * @param $rocketGroupId
+     * @return bool
+     */
+    public function rocketGroupIdExists($rocketGroupId)
+    {
+        $this->initRocketGroupNames();
+        return array_key_exists($rocketGroupId, $this->rocketGroupNames);
     }
 
     /**
@@ -458,16 +483,16 @@ class RocketApi extends Component
 
     /**
      * @param User|int|string $user
-     * @param string $rocketChannelName
+     * @param string $channelId
      * @return bool
      */
-    public function kickUserOutOfChannel($user, string $rocketChannelName)
+    public function kickUserOutOfChannel($user, string $channelId)
     {
         $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || ($channelId = $this->getRocketChannelId($rocketChannelName)) === null
+            || !$this->rocketChannelIdExists($channelId)
         ) {
             return false;
         }
@@ -480,16 +505,16 @@ class RocketApi extends Component
 
     /**
      * @param User|int|string $user
-     * @param string $rocketGroupName
+     * @param string $groupId
      * @return bool
      */
-    public function kickUserOutOfGroup($user, string $rocketGroupName)
+    public function kickUserOutOfGroup($user, string $groupId)
     {
         $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+            || !$this->rocketGroupIdExists($groupId)
         ) {
             return false;
         }

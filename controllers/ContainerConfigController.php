@@ -13,8 +13,8 @@ use humhub\modules\content\models\ContentContainerSetting;
 use humhub\modules\rocket\components\RocketApi;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\space\modules\manage\components\Controller;
-use humhub\modules\survey\components\Json;
 use Yii;
+use yii\helpers\Json;
 
 
 class ContainerConfigController extends Controller

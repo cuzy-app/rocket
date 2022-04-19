@@ -12,7 +12,7 @@ namespace humhub\modules\rocket\jobs;
 use humhub\modules\content\models\ContentContainerSetting;
 use humhub\modules\queue\ActiveJob;
 use humhub\modules\rocket\components\RocketApi;
-use humhub\modules\survey\components\Json;
+use yii\helpers\Json;
 use yii\queue\RetryableJobInterface;
 
 class removeChannelsFromSpaceSettings extends ActiveJob implements RetryableJobInterface

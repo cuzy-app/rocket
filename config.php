@@ -10,6 +10,7 @@
 
 use humhub\commands\CronController;
 use humhub\modules\rocket\Events;
+use humhub\modules\space\models\Membership;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
 
@@ -61,6 +62,22 @@ return [
             'callback' => [
                 Events::class,
                 'onModelGroupUserAfterDelete'
+            ]
+        ],
+        [
+            'class' => Membership::class,
+            'event' => Membership::EVENT_MEMBER_ADDED,
+            'callback' => [
+                Events::class,
+                'onModelSpaceMembershipMemberAdded'
+            ]
+        ],
+        [
+            'class' => Membership::class,
+            'event' => Membership::EVENT_MEMBER_REMOVED,
+            'callback' => [
+                Events::class,
+                'onModelSpaceMembershipMemberRemoved'
             ]
         ],
     ],

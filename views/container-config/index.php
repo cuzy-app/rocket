@@ -7,7 +7,7 @@
  */
 
 use humhub\libs\Html;
-use humhub\modules\survey\models\ModuleSettings;
+use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\ui\view\components\View;
 use yii\bootstrap\ActiveForm;
 
