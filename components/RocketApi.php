@@ -196,8 +196,8 @@ class RocketApi extends Component
             return false;
         }
 
-        $rocketRole = new RocketRole();
-        $result = $rocketRole->delete($roleId);
+        $rocketRole = (new RocketRole())->setRoleId($roleId);
+        $result = $rocketRole->delete();
 
         if ($this->resultIsValid($result, $rocketRole, __METHOD__)) {
             $this->initRocketRoleNames(true);
@@ -222,9 +222,9 @@ class RocketApi extends Component
             return false;
         }
 
-        $rocketRole = new RocketRole();
+        $rocketRole = (new RocketRole())->setRoleId($roleId);
         $rocketRole->setName(BaseInflector::slug($rocketRoleNewName));
-        $result = $rocketRole->update($roleId);
+        $result = $rocketRole->update();
 
         if ($this->resultIsValid($result, $rocketRole, __METHOD__)) {
             $this->initRocketRoleNames(true);

@@ -41,7 +41,7 @@ class ModuleSettings extends Model
     /**
      * @var string Rocket.chat channel name
      */
-    public $rocketChannel;
+    public $rocketChannels;
 
     /**
      * @var bool
@@ -75,7 +75,7 @@ class ModuleSettings extends Model
     public function rules()
     {
         return [
-            [['apiUrl', 'apiUserLogin', 'apiUserPassword', 'rocketChannel'], 'string'],
+            [['apiUrl', 'apiUserLogin', 'apiUserPassword', 'rocketChannels'], 'string'],
             [['syncOnGroupAdd', 'syncOnGroupRename', 'syncOnGroupDelete', 'syncOnUserGroupAdd', 'syncOnUserGroupRemove'], 'boolean'],
         ];
     }
@@ -86,7 +86,7 @@ class ModuleSettings extends Model
     public function attributeLabels()
     {
         return [
-            'rocketChannel' => Yii::t('RocketModule.config', 'Rocket.chat channel name'),
+            'rocketChannels' => Yii::t('RocketModule.config', 'Rocket.chat channel name'),
             'apiUrl' => Yii::t('RocketModule.config', 'Rocket.chat API URL'),
             'apiUserLogin' => Yii::t('RocketModule.config', 'Rocket.chat API admin username'),
             'apiUserPassword' => Yii::t('RocketModule.config', 'Rocket.chat API admin password'),
@@ -129,7 +129,7 @@ class ModuleSettings extends Model
             $this->syncOnUserGroupRemove = (bool)$settings->get('syncOnUserGroupRemove');
         } else {
             $settings = $module->settings->space($this->contentContainer);
-            $this->rocketChannel = $settings->get('rocketChannel');
+            $this->rocketChannels = $settings->get('rocketChannels');
         }
 
         // Add groups sync to jobs
@@ -161,7 +161,7 @@ class ModuleSettings extends Model
             $settings->set('syncOnUserGroupRemove', trim($this->syncOnUserGroupRemove));
         } else {
             $settings = $module->settings->space($this->contentContainer);
-            $settings->set('rocketChannel', trim($this->rocketChannel));
+            $settings->set('rocketChannels', trim($this->rocketChannels));
         }
 
         return true;

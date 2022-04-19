@@ -6,19 +6,19 @@
     'aliases' => 
     array (
     ),
-    'reference' => '8c7c48a8c6d144dfee3660c807b6f8bf0f9f92bc',
+    'reference' => '0b3670ba3855636c12d1b51b41a99fca017c5361',
     'name' => 'funkycram/humhub-modules-rocket',
   ),
   'versions' => 
   array (
     'atdev/rocket-chat' => 
     array (
-      'pretty_version' => '1.0.10',
-      'version' => '1.0.10.0',
+      'pretty_version' => '1.0.12',
+      'version' => '1.0.12.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2f54701bbd8d82167b1808d8eef04de1e8b29954',
+      'reference' => '69a8e4be4c983f487c85d1e8971638e1ccd4ad7b',
     ),
     'doctrine/collections' => 
     array (
@@ -54,7 +54,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '8c7c48a8c6d144dfee3660c807b6f8bf0f9f92bc',
+      'reference' => '0b3670ba3855636c12d1b51b41a99fca017c5361',
     ),
     'guzzlehttp/guzzle' => 
     array (

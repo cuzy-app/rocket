@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "atdev/rocket-chat",
-            "version": "1.0.10",
-            "version_normalized": "1.0.10.0",
+            "version": "1.0.12",
+            "version_normalized": "1.0.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alekseykuleshov/rocket-chat.git",
-                "reference": "2f54701bbd8d82167b1808d8eef04de1e8b29954"
+                "reference": "69a8e4be4c983f487c85d1e8971638e1ccd4ad7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alekseykuleshov/rocket-chat/zipball/2f54701bbd8d82167b1808d8eef04de1e8b29954",
-                "reference": "2f54701bbd8d82167b1808d8eef04de1e8b29954",
+                "url": "https://api.github.com/repos/alekseykuleshov/rocket-chat/zipball/69a8e4be4c983f487c85d1e8971638e1ccd4ad7b",
+                "reference": "69a8e4be4c983f487c85d1e8971638e1ccd4ad7b",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
                 "friendsofphp/php-cs-fixer": "^2.16",
                 "phpunit/phpunit": "^9.0"
             },
-            "time": "2022-04-15T08:43:49+00:00",
+            "time": "2022-04-19T09:09:30+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -47,7 +47,7 @@
             ],
             "support": {
                 "issues": "https://github.com/alekseykuleshov/rocket-chat/issues",
-                "source": "https://github.com/alekseykuleshov/rocket-chat/tree/1.0.10"
+                "source": "https://github.com/alekseykuleshov/rocket-chat/tree/1.0.12"
             },
             "install-path": "../atdev/rocket-chat"
         },

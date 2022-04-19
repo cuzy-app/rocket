@@ -20,11 +20,11 @@ class RedirectController extends Controller
     /**
      * @return \yii\console\Response|Response
      */
-    public function actionIndex($rocketChannel = null)
+    public function actionIndex($rocketChannels = null)
     {
         if (
-            $rocketChannel
-            && ($setting = ContentContainerSetting::findOne(['value' => $rocketChannel])) !== null
+            $rocketChannels
+            && ($setting = ContentContainerSetting::findOne(['value' => $rocketChannels])) !== null
             && ($contentContainer = $setting->contentcontainer) !== null
             && ($space = $contentContainer->getPolymorphicRelation()) instanceof Space
             && ($moduleManager = $space->getModuleManager())

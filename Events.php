@@ -82,7 +82,7 @@ class Events
         $group = $event->sender;
 
         Yii::$app->queue->push(new SendApiRequest([
-            'method' => 'createGroup',
+            'method' => 'createRole',
             'arguments' => [$group->name]
         ]));
     }
@@ -107,7 +107,7 @@ class Events
         $group = $event->sender;
 
         Yii::$app->queue->push(new SendApiRequest([
-            'method' => 'deleteGroup',
+            'method' => 'deleteRole',
             'arguments' => [$group->name]
         ]));
     }
@@ -138,7 +138,7 @@ class Events
         // If name has changed
         if (array_key_exists('name', $changedAttributes)) {
             Yii::$app->queue->push(new SendApiRequest([
-                'method' => 'renameGroup',
+                'method' => 'renameRole',
                 'arguments' => [$changedAttributes['name'], $group->name]
             ]));
         }
@@ -170,7 +170,7 @@ class Events
         }
 
         Yii::$app->queue->push(new SendApiRequest([
-            'method' => 'inviteUserToGroup',
+            'method' => 'addUserToRole',
             'arguments' => [$user->username, $group->name]
         ]));
     }
@@ -201,7 +201,7 @@ class Events
         }
 
         Yii::$app->queue->push(new SendApiRequest([
-            'method' => 'kickUserOutOfGroup',
+            'method' => 'removeUserFromRole',
             'arguments' => [$user->username, $group->name]
         ]));
     }

@@ -57,7 +57,7 @@ $(function() {
     $('#humhub').detach();
     let pathname = window.location.pathname.split('/');
     if ((pathname[1] === 'channel' || pathname[1] === 'group') && pathname[2]) {
-      let src = humhubUrl + '/rocket/redirect?rocketChannel=' + pathname[2];
+      let src = humhubUrl + '/rocket/redirect?rocketChannels=' + pathname[2];
       $('#rocket-chat').append('<div id="humhub"><iframe src="' + src + '" height="100%"></iframe></div>');
     }
   };

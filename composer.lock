@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d82ea464620ef694671084ff3f39b166",
+    "content-hash": "6d9f371859c42212d52308f7530e99df",
     "packages": [
         {
             "name": "atdev/rocket-chat",
-            "version": "1.0.10",
+            "version": "1.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alekseykuleshov/rocket-chat.git",
-                "reference": "2f54701bbd8d82167b1808d8eef04de1e8b29954"
+                "reference": "69a8e4be4c983f487c85d1e8971638e1ccd4ad7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alekseykuleshov/rocket-chat/zipball/2f54701bbd8d82167b1808d8eef04de1e8b29954",
-                "reference": "2f54701bbd8d82167b1808d8eef04de1e8b29954",
+                "url": "https://api.github.com/repos/alekseykuleshov/rocket-chat/zipball/69a8e4be4c983f487c85d1e8971638e1ccd4ad7b",
+                "reference": "69a8e4be4c983f487c85d1e8971638e1ccd4ad7b",
                 "shasum": ""
             },
             "require": {
@@ -50,9 +50,9 @@
             ],
             "support": {
                 "issues": "https://github.com/alekseykuleshov/rocket-chat/issues",
-                "source": "https://github.com/alekseykuleshov/rocket-chat/tree/1.0.10"
+                "source": "https://github.com/alekseykuleshov/rocket-chat/tree/1.0.12"
             },
-            "time": "2022-04-15T08:43:49+00:00"
+            "time": "2022-04-19T09:09:30+00:00"
         },
         {
             "name": "doctrine/collections",

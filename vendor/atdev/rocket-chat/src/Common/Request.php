@@ -2,14 +2,10 @@
 
 namespace ATDev\RocketChat\Common;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\RedirectMiddleware;
-use JsonSerializable;
-
 /**
  * Basic functionality to make a requests to api
  */
-abstract class Request implements JsonSerializable
+abstract class Request implements \JsonSerializable
 {
 
     /** @const string Uri to api */
@@ -30,7 +26,7 @@ abstract class Request implements JsonSerializable
     /** @var boolean Indicates if request was successful */
     protected static $success;
 
-    /** @var Client client */
+    /** @var \GuzzleHttp\Client client */
     private static $client;
 
     /** @var string Chat user id */
@@ -51,7 +47,7 @@ abstract class Request implements JsonSerializable
      */
     public static function setUrl($instance)
     {
-        self::$client = new Client([
+        self::$client = new \GuzzleHttp\Client([
 
             "base_uri" => $instance . self::URI,
             "allow_redirects" => ["track_redirects" => true]
@@ -85,67 +81,7 @@ abstract class Request implements JsonSerializable
      */
     public static function setAuthPassword($authPassword)
     {
-        self::$authPassword = $authPassword;
-    }
-
-    /**
-     * Gets success
-     *
-     * @return bool
-     */
-    public static function getSuccess()
-    {
-        return static::$success;
-    }
-
-    /**
-     * Gets response
-     *
-     * @return mixed
-     */
-    public static function getResponse()
-    {
-        return static::$response;
-    }
-
-    /**
-     * Gets response code
-     *
-     * @return integer
-     */
-    public static function getResponseCode()
-    {
-        return static::$responseCode;
-    }
-
-    /**
-     * Gets response url
-     *
-     * @return string
-     */
-    public static function getResponseUrl()
-    {
-        return static::$responseUrl;
-    }
-
-    /**
-     * Gets error
-     *
-     * @return string
-     */
-    public static function getError()
-    {
-        return static::$error;
-    }
-
-    /**
-     * Sets error
-     *
-     * @param string $error
-     */
-    protected static function setError($error)
-    {
-        static::$error = $error;
+        self::$authPassword = hash("sha256", $authPassword);
     }
 
     /**
@@ -182,7 +118,7 @@ abstract class Request implements JsonSerializable
             $options
         );
 
-        $headersRedirect = $res->getHeader(RedirectMiddleware::HISTORY_HEADER);
+        $headersRedirect = $res->getHeader(\GuzzleHttp\RedirectMiddleware::HISTORY_HEADER);
         $responseCode = $res->getStatusCode();
         $responseBody = $res->getBody()->getContents();
 
@@ -275,6 +211,66 @@ abstract class Request implements JsonSerializable
         }
 
         return $options;
+    }
+
+    /**
+     * Gets success
+     *
+     * @return bool
+     */
+    public static function getSuccess()
+    {
+        return static::$success;
+    }
+
+    /**
+     * Gets response
+     *
+     * @return mixed
+     */
+    public static function getResponse()
+    {
+        return static::$response;
+    }
+
+    /**
+     * Gets response code
+     *
+     * @return integer
+     */
+    public static function getResponseCode()
+    {
+        return static::$responseCode;
+    }
+
+    /**
+     * Gets response url
+     *
+     * @return string
+     */
+    public static function getResponseUrl()
+    {
+        return static::$responseUrl;
+    }
+
+    /**
+     * Gets error
+     *
+     * @return string
+     */
+    public static function getError()
+    {
+        return static::$error;
+    }
+
+    /**
+     * Sets error
+     *
+     * @param string $error
+     */
+    protected static function setError($error)
+    {
+        static::$error = $error;
     }
 
     /**

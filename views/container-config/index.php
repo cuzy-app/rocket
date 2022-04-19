@@ -26,7 +26,7 @@ use yii\bootstrap\ActiveForm;
     <div class="panel-body">
 
         <?php $form = ActiveForm::begin(); ?>
-        <?= $form->field($model, 'rocketChannel')->textInput() ?>
+        <?= $form->field($model, 'rocketChannels')->textInput() ?>
         <?= Html::saveButton() ?>
         <?php ActiveForm::end(); ?>
     </div>
