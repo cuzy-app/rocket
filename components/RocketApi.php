@@ -10,6 +10,7 @@ namespace humhub\modules\rocket\components;
 
 use ATDev\RocketChat\Channels\Channel as RocketChannel;
 use ATDev\RocketChat\Chat as RocketChat;
+use ATDev\RocketChat\Groups\Group as RocketGroup;
 use ATDev\RocketChat\Roles\Role as RocketRole;
 use ATDev\RocketChat\Users\User as RocketUser;
 use humhub\modules\rocket\models\ModuleSettings;
@@ -32,6 +33,7 @@ class RocketApi extends Component
     protected const CACHE_KEY_PREFIX_USER = 'rocketApiUser';
     protected const CACHE_KEY_PREFIX_ROLE = 'rocketApiRole';
     protected const CACHE_KEY_PREFIX_CHANNEL = 'rocketApiChannel';
+    protected const CACHE_KEY_PREFIX_GROUP = 'rocketApiGroup';
     protected const CACHE_DURATION = 60 * 60;
 
     /**
@@ -46,19 +48,24 @@ class RocketApi extends Component
     public $rocketUserUsernames;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     public $rocketUserEmails;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     public $rocketRoleNames;
 
     /**
-     * @var string[]
+     * @var string[]|null
      */
     public $rocketChannelNames;
+
+    /**
+     * @var string[]|null
+     */
+    public $rocketGroupNames;
 
     /**
      * @var bool
@@ -353,6 +360,27 @@ class RocketApi extends Component
     }
 
     /**
+     * @param User $user
+     * @param string $rocketGroupName
+     * @return bool
+     */
+    public function inviteUserToGroup(User $user, string $rocketGroupName)
+    {
+        if (
+            !$this->loggedIn
+            || ($userId = $this->getRocketUserId($user)) === null
+            || ($GroupId = $this->getRocketGroupId($rocketGroupName)) === null
+        ) {
+            return false;
+        }
+
+        $rocketUser = new RocketUser($userId);
+        $rocketGroup = new RocketGroup($GroupId);
+
+        return $this->resultIsValid($rocketGroup->invite($rocketUser), $rocketGroup, __METHOD__);
+    }
+
+    /**
      * @param $channelName
      * @return null|string
      */
@@ -360,6 +388,16 @@ class RocketApi extends Component
     {
         $this->initRocketChannelNames();
         return array_search(BaseInflector::slug($channelName), $this->rocketChannelNames, true) ?: null;
+    }
+
+    /**
+     * @param $groupName
+     * @return null|string
+     */
+    public function getRocketGroupId($groupName)
+    {
+        $this->initRocketGroupNames();
+        return array_search(BaseInflector::slug($groupName), $this->rocketGroupNames, true) ?: null;
     }
 
     /**
@@ -389,6 +427,32 @@ class RocketApi extends Component
     }
 
     /**
+     * @return void
+     */
+    public function initRocketGroupNames($flushCache = false)
+    {
+        if (!$this->loggedIn || $this->rocketGroupNames !== null) {
+            return;
+        }
+
+        if ($flushCache) {
+            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_GROUP);
+        }
+        $this->rocketGroupNames = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_GROUP, function () {
+            $groupListing = RocketGroup::listing();
+            if ($this->resultIsValid($groupListing, RocketGroup::class, __METHOD__)) {
+                $groups = [];
+                /** @var RocketGroup $group */
+                foreach ($groupListing as $group) {
+                    $groups[$group->getGroupId()] = BaseInflector::slug($group->getName());
+                }
+                return $groups;
+            }
+            return [];
+        }, static::CACHE_DURATION);
+    }
+
+    /**
      * @param User $user
      * @param string $rocketChannelName
      * @return bool
@@ -407,6 +471,27 @@ class RocketApi extends Component
         $rocketChannel = new RocketChannel($channelId);
 
         return $this->resultIsValid($rocketChannel->kick($rocketUser), $rocketChannel, __METHOD__);
+    }
+
+    /**
+     * @param User $user
+     * @param string $rocketGroupName
+     * @return bool
+     */
+    public function kickUserOutOfGroup(User $user, string $rocketGroupName)
+    {
+        if (
+            !$this->loggedIn
+            || ($userId = $this->getRocketUserId($user)) === null
+            || ($groupId = $this->getRocketGroupId($rocketGroupName)) === null
+        ) {
+            return false;
+        }
+
+        $rocketUser = new RocketUser($userId);
+        $rocketGroup = new RocketGroup($groupId);
+
+        return $this->resultIsValid($rocketGroup->kick($rocketUser), $rocketGroup, __METHOD__);
     }
 
     /**

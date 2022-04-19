@@ -9,7 +9,6 @@
 namespace humhub\modules\rocket\controllers;
 
 use humhub\modules\admin\components\Controller;
-use humhub\modules\admin\permissions\ManageSettings;
 use humhub\modules\rocket\models\ModuleSettings;
 use Yii;
 use yii\web\Response;
@@ -22,16 +21,6 @@ use yii\web\Response;
 class ConfigController extends Controller
 {
     /**
-     * @inheritdoc
-     */
-    public function getAccessRules()
-    {
-        return [
-            ['permission' => ManageSettings::class]
-        ];
-    }
-
-    /**
      * @return string|\yii\console\Response|Response
      */
     public function actionIndex()
@@ -41,8 +30,6 @@ class ConfigController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate() && $form->save()) {
             return $this->redirect(['/rocket/config']);
         }
-
-        $this->subLayout = '@admin/views/layouts/setting';
 
         return $this->render('index', [
             'model' => $form

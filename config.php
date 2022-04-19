@@ -9,7 +9,6 @@
 /** @noinspection MissedFieldInspection */
 
 use humhub\commands\CronController;
-use humhub\modules\admin\widgets\SettingsMenu;
 use humhub\modules\rocket\Events;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
@@ -19,11 +18,6 @@ return [
     'class' => humhub\modules\rocket\Module::class,
     'namespace' => 'humhub\modules\rocket',
     'events' => [
-        [
-            'class' => SettingsMenu::class,
-            'event' => SettingsMenu::EVENT_INIT,
-            'callback' => [Events::class, 'onSettingsMenuInit']
-        ],
         [
             'class' => CronController::class,
             'event' => CronController::EVENT_ON_DAILY_RUN,

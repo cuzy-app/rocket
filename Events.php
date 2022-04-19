@@ -8,44 +8,16 @@
 
 namespace humhub\modules\rocket;
 
-
 use humhub\commands\CronController;
-use humhub\modules\admin\permissions\ManageSettings;
-use humhub\modules\admin\widgets\SettingsMenu;
 use humhub\modules\rocket\jobs\AddMissingToRocket;
 use humhub\modules\rocket\jobs\SendApiRequest;
-use humhub\modules\ui\menu\MenuLink;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
 use Throwable;
 use Yii;
-use yii\base\InvalidConfigException;
 
 class Events
 {
-    /**
-     * @param yii\base\Event $event
-     * @throws InvalidConfigException
-     * @throws Throwable
-     */
-    public static function onSettingsMenuInit($event)
-    {
-        /** @var SettingsMenu $menu */
-        $menu = $event->sender;
-
-        /** @var Module $module */
-        $module = Yii::$app->getModule('rocket');
-
-        $menu->addEntry(new MenuLink([
-            'label' => $module->getName(),
-            'url' => $module->getConfigUrl(),
-            'sortOrder' => 932,
-            'isActive' => MenuLink::isActiveState('rocket', 'config'),
-            'isVisible' => Yii::$app->user->can(ManageSettings::class)
-        ]));
-    }
-
-
     /**
      * @param $event
      * @return void

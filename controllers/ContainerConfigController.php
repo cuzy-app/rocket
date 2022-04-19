@@ -8,7 +8,8 @@
 
 namespace humhub\modules\rocket\controllers;
 
-use humhub\modules\admin\permissions\ManageSpaces;
+use humhub\modules\admin\permissions\ManageModules;
+use humhub\modules\rocket\components\RocketApi;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\space\modules\manage\components\Controller;
 use Yii;
@@ -22,7 +23,7 @@ class ContainerConfigController extends Controller
     public function getAccessRules()
     {
         return [
-            ['permission' => ManageSpaces::class],
+            ['permission' => ManageModules::class],
         ];
     }
 
@@ -37,8 +38,15 @@ class ContainerConfigController extends Controller
             $this->view->saved();
         }
 
+        $api = new RocketApi();
+        $api->initRocketChannelNames(true);
+        $api->initRocketGroupNames(true);
+        $api->logout();
+
         return $this->render('index', [
-            'model' => $model
+            'model' => $model,
+            'channelItems' => $api->rocketChannelNames,
+            'groupItems' => $api->rocketGroupNames,
         ]);
     }
 }

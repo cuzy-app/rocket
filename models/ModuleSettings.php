@@ -39,11 +39,6 @@ class ModuleSettings extends Model
     public $apiUserPassword;
 
     /**
-     * @var string Rocket.chat channel name
-     */
-    public $rocketChannels;
-
-    /**
      * @var bool
      */
     public $syncOnGroupAdd = false;
@@ -68,6 +63,26 @@ class ModuleSettings extends Model
      */
     public $syncOnUserGroupRemove = false;
 
+    /**
+     * @var string
+     */
+    public $webSyndicationRocketChannels;
+
+    /**
+     * @var string
+     */
+    public $webSyndicationRocketGroups;
+
+    /**
+     * @var string
+     */
+    public $membersSyncRocketChannels;
+
+    /**
+     * @var string
+     */
+    public $membersSyncRocketGroups;
+
 
     /**
      * @inheritdoc
@@ -75,8 +90,9 @@ class ModuleSettings extends Model
     public function rules()
     {
         return [
-            [['apiUrl', 'apiUserLogin', 'apiUserPassword', 'rocketChannels'], 'string'],
+            [['apiUrl', 'apiUserLogin', 'apiUserPassword'], 'string'],
             [['syncOnGroupAdd', 'syncOnGroupRename', 'syncOnGroupDelete', 'syncOnUserGroupAdd', 'syncOnUserGroupRemove'], 'boolean'],
+            [['webSyndicationRocketChannels', 'webSyndicationRocketGroups', 'membersSyncRocketChannels', 'membersSyncRocketGroups'], 'safe'],
         ];
     }
 
@@ -86,7 +102,6 @@ class ModuleSettings extends Model
     public function attributeLabels()
     {
         return [
-            'rocketChannels' => Yii::t('RocketModule.config', 'Rocket.chat channel name'),
             'apiUrl' => Yii::t('RocketModule.config', 'Rocket.chat API URL'),
             'apiUserLogin' => Yii::t('RocketModule.config', 'Rocket.chat API admin username'),
             'apiUserPassword' => Yii::t('RocketModule.config', 'Rocket.chat API admin password'),
@@ -95,6 +110,10 @@ class ModuleSettings extends Model
             'syncOnGroupDelete' => Yii::t('RocketModule.config', 'If a group is deleted on Humhub, delete it from Rocket.chat'),
             'syncOnUserGroupAdd' => Yii::t('RocketModule.config', 'If a user is added to a group on Humhub, add this user to the same group name on Rocket'),
             'syncOnUserGroupRemove' => Yii::t('RocketModule.config', 'If a user is removed from a group on Humhub, add this user from the same group name on Rocket'),
+            'webSyndicationRocketChannels' => Yii::t('RocketModule.config', 'Rocket.chat public channels that can show this space\'s activity'),
+            'webSyndicationRocketGroups' => Yii::t('RocketModule.config', 'Rocket.chat private channels (groups) that can show this space\'s activity'),
+            'membersSyncRocketChannels' => Yii::t('RocketModule.config', 'Rocket.chat public channels whose members should be synced with those in this space'),
+            'membersSyncRocketGroups' => Yii::t('RocketModule.config', 'Rocket.chat private channels (groups) whose members should be synced with those in this space'),
         ];
     }
 
@@ -106,6 +125,10 @@ class ModuleSettings extends Model
         return [
             'apiUserLogin' => Yii::t('RocketModule.config', 'This user must have the right to manage users (adding or removing to groups or channels'),
             'apiUserPassword' => Yii::t('RocketModule.config', 'This user must have the right to manage users (adding or removing to groups or channels'),
+            'webSyndicationRocketChannels' => Yii::t('RocketModule.config', 'See instructions below'),
+            'webSyndicationRocketGroups' => Yii::t('RocketModule.config', 'See instructions below'),
+            'membersSyncRocketChannels' => Yii::t('RocketModule.config', 'Members synchronization is one way, from Humhub to Rocket.chat'),
+            'membersSyncRocketGroups' => Yii::t('RocketModule.config', 'Members synchronization is one way, from Humhub to Rocket.chat'),
         ];
     }
 
@@ -129,7 +152,10 @@ class ModuleSettings extends Model
             $this->syncOnUserGroupRemove = (bool)$settings->get('syncOnUserGroupRemove');
         } else {
             $settings = $module->settings->space($this->contentContainer);
-            $this->rocketChannels = $settings->get('rocketChannels');
+            $this->webSyndicationRocketChannels = (array)$settings->getSerialized('webSyndicationRocketChannels');
+            $this->webSyndicationRocketGroups = (array)$settings->getSerialized('webSyndicationRocketGroups');
+            $this->membersSyncRocketChannels = (array)$settings->getSerialized('membersSyncRocketChannels');
+            $this->membersSyncRocketGroups = (array)$settings->getSerialized('membersSyncRocketGroups');
         }
 
         // Add groups sync to jobs
@@ -161,7 +187,10 @@ class ModuleSettings extends Model
             $settings->set('syncOnUserGroupRemove', trim($this->syncOnUserGroupRemove));
         } else {
             $settings = $module->settings->space($this->contentContainer);
-            $settings->set('rocketChannels', trim($this->rocketChannels));
+            $settings->setSerialized('webSyndicationRocketChannels', trim($this->webSyndicationRocketChannels));
+            $settings->setSerialized('webSyndicationRocketGroups', trim($this->webSyndicationRocketGroups));
+            $settings->setSerialized('membersSyncRocketChannels', trim($this->membersSyncRocketChannels));
+            $settings->setSerialized('membersSyncRocketGroups', trim($this->membersSyncRocketGroups));
         }
 
         return true;

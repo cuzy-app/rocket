@@ -42,7 +42,7 @@ Go to "Administration" -> "Settings" -> "Rocket.chat"
 #### In Rocket.chat
 
 Go to https://ROCKET_DOMAIN_NAME.TDL/admin/Layout -> "Custom Scripts". And in "Custom Script for Logged In Users" add (update `HUMHUB_DOMAIN_NAME.TDL` const):
-```
+```php
 const humhubUrl = 'https://HUMHUB_DOMAIN_NAME.TDL'; // Do not add a trailing /
 
 $(function() {
