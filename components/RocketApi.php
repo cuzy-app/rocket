@@ -243,12 +243,13 @@ class RocketApi extends Component
     }
 
     /**
-     * @param User $user
+     * @param User|int|string $user
      * @param string $rocketRoleName
      * @return bool
      */
-    public function addUserToRole(User $user, string $rocketRoleName)
+    public function addUserToRole($user, string $rocketRoleName)
     {
+        $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
@@ -318,12 +319,13 @@ class RocketApi extends Component
     }
 
     /**
-     * @param User $user
+     * @param User|int|string $user
      * @param string $rocketRoleName
      * @return bool
      */
-    public function removeUserFromRole(User $user, string $rocketRoleName)
+    public function removeUserFromRole($user, string $rocketRoleName)
     {
+        $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
@@ -339,12 +341,13 @@ class RocketApi extends Component
     }
 
     /**
-     * @param User $user
+     * @param User|int|string $user
      * @param string $rocketChannelName
      * @return bool
      */
-    public function inviteUserToChannel(User $user, string $rocketChannelName)
+    public function inviteUserToChannel($user, string $rocketChannelName)
     {
+        $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
@@ -360,12 +363,13 @@ class RocketApi extends Component
     }
 
     /**
-     * @param User $user
+     * @param User|int|string $user
      * @param string $rocketGroupName
      * @return bool
      */
-    public function inviteUserToGroup(User $user, string $rocketGroupName)
+    public function inviteUserToGroup($user, string $rocketGroupName)
     {
+        $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
@@ -453,12 +457,13 @@ class RocketApi extends Component
     }
 
     /**
-     * @param User $user
+     * @param User|int|string $user
      * @param string $rocketChannelName
      * @return bool
      */
-    public function kickUserOutOfChannel(User $user, string $rocketChannelName)
+    public function kickUserOutOfChannel($user, string $rocketChannelName)
     {
+        $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
@@ -474,12 +479,13 @@ class RocketApi extends Component
     }
 
     /**
-     * @param User $user
+     * @param User|int|string $user
      * @param string $rocketGroupName
      * @return bool
      */
-    public function kickUserOutOfGroup(User $user, string $rocketGroupName)
+    public function kickUserOutOfGroup($user, string $rocketGroupName)
     {
+        $user = $this->convertUser($user);
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
@@ -502,5 +508,17 @@ class RocketApi extends Component
         if ($this->loggedIn) {
             RocketChat::logout();
         }
+    }
+
+    /**
+     * @param User|int|string $user
+     * @return User|null
+     */
+    protected function convertUser($user)
+    {
+        if ($user instanceof User) {
+            return $user;
+        }
+        return User::findOne($user);
     }
 }

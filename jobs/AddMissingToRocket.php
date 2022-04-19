@@ -14,6 +14,7 @@ use humhub\modules\rocket\components\RocketApi;
 use humhub\modules\rocket\Module;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
+use humhub\modules\user\models\User;
 use Yii;
 use yii\queue\RetryableJobInterface;
 
@@ -45,8 +46,12 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
             }
         }
 
+        $groupUsers = GroupUser::find()
+            ->joinWith('user')
+            ->andWhere(['user.status' => User::STATUS_ENABLED])
+            ->all();
         if ($module->settings->get('syncOnUserGroupAdd')) {
-            foreach (GroupUser::find()->all() as $groupUser) {
+            foreach ($groupUsers as $groupUser) {
                 $user = $groupUser->user;
                 $group = $groupUser->group;
                 $api->addUserToRole($user, $group->name);

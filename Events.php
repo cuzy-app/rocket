@@ -10,6 +10,7 @@ namespace humhub\modules\rocket;
 
 use humhub\commands\CronController;
 use humhub\modules\rocket\jobs\AddMissingToRocket;
+use humhub\modules\rocket\jobs\removeChannelsFromSpaceSettings;
 use humhub\modules\rocket\jobs\SendApiRequest;
 use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
@@ -31,7 +32,7 @@ class Events
 
         Yii::$app->queue->push(new AddMissingToRocket());
 
-        // TODO: In the spaces settings, remove channels that don't exist anymore on Rocket (if have been removed)
+        Yii::$app->queue->push(new removeChannelsFromSpaceSettings());
     }
 
 
@@ -137,13 +138,13 @@ class Events
 
         $group = $groupUser->group;
         $user = $groupUser->user;
-        if ($group === null || $user === null) {
+        if ($group === null || $user === null || !$user->isActive()) {
             return;
         }
 
         Yii::$app->queue->push(new SendApiRequest([
             'method' => 'addUserToRole',
-            'arguments' => [$user->username, $group->name]
+            'arguments' => [$user->id, $group->name]
         ]));
     }
 
@@ -174,7 +175,7 @@ class Events
 
         Yii::$app->queue->push(new SendApiRequest([
             'method' => 'removeUserFromRole',
-            'arguments' => [$user->username, $group->name]
+            'arguments' => [$user->id, $group->name]
         ]));
     }
 }
