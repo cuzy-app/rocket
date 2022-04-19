@@ -18,13 +18,26 @@ class RedirectController extends Controller
 {
 
     /**
-     * @return \yii\console\Response|Response
+     * @return \yii\console\Response|Response|string
+     * @throws \yii\db\IntegrityException
      */
-    public function actionIndex($rocketChannels = null)
+    public function actionIndex($rocketChannel = null)
     {
+        if (!$rocketChannel) {
+            return '';
+        }
+
+        $setting = ContentContainerSetting::find()
+            ->andWhere(['module_id' => 'rocket'])
+            ->andWhere(['or',
+                ['name' => 'webSyndicationRocketChannels'],
+                ['name' => 'webSyndicationRocketGroups'],
+            ])
+            ->andWhere(['like', 'value', '"' . $rocketChannel . '"'])
+            ->one();
+
         if (
-            $rocketChannels
-            && ($setting = ContentContainerSetting::findOne(['value' => $rocketChannels])) !== null
+            $setting !== null
             && ($contentContainer = $setting->contentcontainer) !== null
             && ($space = $contentContainer->getPolymorphicRelation()) instanceof Space
             && ($moduleManager = $space->getModuleManager())

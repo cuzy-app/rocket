@@ -14,31 +14,40 @@ use yii\bootstrap\ActiveForm;
 /**
  * @var $this View
  * @var $model ModuleSettings
- * @var $channelItems array
- * @var $groupItems array
+ * @var $apiIsValid bool
+ * @var $channelItemsForWebSyndication array
+ * @var $groupItemsForWebSyndication array
+ * @var $channelItemsForMembersSync array
+ * @var $groupItemsForMembersSync array
  */
 ?>
 
 <div class="panel panel-default">
 
-    <div class="panel-heading"><?= Yii::t('RocketModule.config', 'Rocket.chat module configuration') ?></div>
+    <div class="panel-heading">
+        <?= Yii::t('RocketModule.config', 'Rocket.chat module configuration') ?>
+    </div>
 
     <hr>
 
     <div class="panel-body">
 
-        <?php if ($channelItems === null || $groupItems === null): ?>
+        <?php if (!$apiIsValid): ?>
             <div class="alert alert-danger">
-                <?= Yii::t('RocketModule.config', 'No Rocket channels found. Please check the module settings for the API.') ?>
+                <?= Yii::t('RocketModule.config', 'No Rocket channels found. Please check the API values in the module settings.') ?>
             </div>
 
         <?php else: ?>
 
+            <div class="alert alert-info">
+                <?= Yii::t('RocketModule.config', 'If channels are already in use in other spaces, they will not be displayed here.') ?>
+            </div>
+
             <?php $form = ActiveForm::begin(); ?>
-            <?= $form->field($model, 'webSyndicationRocketChannels')->checkboxList($channelItems) ?>
-            <?= $form->field($model, 'webSyndicationRocketGroups')->checkboxList($groupItems) ?>
-            <?= $form->field($model, 'membersSyncRocketChannels')->checkboxList($channelItems) ?>
-            <?= $form->field($model, 'membersSyncRocketGroups')->checkboxList($groupItems) ?>
+            <?= $form->field($model, 'webSyndicationRocketChannels')->checkboxList($channelItemsForWebSyndication) ?>
+            <?= $form->field($model, 'webSyndicationRocketGroups')->checkboxList($groupItemsForWebSyndication) ?>
+            <?= $form->field($model, 'membersSyncRocketChannels')->checkboxList($channelItemsForMembersSync) ?>
+            <?= $form->field($model, 'membersSyncRocketGroups')->checkboxList($groupItemsForMembersSync) ?>
             <?= Html::saveButton() ?>
             <?php ActiveForm::end(); ?>
 
@@ -65,7 +74,7 @@ $(function() {
     $('#humhub').detach();
     let pathname = window.location.pathname.split('/');
     if ((pathname[1] === 'channel' || pathname[1] === 'group') && pathname[2]) {
-      let src = humhubUrl + '/rocket/redirect?rocketChannels=' + pathname[2];
+      let src = humhubUrl + '/rocket/redirect?rocketChannel=' + pathname[2];
       $('#rocket-chat').append('<?= Html::encode('<div id="humhub"><iframe src="\' + src + \'" height="100%"></iframe></div>') ?>');
     }
   };

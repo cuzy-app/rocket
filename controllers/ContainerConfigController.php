@@ -9,9 +9,11 @@
 namespace humhub\modules\rocket\controllers;
 
 use humhub\modules\admin\permissions\ManageModules;
+use humhub\modules\content\models\ContentContainerSetting;
 use humhub\modules\rocket\components\RocketApi;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\space\modules\manage\components\Controller;
+use humhub\modules\survey\components\Json;
 use Yii;
 
 
@@ -43,10 +45,62 @@ class ContainerConfigController extends Controller
         $api->initRocketGroupNames(true);
         $api->logout();
 
+        $apiIsValid = $api->rocketChannelNames !== null && $api->rocketGroupNames !== null;
+
+        if ($apiIsValid) {
+            $channelItemsForWebSyndication = $api->rocketChannelNames;
+            $groupItemsForWebSyndication = $api->rocketGroupNames;
+            $channelItemsForMembersSync = $api->rocketChannelNames;
+            $groupItemsForMembersSync = $api->rocketGroupNames;
+
+            // Remove Rocket channels or groups already in use in others spaces for web syndication
+            $settings = ContentContainerSetting::find()
+                ->andWhere(['module_id' => 'rocket'])
+                ->andWhere(['or',
+                    ['name' => 'webSyndicationRocketChannels'],
+                    ['name' => 'webSyndicationRocketGroups'],
+                ])
+                ->andWhere(['not', ['contentcontainer_id' => $this->contentContainer->contentcontainer_id]]) // others spaces only
+                ->all();
+            foreach ($settings as $setting) {
+                foreach ((array)Json::decode($setting->value) as $rocketChannelOrGroupId) {
+                    if (array_key_exists($rocketChannelOrGroupId, $channelItemsForWebSyndication)) {
+                        unset($channelItemsForWebSyndication[$rocketChannelOrGroupId]);
+                    }
+                    if (array_key_exists($rocketChannelOrGroupId, $groupItemsForWebSyndication)) {
+                        unset($groupItemsForWebSyndication[$rocketChannelOrGroupId]);
+                    }
+                }
+            }
+
+            // Remove Rocket channels or groups already in use in others spaces for members sync
+            $settings = ContentContainerSetting::find()
+                ->andWhere(['module_id' => 'rocket'])
+                ->andWhere(['or',
+                    ['name' => 'membersSyncRocketChannels'],
+                    ['name' => 'membersSyncRocketGroups'],
+                ])
+                ->andWhere(['not', ['contentcontainer_id' => $this->contentContainer->contentcontainer_id]]) // others spaces only
+                ->all();
+            foreach ($settings as $setting) {
+                foreach ((array)Json::decode($setting->value) as $rocketChannelOrGroupId) {
+                    if (array_key_exists($rocketChannelOrGroupId, $channelItemsForMembersSync)) {
+                        unset($channelItemsForMembersSync[$rocketChannelOrGroupId]);
+                    }
+                    if (array_key_exists($rocketChannelOrGroupId, $groupItemsForMembersSync)) {
+                        unset($groupItemsForMembersSync[$rocketChannelOrGroupId]);
+                    }
+                }
+            }
+        }
+
         return $this->render('index', [
             'model' => $model,
-            'channelItems' => $api->rocketChannelNames,
-            'groupItems' => $api->rocketGroupNames,
+            'apiIsValid' => $apiIsValid,
+            'channelItemsForWebSyndication' => $channelItemsForWebSyndication,
+            'groupItemsForWebSyndication' => $groupItemsForWebSyndication,
+            'channelItemsForMembersSync' => $channelItemsForMembersSync,
+            'groupItemsForMembersSync' => $groupItemsForMembersSync,
         ]);
     }
 }

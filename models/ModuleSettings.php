@@ -180,17 +180,17 @@ class ModuleSettings extends Model
             $settings->set('apiUrl', rtrim(trim($this->apiUrl), "/"));
             $settings->set('apiUserLogin', trim($this->apiUserLogin));
             $settings->set('apiUserPassword', trim($this->apiUserPassword));
-            $settings->set('syncOnGroupAdd', trim($this->syncOnGroupAdd));
-            $settings->set('syncOnGroupRename', trim($this->syncOnGroupRename));
-            $settings->set('syncOnGroupDelete', trim($this->syncOnGroupDelete));
-            $settings->set('syncOnUserGroupAdd', trim($this->syncOnUserGroupAdd));
-            $settings->set('syncOnUserGroupRemove', trim($this->syncOnUserGroupRemove));
+            $settings->set('syncOnGroupAdd', $this->syncOnGroupAdd);
+            $settings->set('syncOnGroupRename', $this->syncOnGroupRename);
+            $settings->set('syncOnGroupDelete', $this->syncOnGroupDelete);
+            $settings->set('syncOnUserGroupAdd', $this->syncOnUserGroupAdd);
+            $settings->set('syncOnUserGroupRemove', $this->syncOnUserGroupRemove);
         } else {
             $settings = $module->settings->space($this->contentContainer);
-            $settings->setSerialized('webSyndicationRocketChannels', trim($this->webSyndicationRocketChannels));
-            $settings->setSerialized('webSyndicationRocketGroups', trim($this->webSyndicationRocketGroups));
-            $settings->setSerialized('membersSyncRocketChannels', trim($this->membersSyncRocketChannels));
-            $settings->setSerialized('membersSyncRocketGroups', trim($this->membersSyncRocketGroups));
+            $settings->setSerialized('webSyndicationRocketChannels', $this->webSyndicationRocketChannels);
+            $settings->setSerialized('webSyndicationRocketGroups', $this->webSyndicationRocketGroups);
+            $settings->setSerialized('membersSyncRocketChannels', $this->membersSyncRocketChannels);
+            $settings->setSerialized('membersSyncRocketGroups', $this->membersSyncRocketGroups);
         }
 
         return true;
