@@ -18,6 +18,7 @@ use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
 use humhub\modules\user\models\User;
 use Yii;
+use yii\db\IntegrityException;
 use yii\helpers\Json;
 use yii\queue\RetryableJobInterface;
 
@@ -30,6 +31,7 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
 
     /**
      * @inheritdoc
+     * @throws IntegrityException
      */
     public function run()
     {
@@ -61,16 +63,14 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
         // Add missing users to channels
         $settings = ContentContainerSetting::findAll(['module_id' => 'rocket', 'name' => 'membersSyncRocketChannels']);
         foreach ($settings as $setting) {
-            /** @var Space $space */
-            $space = $setting->contentcontainer;
-            if (!($space) instanceof Space) {
+            if (($space = $this->getSpace($setting)) === null) {
                 continue;
             }
-            foreach ((array)Json::decode($setting->value) as $rocketChannelId) {
+            foreach ($this->getRocketChannelOrGroupIds($setting, $space) as $rocketChannelId) {
                 if (!$rocketChannelId) {
                     continue;
                 }
-                foreach ($space->getMembershipUser() as $user) {
+                foreach ($space->getMembershipUser()->all() as $user) {
                     $api->inviteUserToChannel($user, $rocketChannelId);
                 }
             }
@@ -79,22 +79,52 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
         // Add missing users to groups
         $settings = ContentContainerSetting::findAll(['module_id' => 'rocket', 'name' => 'membersSyncRocketGroups']);
         foreach ($settings as $setting) {
-            /** @var Space $space */
-            $space = $setting->contentcontainer;
-            if (!($space) instanceof Space) {
+            if (($space = $this->getSpace($setting)) === null) {
                 continue;
             }
-            foreach ((array)Json::decode($setting->value) as $rocketGroupId) {
+            foreach ($this->getRocketChannelOrGroupIds($setting, $space) as $rocketGroupId) {
                 if (!$rocketGroupId) {
                     continue;
                 }
-                foreach ($space->getMembershipUser() as $user) {
-                    $api->inviteUserToChannel($user, $rocketGroupId);
+                foreach ($space->getMembershipUser()->all() as $user) {
+                    $api->inviteUserToGroup($user, $rocketGroupId);
                 }
             }
         }
 
         $api->logout();
+    }
+
+    /**
+     * @param ContentContainerSetting $setting
+     * @return Space|null
+     * @throws IntegrityException
+     */
+    protected function getSpace(ContentContainerSetting $setting)
+    {
+        if (
+            ($contentContainer = $setting->contentcontainer) !== null
+            && ($space = $contentContainer->getPolymorphicRelation()) instanceof Space
+        ) {
+            return $space;
+        }
+        return null;
+    }
+
+    /**
+     * @param ContentContainerSetting $setting
+     * @param Space $space
+     * @return array
+     */
+    protected function getRocketChannelOrGroupIds(ContentContainerSetting $setting, Space $space)
+    {
+        if (
+            ($moduleManager = $space->getModuleManager())
+            && $moduleManager->isEnabled('rocket')
+        ) {
+            return (array)Json::decode($setting->value);
+        }
+        return [];
     }
 
     /**
