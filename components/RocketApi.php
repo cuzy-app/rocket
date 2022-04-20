@@ -93,7 +93,8 @@ class RocketApi extends Component
         // Login to Rocket API
         if ($this->settings->apiUrl && $this->settings->apiUserLogin && $this->settings->apiUserPassword) {
             RocketChat::setUrl($this->settings->apiUrl);
-            $this->loggedIn = $this->resultIsValid(RocketChat::login($this->settings->apiUserLogin, $this->settings->apiUserPassword), RocketChat::class, __METHOD__);
+            $result = RocketChat::login($this->settings->apiUserLogin, $this->settings->apiUserPassword);
+            $this->loggedIn = $this->resultIsValid($result, RocketChat::class, __METHOD__);
         }
 
         parent::init();
@@ -262,7 +263,7 @@ class RocketApi extends Component
         ) {
             return false;
         }
-        
+
         // Create missing role
         if ($this->getRocketRoleId($rocketRoleName) === null) {
             $this->createRole($rocketRoleName);
@@ -270,8 +271,9 @@ class RocketApi extends Component
 
         $rocketUserUsername = $this->rocketUserUsernames[$userId];
         $rocketRole = (new RocketRole())->setName(BaseInflector::slug($rocketRoleName));
+        $result = $rocketRole->addUserToRole($rocketUserUsername);
 
-        return $this->resultIsValid($rocketRole->addUserToRole($rocketUserUsername), $rocketRole, __METHOD__);
+        return $this->resultIsValid($result, $rocketRole, __METHOD__);
     }
 
     /**
@@ -282,11 +284,11 @@ class RocketApi extends Component
     public function getRocketUserId(User $humhubUser)
     {
         $this->initRocketUsers();
-        $rocketUserId = array_search(BaseInflector::slug($humhubUser->username), $this->rocketUserUsernames, true) ?: null;
+        $rocketUserId = array_search(trim($humhubUser->username), $this->rocketUserUsernames, true) ?: null;
         if ($rocketUserId !== false) {
             return $rocketUserId;
         }
-        return array_search(BaseInflector::slug($humhubUser->email), $this->rocketUserEmails, true) ?: null;
+        return array_search(trim($humhubUser->email), $this->rocketUserEmails, true) ?: null;
     }
 
     /**
@@ -311,7 +313,7 @@ class RocketApi extends Component
                 /** @var RocketUser $user */
                 foreach ($userListing as $user) {
                     $users[$user->getUserId()] = [
-                        'username' => BaseInflector::slug(trim($user->getUsername())),
+                        'username' => $user->getUsername(),
                         'email' => trim($user->getEmail()),
                     ];
                 }
@@ -346,8 +348,9 @@ class RocketApi extends Component
 
         $rocketUserUsername = $this->rocketUserUsernames[$userId];
         $rocketRole = (new RocketRole())->setName(BaseInflector::slug($rocketRoleName));
+        $result = $rocketRole->removeUserFromRole($rocketUserUsername);
 
-        return $this->resultIsValid($rocketRole->removeUserFromRole($rocketUserUsername), $rocketRole, __METHOD__);
+        return $this->resultIsValid($result, $rocketRole, __METHOD__);
     }
 
     /**
@@ -368,8 +371,9 @@ class RocketApi extends Component
 
         $rocketUser = new RocketUser($userId);
         $rocketChannel = new RocketChannel($channelId);
+        $result = $rocketChannel->invite($rocketUser);
 
-        return $this->resultIsValid($rocketChannel->invite($rocketUser), $rocketChannel, __METHOD__);
+        return $this->resultIsValid($result, $rocketChannel, __METHOD__);
     }
 
     /**
@@ -390,8 +394,9 @@ class RocketApi extends Component
 
         $rocketUser = new RocketUser($userId);
         $rocketGroup = new RocketGroup($groupId);
+        $result = $rocketGroup->invite($rocketUser);
 
-        return $this->resultIsValid($rocketGroup->invite($rocketUser), $rocketGroup, __METHOD__);
+        return $this->resultIsValid($result, $rocketGroup, __METHOD__);
     }
 
     /**
@@ -518,8 +523,9 @@ class RocketApi extends Component
 
         $rocketUser = new RocketUser($userId);
         $rocketChannel = new RocketChannel($channelId);
+        $result = $rocketChannel->kick($rocketUser);
 
-        return $this->resultIsValid($rocketChannel->kick($rocketUser), $rocketChannel, __METHOD__);
+        return $this->resultIsValid($result, $rocketChannel, __METHOD__);
     }
 
     /**
@@ -540,8 +546,9 @@ class RocketApi extends Component
 
         $rocketUser = new RocketUser($userId);
         $rocketGroup = new RocketGroup($groupId);
+        $result = $rocketGroup->kick($rocketUser);
 
-        return $this->resultIsValid($rocketGroup->kick($rocketUser), $rocketGroup, __METHOD__);
+        return $this->resultIsValid($result, $rocketGroup, __METHOD__);
     }
 
     /**
