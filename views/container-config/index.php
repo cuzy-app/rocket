@@ -8,6 +8,7 @@
 
 use humhub\libs\Html;
 use humhub\modules\rocket\models\ModuleSettings;
+use humhub\modules\rocket\Module;
 use humhub\modules\ui\view\components\View;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
@@ -21,6 +22,9 @@ use yii\helpers\Url;
  * @var $channelItemsForMembersSync array
  * @var $groupItemsForMembersSync array
  */
+
+/** @var Module $module */
+$module = Yii::$app->getModule('rocket');
 ?>
 
 <div class="panel panel-default">
@@ -41,7 +45,11 @@ use yii\helpers\Url;
         <?php else: ?>
 
             <div class="alert alert-info">
-                <?= Yii::t('RocketModule.config', 'If channels are already in use in other spaces, they will not be displayed here.') ?>
+                <p><?= Yii::t('RocketModule.config', 'Some channels may not displayed here:') ?></p>
+                <ul>
+                    <li><?= Yii::t('RocketModule.config', 'if they are already in use in other spaces') ?></li>
+                    <li><?= Yii::t('RocketModule.config', 'if they are private (group) and the user {apiUserName} is not a member of the channel', ['apiUserName' => '<code>' . $module->settings->get('apiUserLogin') . '</code>']) ?></li>
+                </ul>
             </div>
 
             <?php $form = ActiveForm::begin(); ?>
@@ -61,7 +69,8 @@ use yii\helpers\Url;
                 <div class="panel-body">
                     <p><?= Yii::t('RocketModule.config', 'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:', ['contentSecurityPolicy' => '"Content Security Policy"']) ?></p>
                     <p><code>frame-ancestors 'self' to frame-ancestors 'self' <?= Url::base(true) ?></code></p>
-                    <p><?= Yii::t('RocketModule.config', 'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:', ['rocketUrl' => 'https://MY_ROCKET_DOMAIN_NAME.TDL/admin/Layout', 'buttonName' => '"Custom Script for Logged In Users"']) ?></p>
+                    <?php $rocketUrl = $module->settings->get('apiUrl') . '/admin/Layout'; ?>
+                    <p><?= Yii::t('RocketModule.config', 'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:', ['rocketUrl' => Html::a($rocketUrl, $rocketUrl, ['target' => '_blank']), 'buttonName' => '"Custom Script for Logged In Users"']) ?></p>
                     <pre><code>
 const humhubUrl = '<?= Url::base(true) ?>'; // Do not add a trailing /
 
