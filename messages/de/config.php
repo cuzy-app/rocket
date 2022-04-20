@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Wenn eine Gruppe auf Humhub umbenannt wird, benennen Sie sie auf Rocket.chat um',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => 'Wenn ein Benutzer zu einer Gruppe auf Humhub hinzugefügt wird, fügen Sie diesen Benutzer demselben Gruppennamen auf Rocket hinzu',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => 'Wenn ein Benutzer aus einer Gruppe auf Humhub entfernt wird, fügen Sie diesen Benutzer aus demselben Gruppennamen auf Rocket hinzu',
-  'If channels are already in use in other spaces, they will not be displayed here.' => 'Wenn Kanäle bereits in anderen Räumen verwendet werden, werden sie hier nicht angezeigt.',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => 'Anweisungen zum Anzeigen der Aktivität dieses Bereichs in den ausgewählten Rocket.chat-Kanälen',
   'Members synchronization is one way, from Humhub to Rocket.chat' => 'Die Synchronisierung der Mitglieder erfolgt in eine Richtung, von Humhub zu Rocket.chat',
   'No Rocket channels found. Please check the API values in the module settings.' => 'Keine Rocket-Kanäle gefunden. Bitte überprüfen Sie die API-Werte in den Moduleinstellungen.',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'Öffentliche Rocket.chat-Kanäle, die die Aktivitäten dieses Bereichs zeigen können',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'Öffentliche Rocket.chat-Kanäle, deren Mitglieder mit denen in diesem Bereich synchronisiert werden sollten',
   'See instructions below' => 'Siehe Anweisungen unten',
+  'Some channels may not displayed here:' => 'Einige Kanäle werden hier möglicherweise nicht angezeigt:',
   'This user must have the right to manage users (adding or removing to groups or channels' => 'Dieser Benutzer muss das Recht haben, Benutzer zu verwalten (Hinzufügen oder Entfernen zu Gruppen oder Kanälen',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => 'Um die Mitglieder eines Humhub Spaces mit den Mitgliedern eines oder mehrerer Rocket.chat Channels zu synchronisieren oder die Aktivität eines Spaces in einem Channel anzuzeigen, müssen Sie dieses Modul in den betroffenen Spaces aktivieren und konfigurieren.',
+  'if they are already in use in other spaces' => 'wenn sie bereits in anderen Räumen verwendet werden',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => 'wenn sie privat sind (Gruppe) und der Benutzer {apiUserName} kein Mitglied des Kanals ist',
 );

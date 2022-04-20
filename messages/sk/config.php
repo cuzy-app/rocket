@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Ak je skupina premenovaná na Humhub, premenujte ju na Rocket.chat',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => 'Ak je používateľ pridaný do skupiny na Humhub, pridajte tohto používateľa do rovnakého názvu skupiny na Rocket',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => 'Ak je používateľ odstránený zo skupiny na Humhub, pridajte tohto používateľa z rovnakého názvu skupiny na Rocket',
-  'If channels are already in use in other spaces, they will not be displayed here.' => 'Ak sa kanály už používajú v iných priestoroch, nezobrazia sa tu.',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => 'Pokyny na zobrazenie aktivity tohto priestoru vo vybratých kanáloch Rocket.chat',
   'Members synchronization is one way, from Humhub to Rocket.chat' => 'Synchronizácia členov je jedným zo spôsobov, z Humhubu na Rocket.chat',
   'No Rocket channels found. Please check the API values in the module settings.' => 'Nenašli sa žiadne kanály Rocket. Skontrolujte hodnoty API v nastaveniach modulu.',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'Verejné kanály Rocket.chat, ktoré môžu zobrazovať aktivitu tohto priestoru',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'Verejné kanály Rocket.chat, ktorých členovia by mali byť synchronizovaní s tými v tomto priestore',
   'See instructions below' => 'Pozrite si pokyny nižšie',
+  'Some channels may not displayed here:' => 'Niektoré kanály sa tu nemusia zobraziť:',
   'This user must have the right to manage users (adding or removing to groups or channels' => 'Tento používateľ musí mať právo spravovať používateľov (pridávanie alebo odstraňovanie do skupín alebo kanálov',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => 'Ak chcete synchronizovať členov priestoru Humhub s členmi jedného alebo viacerých kanálov Rocket.chat alebo zobraziť aktivitu priestoru v kanáli, musíte aktivovať tento modul v príslušných priestoroch a nakonfigurovať ho.',
+  'if they are already in use in other spaces' => 'ak sa už používajú v iných priestoroch',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => 'ak sú súkromné (skupina) a používateľ {apiUserName} nie je členom kanála',
 );

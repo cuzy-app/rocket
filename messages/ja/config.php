@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'グループの名前がHumhubで変更された場合は、Rocket.chatで名前を変更してください',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => 'ユーザーがHumhubのグループに追加された場合、このユーザーをRocketの同じグループ名に追加します',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => 'ユーザーがHumhubのグループから削除された場合は、Rocketの同じグループ名からこのユーザーを追加します',
-  'If channels are already in use in other spaces, they will not be displayed here.' => 'チャンネルがすでに他のスペースで使用されている場合、それらはここに表示されません。',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => '選択したRocket.chatチャネルでこのスペースのアクティビティを表示する手順',
   'Members synchronization is one way, from Humhub to Rocket.chat' => 'メンバーの同期は、HumhubからRocket.chatへの一方向です。',
   'No Rocket channels found. Please check the API values in the module settings.' => 'ロケットチャンネルが見つかりません。モジュール設定でAPI値を確認してください。',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'このスペースのアクティビティを表示できるRocket.chatパブリックチャネル',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'Rocket.chatパブリックチャネルのメンバーをこのスペースのメンバーと同期する必要があります',
   'See instructions below' => '以下の手順を参照してください',
+  'Some channels may not displayed here:' => '一部のチャンネルはここに表示されない場合があります：',
   'This user must have the right to manage users (adding or removing to groups or channels' => 'このユーザーには、ユーザーを管理する権利（グループまたはチャネルへの追加または削除）が必要です。',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => 'Humhubスペースのメンバーを1つ以上のRocket.chatチャネルのメンバーと同期する、またはチャネル内のスペースのアクティビティを表示するには、関連するスペースでこのモジュールをアクティブにして構成する必要があります。',
+  'if they are already in use in other spaces' => 'それらがすでに他のスペースで使用されている場合',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => 'それらがプライベート（グループ）であり、ユーザー{apiUserName}がチャネルのメンバーではない場合',
 );

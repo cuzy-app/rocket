@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Jei grupė pervadinama Humhub, pervardykite ją Rocket.chat',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => 'Jei vartotojas yra įtrauktas į grupę Humhub, pridėkite šį vartotoją prie to paties grupės pavadinimo Rocket',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => 'Jei vartotojas pašalinamas iš „Humhub“ grupės, pridėkite šį vartotoją iš to paties grupės pavadinimo „Rocket“.',
-  'If channels are already in use in other spaces, they will not be displayed here.' => 'Jei kanalai jau naudojami kitose erdvėse, jie čia nebus rodomi.',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => 'Instrukcijos, kaip parodyti šios erdvės veiklą pasirinktuose Rocket.chat kanaluose',
   'Members synchronization is one way, from Humhub to Rocket.chat' => 'Narių sinchronizavimas yra vienas iš būdų, nuo Humhub iki Rocket.chat',
   'No Rocket channels found. Please check the API values in the module settings.' => 'Raketų kanalų nerasta. Patikrinkite API reikšmes modulio nustatymuose.',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'Rocket.chat viešieji kanalai, kurie gali parodyti šios erdvės veiklą',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'Rocket.chat viešieji kanalai, kurių nariai turėtų būti sinchronizuojami su esančiais šioje erdvėje',
   'See instructions below' => 'Žr. toliau pateiktas instrukcijas',
+  'Some channels may not displayed here:' => 'Kai kurie kanalai čia gali būti nerodomi:',
   'This user must have the right to manage users (adding or removing to groups or channels' => 'Šis vartotojas turi turėti teisę valdyti naudotojus (pridėti arba pašalinti iš grupių ar kanalų).',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => 'Norėdami sinchronizuoti Humhub erdvės narius su vieno ar daugiau Rocket.chat kanalų nariais arba parodyti erdvės veiklą kanale, turite aktyvuoti šį modulį atitinkamose erdvėse ir jį sukonfigūruoti.',
+  'if they are already in use in other spaces' => 'jei jie jau naudojami kitose erdvėse',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => 'jei jie yra privatūs (grupė) ir vartotojas {apiUserName} nėra kanalo narys',
 );

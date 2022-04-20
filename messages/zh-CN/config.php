@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => '如果群组在 Humhub 上重命名，请在 Rocket.chat 上重命名',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => '如果将用户添加到 Humhub 上的组，请将此用户添加到 Rocket 上的相同组名',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => '如果用户从 Humhub 上的组中删除，请从 Rocket 上的相同组名中添加此用户',
-  'If channels are already in use in other spaces, they will not be displayed here.' => '如果频道已在其他空间使用，则不会在此处显示。',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => '在所选 Rocket.chat 频道中显示此空间活动的说明',
   'Members synchronization is one way, from Humhub to Rocket.chat' => '成员同步是一种方式，从 Humhub 到 Rocket.chat',
   'No Rocket channels found. Please check the API values in the module settings.' => '未找到 Rocket 频道。请检查模块设置中的 API 值。',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'Rocket.chat 公共频道，可以显示该空间的活动',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'Rocket.chat 公共频道，其成员应与该空间中的成员同步',
   'See instructions below' => '请参阅下面的说明',
+  'Some channels may not displayed here:' => '某些频道可能不会在此处显示：',
   'This user must have the right to manage users (adding or removing to groups or channels' => '此用户必须有权管理用户（添加或删除组或频道',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => '要将 Humhub 空间的成员与一个或多个 Rocket.chat 频道的成员同步，或者在频道中显示空间的活动，您必须在相关空间中激活该模块并进行配置。',
+  'if they are already in use in other spaces' => '如果它们已经在其他空间使用',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => '如果他们是私有的（组）并且用户{apiUserName}不是频道的成员',
 );

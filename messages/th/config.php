@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'หากมีการเปลี่ยนชื่อกลุ่มใน Humhub ให้เปลี่ยนชื่อใน Rocket.chat',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => 'หากมีการเพิ่มผู้ใช้ในกลุ่มบน Humhub ให้เพิ่มผู้ใช้รายนี้ในชื่อกลุ่มเดียวกันบน Rocket',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => 'หากผู้ใช้ถูกลบออกจากกลุ่มบน Humhub ให้เพิ่มผู้ใช้รายนี้จากชื่อกลุ่มเดียวกันบน Rocket',
-  'If channels are already in use in other spaces, they will not be displayed here.' => 'หากมีการใช้ช่องสัญญาณในพื้นที่อื่นอยู่แล้ว ช่องเหล่านั้นจะไม่ปรากฏที่นี่',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => 'คำแนะนำในการแสดงกิจกรรมของ Space นี้ในช่อง Rocket.chat ที่เลือก',
   'Members synchronization is one way, from Humhub to Rocket.chat' => 'การซิงโครไนซ์สมาชิกเป็นวิธีเดียว จาก Humhub ถึง Rocket.chat',
   'No Rocket channels found. Please check the API values in the module settings.' => 'ไม่พบช่อง Rocket โปรดตรวจสอบค่า API ในการตั้งค่าโมดูล',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'Rocket.chat ช่องสาธารณะที่สามารถแสดงกิจกรรมของพื้นที่นี้',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'Rocket.chat ช่องสาธารณะที่สมาชิกควรซิงค์กับผู้ที่อยู่ในพื้นที่นี้',
   'See instructions below' => 'ดูคำแนะนำด้านล่าง',
+  'Some channels may not displayed here:' => 'บางช่องอาจไม่แสดงที่นี่:',
   'This user must have the right to manage users (adding or removing to groups or channels' => 'ผู้ใช้รายนี้ต้องมีสิทธิ์จัดการผู้ใช้ (เพิ่มหรือลบในกลุ่มหรือช่อง',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => 'ในการซิงโครไนซ์สมาชิกของสเปซ Humhub กับสมาชิกของแชนเนล Rocket.chat อย่างน้อยหนึ่งแชนเนล หรือเพื่อแสดงกิจกรรมของสเปซในช่อง คุณต้องเปิดใช้งานโมดูลนี้ในพื้นที่ที่เกี่ยวข้องและกำหนดค่า',
+  'if they are already in use in other spaces' => 'หากมีการใช้งานในพื้นที่อื่นแล้ว',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => 'หากเป็นส่วนตัว (กลุ่ม) และผู้ใช้ {apiUserName} ไม่ใช่สมาชิกของช่อง',
 );

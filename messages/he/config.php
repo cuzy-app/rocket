@@ -9,7 +9,6 @@ return array (
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'אם שם קבוצה שונה ב-Humhub, שנה את שמה ב- Rocket.chat',
   'If a user is added to a group on Humhub, add this user to the same group name on Rocket' => 'אם משתמש נוסף לקבוצה ב- Humhub, הוסף משתמש זה לאותו שם קבוצה ב- Rocket',
   'If a user is removed from a group on Humhub, add this user from the same group name on Rocket' => 'אם משתמש הוסר מקבוצה ב-Humhub, הוסף משתמש זה מאותו שם קבוצה ב-Rocket',
-  'If channels are already in use in other spaces, they will not be displayed here.' => 'אם ערוצים כבר נמצאים בשימוש בחללים אחרים, הם לא יוצגו כאן.',
   'Instructions to show this space\'s activity in the chosen Rocket.chat channels' => 'הוראות להצגת פעילות החלל הזה בערוצי Rocket.chat הנבחרים',
   'Members synchronization is one way, from Humhub to Rocket.chat' => 'סנכרון חברים הוא בכיוון אחד, מ-Humhub ל-Rocket.chat',
   'No Rocket channels found. Please check the API values in the module settings.' => 'לא נמצאו ערוצי Rocket. אנא בדוק את ערכי ה-API בהגדרות המודול.',
@@ -23,6 +22,9 @@ return array (
   'Rocket.chat public channels that can show this space\'s activity' => 'ערוצים ציבוריים של Rocket.chat שיכולים להראות את הפעילות של המרחב הזה',
   'Rocket.chat public channels whose members should be synced with those in this space' => 'ערוצים ציבוריים של Rocket.chat שהחברים שלהם צריכים להיות מסונכרנים עם אלה שנמצאים במרחב הזה',
   'See instructions below' => 'ראה הוראות למטה',
+  'Some channels may not displayed here:' => 'ייתכן שחלק מהערוצים לא יוצגו כאן:',
   'This user must have the right to manage users (adding or removing to groups or channels' => 'למשתמש זה חייבת להיות הזכות לנהל משתמשים (הוספה או הסרה לקבוצות או ערוצים',
   'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.' => 'כדי לסנכרן את החברים של מרחב Humhub עם החברים בערוץ Rocket.chat אחד או יותר, או כדי להציג את הפעילות של מרחב בערוץ, עליך להפעיל מודול זה במרחבים הנוגעים בדבר ולהגדיר אותו.',
+  'if they are already in use in other spaces' => 'אם הם כבר בשימוש בחללים אחרים',
+  'if they are private (group) and the user {apiUserName} is not a member of the channel' => 'אם הם פרטיים (קבוצתיים) והמשתמש {apiUserName} אינו חבר בערוץ',
 );
