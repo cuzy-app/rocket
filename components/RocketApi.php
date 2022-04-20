@@ -400,16 +400,6 @@ class RocketApi extends Component
     }
 
     /**
-     * @param $channelName
-     * @return null|string
-     */
-    public function getRocketChannelId($channelName)
-    {
-        $this->initRocketChannelNames();
-        return array_search(BaseInflector::slug($channelName), $this->rocketChannelNames, true) ?: null;
-    }
-
-    /**
      * @param $rocketChannelId
      * @return bool
      */
@@ -430,16 +420,6 @@ class RocketApi extends Component
     }
 
     /**
-     * @param $groupName
-     * @return null|string
-     */
-    public function getRocketGroupId($groupName)
-    {
-        $this->initRocketGroupNames();
-        return array_search(BaseInflector::slug($groupName), $this->rocketGroupNames, true) ?: null;
-    }
-
-    /**
      * @return void
      */
     public function initRocketChannelNames($flushCache = false)
@@ -457,7 +437,7 @@ class RocketApi extends Component
                 $channels = [];
                 /** @var RocketChannel $channel */
                 foreach ($channelListing as $channel) {
-                    $channels[$channel->getChannelId()] = BaseInflector::slug($channel->getName());
+                    $channels[$channel->getChannelId()] = $channel->getName();
                 }
 
                 // Save to module's settings
@@ -490,7 +470,7 @@ class RocketApi extends Component
                 $groups = [];
                 /** @var RocketGroup $group */
                 foreach ($groupListing as $group) {
-                    $groups[$group->getGroupId()] = BaseInflector::slug($group->getName());
+                    $groups[$group->getGroupId()] = $group->getName();
                 }
 
                 // Save to module's settings
