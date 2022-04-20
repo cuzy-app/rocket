@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'Konfigurasi modul <strong>Rocket.chat</strong>',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Pergi ke {rocketUrl} -> "Skrip Kustom". Dan di {buttonName} tambahkan (perbarui {humhubUrl} const):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Izinkan Humhub untuk disematkan di Rocket.chat: di {contentSecurityPolicy} , Anda harus memiliki:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Pergi ke {rocketUrl} -> "Script Kustom". Dan di {buttonName} tambahkan:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Jika grup dibuat di Humhub, buat di Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Jika grup dihapus di Humhub, hapus dari Rocket.chat',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Jika grup diganti namanya di Humhub, ganti namanya di Rocket.chat',

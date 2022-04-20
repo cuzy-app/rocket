@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Moduļa Rocket.chat</strong> konfigurācija',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Dodieties uz {rocketUrl} -> "Pielāgotie skripti". Un {humhubUrl} {buttonName} ):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Atļaut Humhub iegult vietnē {contentSecurityPolicy} : sadaļā ContentSecurityPolicy jums ir jābūt:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Dodieties uz {rocketUrl} -> "Pielāgoti skripti". Un sadaļā {buttonName} pievienojiet:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Ja grupa ir izveidota vietnē Humhub, izveidojiet to vietnē Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Ja grupa ir izdzēsta pakalpojumā Humhub, izdzēsiet to no vietnes Rocket.chat',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Ja grupa tiek pārdēvēta Humhub, pārdēvējiet to vietnē Rocket.chat',

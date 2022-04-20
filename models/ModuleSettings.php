@@ -158,9 +158,6 @@ class ModuleSettings extends Model
             $this->membersSyncRocketGroups = (array)$settings->getSerialized('membersSyncRocketGroups');
         }
 
-        // Add groups sync to jobs
-        Yii::$app->queue->push(new AddMissingToRocket(['firstSync' => true]));
-
         parent::init();
     }
 
@@ -192,6 +189,9 @@ class ModuleSettings extends Model
             $settings->setSerialized('membersSyncRocketChannels', $this->membersSyncRocketChannels);
             $settings->setSerialized('membersSyncRocketGroups', $this->membersSyncRocketGroups);
         }
+
+        // Add groups sync to jobs
+        Yii::$app->queue->push(new AddMissingToRocket());
 
         return true;
     }

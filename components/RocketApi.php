@@ -14,6 +14,7 @@ use ATDev\RocketChat\Groups\Group as RocketGroup;
 use ATDev\RocketChat\Roles\Role as RocketRole;
 use ATDev\RocketChat\Users\User as RocketUser;
 use humhub\modules\rocket\models\ModuleSettings;
+use humhub\modules\rocket\Module;
 use humhub\modules\user\models\User;
 use Yii;
 use yii\base\Component;
@@ -258,9 +259,13 @@ class RocketApi extends Component
         if (
             !$this->loggedIn
             || ($userId = $this->getRocketUserId($user)) === null
-            || $this->getRocketRoleId($rocketRoleName) === null
         ) {
             return false;
+        }
+        
+        // Create missing role
+        if ($this->getRocketRoleId($rocketRoleName) === null) {
+            $this->createRole($rocketRoleName);
         }
 
         $rocketUserUsername = $this->rocketUserUsernames[$userId];
@@ -449,6 +454,13 @@ class RocketApi extends Component
                 foreach ($channelListing as $channel) {
                     $channels[$channel->getChannelId()] = BaseInflector::slug($channel->getName());
                 }
+
+                // Save to module's settings
+                /** @var Module $module */
+                $module = Yii::$app->getModule('rocket');
+                $settings = $module->settings;
+                $settings->setSerialized('rocketChannelNames', $channels);
+
                 return $channels;
             }
             return [];
@@ -475,6 +487,13 @@ class RocketApi extends Component
                 foreach ($groupListing as $group) {
                     $groups[$group->getGroupId()] = BaseInflector::slug($group->getName());
                 }
+
+                // Save to module's settings
+                /** @var Module $module */
+                $module = Yii::$app->getModule('rocket');
+                $settings = $module->settings;
+                $settings->setSerialized('rocketGroupNames', $groups);
+
                 return $groups;
             }
             return [];

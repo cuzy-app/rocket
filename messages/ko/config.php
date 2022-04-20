@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong> 모듈 구성',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => '{rocketUrl} -> "사용자 정의 스크립트"로 이동합니다. 그리고 {buttonName} 에 추가( {humhubUrl} const 업데이트):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Rocket.chat에 Humhub가 포함되도록 허용: {contentSecurityPolicy} 에서 다음이 있어야 합니다.',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => '{rocketUrl} -> "사용자 정의 스크립트"로 이동합니다. 그리고 {buttonName} 에 다음을 추가하십시오.',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Humhub에서 그룹을 생성했다면 Rocket.chat에서 생성하세요.',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Humhub에서 그룹이 삭제되면 Rocket.chat에서 삭제하십시오.',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Humhub에서 그룹 이름을 변경한 경우 Rocket.chat에서 이름을 변경하세요.',

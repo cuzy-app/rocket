@@ -24,11 +24,6 @@ use yii\queue\RetryableJobInterface;
 class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
 {
     /**
-     * @var bool
-     */
-    public $firstSync = false;
-
-    /**
      * @inhertidoc
      */
     private $maxExecutionTime = 60 * 60;

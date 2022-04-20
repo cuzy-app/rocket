@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'Konfiguracija modula <strong>Rocket.chat</strong>',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Pojdite na {rocketUrl} -> "Skripti po meri". In v {buttonName} dodajte (posodobite {humhubUrl} const):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Dovoli, da je Humhub vdelan v Rocket.chat: v {contentSecurityPolicy} bi morali imeti:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Pojdite na {rocketUrl} -> "Skripti po meri". In v {buttonName} dodajte:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Če je skupina ustvarjena na Humhubu, jo ustvarite na Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Če je skupina izbrisana na Humhubu, jo izbrišite iz Rocket.chat',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Če je skupina preimenovana na Humhub, jo preimenujte na Rocket.chat',

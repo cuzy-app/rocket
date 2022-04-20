@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong>モジュールの構成',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => '{rocketUrl} >「カスタムスクリプト」に移動します。そして{buttonName}に追加（ {humhubUrl} constを更新）：',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Humhubを{contentSecurityPolicy}に埋め込むことを許可します。contentSecurityPolicyには、次のものが必要です。',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => '{rocketUrl} >「カスタムスクリプト」に移動します。そして{buttonName}に追加します：',
   'If a group is created on Humhub, create it on Rocket.chat' => 'グループがHumhubで作成されている場合は、Rocket.chatで作成してください',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Humhubでグループが削除された場合は、Rocket.chatから削除してください',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'グループの名前がHumhubで変更された場合は、Rocket.chatで名前を変更してください',

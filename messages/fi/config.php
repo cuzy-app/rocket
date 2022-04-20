@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat-</strong> moduulin konfigurointi',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Siirry kohtaan {rocketUrl} -> "Mukautetut komentosarjat". Ja kohdassa {buttonName} add (päivitä {humhubUrl} const):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Salli Humhubin upottaminen Rocket.chatiin: {contentSecurityPolicy} sinulla pitäisi olla:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Siirry kohtaan {rocketUrl} -> "Mukautetut komentosarjat". Ja lisää kohtaan {buttonName} :',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Jos ryhmä luodaan Humhubissa, luo se Rocket.chatissa',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Jos ryhmä poistetaan Humhubista, poista se Rocket.chatista',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Jos ryhmä nimetään uudelleen Humhubissa, nimeä se uudelleen Rocket.chatissa',

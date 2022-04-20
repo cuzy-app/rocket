@@ -35,11 +35,6 @@ class ContainerConfigController extends Controller
      */
     public function actionIndex()
     {
-        $model = new ModuleSettings(['contentContainer' => $this->contentContainer]);
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
-            $this->view->saved();
-        }
-
         $api = new RocketApi();
         $api->initRocketChannelNames(true);
         $api->initRocketGroupNames(true);
@@ -48,6 +43,11 @@ class ContainerConfigController extends Controller
         $apiIsValid = $api->rocketChannelNames !== null && $api->rocketGroupNames !== null;
 
         if ($apiIsValid) {
+            $model = new ModuleSettings(['contentContainer' => $this->contentContainer]);
+            if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->save()) {
+                $this->view->saved();
+            }
+
             $channelItemsForWebSyndication = $api->rocketChannelNames;
             $groupItemsForWebSyndication = $api->rocketGroupNames;
             $channelItemsForMembersSync = $api->rocketChannelNames;

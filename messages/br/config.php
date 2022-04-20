@@ -3,7 +3,8 @@
 return [
     '' => '',
     '<strong>Rocket.chat</strong> module configuration' => '',
-    'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => '',
+    'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => '',
+    'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => '',
     'If a group is created on Humhub, create it on Rocket.chat' => '',
     'If a group is deleted on Humhub, delete it from Rocket.chat' => '',
     'If a group is renamed on Humhub, rename it on Rocket.chat' => '',

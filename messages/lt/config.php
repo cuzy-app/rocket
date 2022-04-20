@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong> modulio konfigūracija',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Eikite į {rocketUrl} -> "Custom Scripts". Ir {humhubUrl} {buttonName} ):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Leisti „Humhub“ įterpti į „ {contentSecurityPolicy} “: „ContentSecurityPolicy“ turėtumėte turėti:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Eikite į {rocketUrl} -> "Custom Scripts". Ir {buttonName} pridėkite:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Jei grupė sukurta Humhub, sukurkite ją Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Jei grupė ištrinta Humhub, ištrinkite ją iš Rocket.chat',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Jei grupė pervadinama Humhub, pervardykite ją Rocket.chat',

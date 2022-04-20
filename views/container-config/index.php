@@ -10,6 +10,7 @@ use humhub\libs\Html;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\ui\view\components\View;
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Url;
 
 /**
  * @var $this View
@@ -58,9 +59,11 @@ use yii\bootstrap\ActiveForm;
                     <?= Yii::t('RocketModule.config', 'Instructions to show this space\'s activity in the chosen Rocket.chat channels') ?>
                 </div>
                 <div class="panel-body">
-                    <p><?= Yii::t('RocketModule.config', 'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):', ['rocketUrl' => 'https://MY_ROCKET_DOMAIN_NAME.TDL/admin/Layout', 'buttonName' => '"Custom Script for Logged In Users"', 'humhubUrl' => '<code>HUMHUB_DOMAIN_NAME.TDL</code>']) ?></p>
+                    <p><?= Yii::t('RocketModule.config', 'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:', ['contentSecurityPolicy' => '"Content Security Policy"']) ?></p>
+                    <p><code>frame-ancestors 'self' to frame-ancestors 'self' <?= Url::base(true) ?></code></p>
+                    <p><?= Yii::t('RocketModule.config', 'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:', ['rocketUrl' => 'https://MY_ROCKET_DOMAIN_NAME.TDL/admin/Layout', 'buttonName' => '"Custom Script for Logged In Users"']) ?></p>
                     <pre><code>
-const humhubUrl = 'https://HUMHUB_DOMAIN_NAME.TDL'; // Do not add a trailing /
+const humhubUrl = '<?= Url::base(true) ?>'; // Do not add a trailing /
 
 $(function() {
 

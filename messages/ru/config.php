@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'Настройка модуля <strong>Rocket.chat</strong>',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Перейдите в {rocketUrl} -> «Пользовательские скрипты». И в {buttonName} добавить (обновить {humhubUrl} const):',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Разрешить встраивание Humhub в Rocket.chat: в {contentSecurityPolicy} у вас должно быть:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Перейдите в {rocketUrl} -> «Пользовательские скрипты». И в {buttonName} добавить:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Если группа создана на Humhub, создайте ее на Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Если группа удалена на Humhub, удалите ее из Rocket.chat',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Если группа переименовывается на Humhub, переименуйте ее на Rocket.chat',

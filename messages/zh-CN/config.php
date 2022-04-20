@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong>模块配置',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => '转到{rocketUrl} - >“自定义脚本”。并在{buttonName}添加（更新{humhubUrl} const）：',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => '允许将 Humhub 嵌入 Rocket.chat：在{contentSecurityPolicy}中，您应该具有：',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => '转到{rocketUrl} - >“自定义脚本”。并在{buttonName}添加：',
   'If a group is created on Humhub, create it on Rocket.chat' => '如果在 Humhub 上创建了一个群组，请在 Rocket.chat 上创建它',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => '如果在 Humhub 上删除了某个组，请从 Rocket.chat 中删除它',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => '如果群组在 Humhub 上重命名，请在 Rocket.chat 上重命名',

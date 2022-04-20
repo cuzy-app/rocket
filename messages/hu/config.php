@@ -2,7 +2,8 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong> modul konfigurációja',
-  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add (update {humhubUrl} const):' => 'Lépjen a {rocketUrl} -> "Egyéni szkriptek" elemre. És a {buttonName} add (frissítse a {humhubUrl} const) menüpontban:',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Engedélyezze a Humhub beágyazását a Rocket.chatbe: a {contentSecurityPolicy} -ban a következőkre van szüksége:',
+  'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Lépjen a {rocketUrl} -> "Egyéni szkriptek" elemre. És a {buttonName} -ban add hozzá:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Ha létrehoz egy csoportot a Humhubon, hozza létre a Rocket.chat oldalon',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Ha egy csoportot töröltek a Humhubon, törölje azt a Rocket.chat webhelyről',
   'If a group is renamed on Humhub, rename it on Rocket.chat' => 'Ha egy csoportot átnevez a Humhubon, nevezze át a Rocket.chat oldalon',
