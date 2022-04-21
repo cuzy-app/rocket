@@ -13,7 +13,6 @@ use humhub\modules\content\models\ContentContainerSetting;
 use humhub\modules\rocket\Module;
 use humhub\modules\space\models\Space;
 use Yii;
-use yii\helpers\BaseInflector;
 use yii\web\Response;
 
 
@@ -35,10 +34,10 @@ class RedirectController extends Controller
         $settings = $module->settings;
         $rocketChannelNames = (array)$settings->getSerialized('rocketChannelNames');
         $rocketGroupNames = (array)$settings->getSerialized('rocketGroupNames');
-        
+
         $rocketChannelOrGroupId =
-            array_search(BaseInflector::slug($rocketChannel), $rocketChannelNames, true) ?:
-                array_search(BaseInflector::slug($rocketChannel), $rocketGroupNames, true);
+            array_search($rocketChannel, $rocketChannelNames, true) ?:
+                array_search($rocketChannel, $rocketGroupNames, true);
 
         if (!$rocketChannelOrGroupId) {
             return '';
