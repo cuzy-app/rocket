@@ -9,7 +9,8 @@
 namespace humhub\modules\rocket\models;
 
 use humhub\modules\content\components\ContentContainerActiveRecord;
-use humhub\modules\rocket\jobs\AddMissingToRocket;
+use humhub\modules\rocket\jobs\AddMissingRolesAndMembersToRocket;
+use humhub\modules\rocket\jobs\AddMissingSpaceMembersToRocket;
 use humhub\modules\rocket\Module;
 use humhub\modules\space\models\Space;
 use Yii;
@@ -182,16 +183,17 @@ class ModuleSettings extends Model
             $settings->set('syncOnGroupDelete', $this->syncOnGroupDelete);
             $settings->set('syncOnUserGroupAdd', $this->syncOnUserGroupAdd);
             $settings->set('syncOnUserGroupRemove', $this->syncOnUserGroupRemove);
+
+            Yii::$app->queue->push(new AddMissingRolesAndMembersToRocket());
         } else {
             $settings = $module->settings->space($this->contentContainer);
             $settings->setSerialized('webSyndicationRocketChannels', $this->webSyndicationRocketChannels);
             $settings->setSerialized('webSyndicationRocketGroups', $this->webSyndicationRocketGroups);
             $settings->setSerialized('membersSyncRocketChannels', $this->membersSyncRocketChannels);
             $settings->setSerialized('membersSyncRocketGroups', $this->membersSyncRocketGroups);
-        }
 
-        // Add groups sync to jobs
-        Yii::$app->queue->push(new AddMissingToRocket());
+            Yii::$app->queue->push(new AddMissingSpaceMembersToRocket(['spaceContentContainerId' => $this->contentContainer->contentcontainer_id]));
+        }
 
         return true;
     }

@@ -9,7 +9,8 @@
 namespace humhub\modules\rocket;
 
 use humhub\commands\CronController;
-use humhub\modules\rocket\jobs\AddMissingToRocket;
+use humhub\modules\rocket\jobs\AddMissingRolesAndMembersToRocket;
+use humhub\modules\rocket\jobs\AddMissingSpaceMembersToRocket;
 use humhub\modules\rocket\jobs\removeChannelsFromSpaceSettings;
 use humhub\modules\rocket\jobs\SendApiRequest;
 use humhub\modules\user\models\Group;
@@ -31,8 +32,8 @@ class Events
         $controller = $event->sender;
         $controller->stdout("Rocket.chat module: Adding to jobs Rocket.chat synchronization with the API ");
 
-        Yii::$app->queue->push(new AddMissingToRocket());
-
+        Yii::$app->queue->push(new AddMissingRolesAndMembersToRocket());
+        Yii::$app->queue->push(new AddMissingSpaceMembersToRocket());
         Yii::$app->queue->push(new removeChannelsFromSpaceSettings());
     }
 

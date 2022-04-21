@@ -14,20 +14,22 @@ use humhub\modules\queue\ActiveJob;
 use humhub\modules\rocket\components\RocketApi;
 use humhub\modules\rocket\Module;
 use humhub\modules\space\models\Space;
-use humhub\modules\user\models\Group;
-use humhub\modules\user\models\GroupUser;
-use humhub\modules\user\models\User;
 use Yii;
 use yii\db\IntegrityException;
 use yii\helpers\Json;
 use yii\queue\RetryableJobInterface;
 
-class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
+class AddMissingSpaceMembersToRocket extends ActiveJob implements RetryableJobInterface
 {
     /**
      * @inhertidoc
      */
     private $maxExecutionTime = 60 * 60;
+
+    /**
+     * @var int
+     */
+    public $spaceContentContainerId;
 
     /**
      * @inheritdoc
@@ -40,29 +42,8 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
 
         $api = new RocketApi();
 
-        // Create missing roles
-        if ($module->settings->get('syncOnGroupAdd')) {
-            foreach (Group::find()->all() as $group) {
-                $api->createRole($group->name);
-            }
-        }
-
-        // Add missing users to roles
-        $groupUsers = GroupUser::find()
-            ->joinWith('user')
-            ->andWhere(['user.status' => User::STATUS_ENABLED])
-            ->all();
-        if ($module->settings->get('syncOnUserGroupAdd')) {
-            foreach ($groupUsers as $groupUser) {
-                $user = $groupUser->user;
-                $group = $groupUser->group;
-                $api->addUserToRole($user, $group->name);
-            }
-        }
-
         // Add missing users to channels
-        $settings = ContentContainerSetting::findAll(['module_id' => 'rocket', 'name' => 'membersSyncRocketChannels']);
-        foreach ($settings as $setting) {
+        foreach ($this->getSettings('membersSyncRocketChannels') as $setting) {
             if (($space = $this->getSpace($setting)) === null) {
                 continue;
             }
@@ -71,14 +52,13 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
                     continue;
                 }
                 foreach ($space->getMembershipUser()->all() as $user) {
-                    $api->inviteUserToChannel($user, $rocketChannelId);
+                    $api->inviteUserToChannel($user, $rocketChannelId); // TODO if the job tries another time to add the members, it shouldn't start again from the beginning (the current user ID should be stored in the cache to start to this one)
                 }
             }
         }
 
         // Add missing users to groups
-        $settings = ContentContainerSetting::findAll(['module_id' => 'rocket', 'name' => 'membersSyncRocketGroups']);
-        foreach ($settings as $setting) {
+        foreach ($this->getSettings('membersSyncRocketGroups') as $setting) {
             if (($space = $this->getSpace($setting)) === null) {
                 continue;
             }
@@ -87,12 +67,27 @@ class AddMissingToRocket extends ActiveJob implements RetryableJobInterface
                     continue;
                 }
                 foreach ($space->getMembershipUser()->all() as $user) {
-                    $api->inviteUserToGroup($user, $rocketGroupId);
+                    $api->inviteUserToGroup($user, $rocketGroupId); // TODO if the job tries another time to add the members, it shouldn't start again from the beginning (the current user ID should be stored in the cache to start to this one)
                 }
             }
         }
 
         $api->logout();
+    }
+
+    /**
+     * @param $settingName
+     * @return ContentContainerSetting[]
+     */
+    protected function getSettings($settingName)
+    {
+        $query = ContentContainerSetting::find()
+            ->andWhere(['module_id' => 'rocket'])
+            ->andWhere(['name' => $settingName]);
+        if ($this->spaceContentContainerId) {
+            $query->andWhere(['contentcontainer_id' => $this->spaceContentContainerId]);
+        }
+        return $query->all();
     }
 
     /**

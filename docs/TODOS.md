@@ -2,11 +2,6 @@ TODOS
 =====
 
 See TOTO in code
-Translations
-Full sync daily and on settings save
-Testing
-Check if API correctly handles errors
-
 
 Replace module images in `resources` : to create icon, download an SVG and edit it with Inkscape :
 - add a layer and put it in the background
