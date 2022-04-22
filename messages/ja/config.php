@@ -3,6 +3,7 @@ return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong>モジュールの構成',
   'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Humhubを{contentSecurityPolicy}に埋め込むことを許可します。contentSecurityPolicyには、次のものが必要です。',
+  'And in "Custom CSS" add:' => 'そして、「カスタムCSS」に以下を追加します。',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => '{rocketUrl} >「カスタムスクリプト」に移動します。そして{buttonName}に追加します：',
   'If a group is created on Humhub, create it on Rocket.chat' => 'グループがHumhubで作成されている場合は、Rocket.chatで作成してください',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Humhubでグループが削除された場合は、Rocket.chatから削除してください',

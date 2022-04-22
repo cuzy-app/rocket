@@ -3,6 +3,7 @@ return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'Διαμόρφωση μονάδας <strong>Rocket.chat</strong>',
   'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Να επιτρέπεται η ενσωμάτωση του Humhub στο Rocket.chat: στο {contentSecurityPolicy} , θα πρέπει να έχετε:',
+  'And in "Custom CSS" add:' => 'Και στο "Προσαρμοσμένο CSS" προσθέστε:',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Μεταβείτε στο {rocketUrl} -> "Προσαρμοσμένα σενάρια". Και στο {buttonName} προσθέστε:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Εάν μια ομάδα έχει δημιουργηθεί στο Humhub, δημιουργήστε την στο Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Εάν μια ομάδα διαγραφεί στο Humhub, διαγράψτε την από το Rocket.chat',

@@ -107,6 +107,14 @@ $(function() {
   setInterval(addHumhubIntegration, 60*1000);
 });
                         </code></pre>
+                    <p><?= Yii::t('RocketModule.config', 'And in "Custom CSS" add:') ?></p>
+                    <pre><code>
+@media (max-width: 1000px) {
+  #humhub {
+    display: none;
+  }
+}
+                        </code></pre>
                 </div>
             </div>
         <?php endif; ?>

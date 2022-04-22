@@ -3,6 +3,7 @@ return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'การกำหนดค่าโมดูล <strong>Rocket.chat</strong>',
   'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'อนุญาตให้ฝัง Humhub ใน Rocket.chat: ใน {contentSecurityPolicy} คุณควรมี:',
+  'And in "Custom CSS" add:' => 'และใน "Custom CSS" เพิ่ม:',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'ไปที่ {rocketUrl} -> "สคริปต์ที่กำหนดเอง" และใน {buttonName} เพิ่ม:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'หากสร้างกลุ่มบน Humhub ให้สร้างบน Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'หากลบกลุ่มบน Humhub ให้ลบออกจาก Rocket.chat',

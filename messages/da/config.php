@@ -3,6 +3,7 @@ return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat-</strong> modulkonfiguration',
   'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Tillad, at Humhub bliver indlejret i Rocket.chat: i {contentSecurityPolicy} skal du have:',
+  'And in "Custom CSS" add:' => 'Og i "Custom CSS" tilføj:',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Gå til {rocketUrl} -> "Custom Scripts". Og i {buttonName} tilføj:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Hvis en gruppe er oprettet på Humhub, skal du oprette den på Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Hvis en gruppe er slettet på Humhub, skal du slette den fra Rocket.chat',

@@ -3,6 +3,7 @@ return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'Cấu hình mô-đun <strong>Rocket.chat</strong>',
   'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Cho phép Humhub được nhúng vào Rocket.chat: trong {contentSecurityPolicy} , bạn nên có:',
+  'And in "Custom CSS" add:' => 'Và trong "CSS tùy chỉnh", hãy thêm:',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Đi tới {rocketUrl} -> "Tập lệnh tùy chỉnh". Và trong {buttonName} thêm:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Nếu một nhóm được tạo trên Humhub, hãy tạo nhóm đó trên Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Nếu một nhóm bị xóa trên Humhub, hãy xóa nhóm đó khỏi Rocket.chat',

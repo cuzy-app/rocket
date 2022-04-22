@@ -3,6 +3,7 @@ return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'Konfigurácia modulu <strong>Rocket.chat</strong>',
   'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Povoliť vloženie Humhubu do Rocket.chat: v {contentSecurityPolicy} by ste mali mať:',
+  'And in "Custom CSS" add:' => 'A v časti „Vlastné CSS“ pridajte:',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Prejdite na {rocketUrl} -> "Vlastné skripty". A do {buttonName} pridajte:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Ak je skupina vytvorená na Humhub, vytvorte ju na Rocket.chat',
   'If a group is deleted on Humhub, delete it from Rocket.chat' => 'Ak je skupina vymazaná na Humhub, odstráňte ju z Rocket.chat',
