@@ -67,8 +67,8 @@ $module = Yii::$app->getModule('rocket');
                     <?= Yii::t('RocketModule.config', 'Instructions to show this space\'s activity in the chosen Rocket.chat channels') ?>
                 </div>
                 <div class="panel-body">
-                    <p><?= Yii::t('RocketModule.config', 'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:', ['contentSecurityPolicy' => '"Content Security Policy"']) ?></p>
-                    <p><code>frame-ancestors 'self' <?= Url::base(true) ?>;</code></p>
+                    <p><?= Yii::t('RocketModule.config', 'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy} of Humhub, you should have:', ['contentSecurityPolicy' => '"Content Security Policy"']) ?></p>
+                    <p><code>frame-ancestors 'self' <?= $module->settings->get('apiUrl') ?>;</code></p>
                     <?php $rocketUrl = $module->settings->get('apiUrl') . '/admin/Layout'; ?>
                     <p><?= Yii::t('RocketModule.config', 'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:', ['rocketUrl' => Html::a($rocketUrl, $rocketUrl, ['target' => '_blank']), 'buttonName' => '"Custom Script for Logged In Users"']) ?></p>
                     <pre><code>
