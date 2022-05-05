@@ -2,7 +2,7 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat-</strong> moduulin konfigurointi',
-  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Salli Humhubin upottaminen Rocket.chatiin: {contentSecurityPolicy} sinulla pitäisi olla:',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy} of Humhub, you should have:' => 'Salli Humhubin upottaminen Rocket.chatiin: {contentSecurityPolicy} contentSecurityPolicyssa pitäisi olla:',
   'And in "Custom CSS" add:' => 'Ja lisää kohtaan "Muokattu CSS":',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'Siirry kohtaan {rocketUrl} -> "Mukautetut komentosarjat". Ja lisää kohtaan {buttonName} :',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Jos ryhmä luodaan Humhubissa, luo se Rocket.chatissa',

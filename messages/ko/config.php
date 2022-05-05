@@ -2,7 +2,7 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>Rocket.chat</strong> 모듈 구성',
-  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Rocket.chat에 Humhub가 포함되도록 허용: {contentSecurityPolicy} 에서 다음이 있어야 합니다.',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy} of Humhub, you should have:' => 'Rocket.chat에 Humhub가 포함되도록 허용: Humhub의 {contentSecurityPolicy} 에서 다음이 있어야 합니다.',
   'And in "Custom CSS" add:' => '그리고 "사용자 정의 CSS"에 다음을 추가하십시오.',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => '{rocketUrl} -> "사용자 정의 스크립트"로 이동합니다. 그리고 {buttonName} 에 다음을 추가하십시오.',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Humhub에서 그룹을 생성했다면 Rocket.chat에서 생성하세요.',

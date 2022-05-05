@@ -2,7 +2,7 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => '<strong>የRocket.chat</strong> ሞዱል ውቅር',
-  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'Humhub በ {contentSecurityPolicy} ውስጥ እንዲካተት ይፍቀዱለት፡ በይዘቱ ውስጥ የሴኪውሪቲ ፖሊሲ ሊኖርዎት ይገባል',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy} of Humhub, you should have:' => 'Humhub በ {contentSecurityPolicy} ውስጥ እንዲካተት ይፍቀዱ፡ በይዘቱ ውስጥ የHumhub ደህንነት ፖሊሲ ሊኖርዎት ይገባል',
   'And in "Custom CSS" add:' => 'እና በ"ብጁ CSS" ውስጥ ያክሉ፡-',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'ወደ {rocketUrl} -> "ብጁ ስክሪፕቶች" ይሂዱ። እና {buttonName} ያክሉ',
   'If a group is created on Humhub, create it on Rocket.chat' => 'Humhub ላይ ቡድን ከተፈጠረ በRocket.chat ላይ ይፍጠሩት።',

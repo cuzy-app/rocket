@@ -2,7 +2,7 @@
 return array (
   '' => '',
   '<strong>Rocket.chat</strong> module configuration' => 'תצורת מודול <strong>Rocket.chat</strong>',
-  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy}, you should have:' => 'אפשר להטמיע ל-Humhub ב-Rocket.chat: ב- {contentSecurityPolicy} צריך להיות לך:',
+  'Allow Humhub to be embedded in Rocket.chat: in the {contentSecurityPolicy} of Humhub, you should have:' => 'אפשר להטמיע ל-Humhub ב-Rocket.chat: ב- {contentSecurityPolicy} של Humhub, צריך להיות לך:',
   'And in "Custom CSS" add:' => 'וב"CSS מותאם אישית" הוסף:',
   'Go to {rocketUrl} -> "Custom Scripts". And in {buttonName} add:' => 'עבור אל {rocketUrl} -> "סקריפטים מותאמים אישית". וב- {buttonName} הוסף:',
   'If a group is created on Humhub, create it on Rocket.chat' => 'אם נוצרה קבוצה ב-Humhub, צור אותה ב- Rocket.chat',
