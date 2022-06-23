@@ -9,8 +9,12 @@
 use humhub\libs\Html;
 use humhub\modules\mass_notification\models\ModuleSettings;
 use humhub\modules\ui\form\widgets\ActiveForm;
+use humhub\modules\ui\view\components\View;
 
-/** @var $model ModuleSettings */
+/**
+ * @var $this View
+ * @var $model ModuleSettings
+ */
 ?>
 
 <div class="container-fluid">
