@@ -40,7 +40,7 @@ class RocketApi extends Component
     protected const CACHE_KEY_PREFIX_ROLE = 'rocketApiRole';
     protected const CACHE_KEY_PREFIX_CHANNEL = 'rocketApiChannel';
     protected const CACHE_KEY_PREFIX_GROUP = 'rocketApiGroup';
-    protected const CACHE_DURATION = 60 * 60;
+    protected const CACHE_DURATION = 60;
 
     /**
      * @var ModuleSettings module settings
@@ -118,7 +118,7 @@ class RocketApi extends Component
                 }
             }
             if (!$ignoreError) {
-                Yii::error('Rocket module error on API request' . ($methodName ? ' (' . $methodName . ')' : '') . ': ' . $error);
+                Yii::error('Error on API request' . ($methodName ? ' (' . $methodName . ')' : '') . ': ' . $error, 'rocket');
             }
             return false;
         }

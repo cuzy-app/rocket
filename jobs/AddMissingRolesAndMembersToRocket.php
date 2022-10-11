@@ -16,7 +16,6 @@ use humhub\modules\user\models\Group;
 use humhub\modules\user\models\GroupUser;
 use humhub\modules\user\models\User;
 use Yii;
-use yii\db\IntegrityException;
 use yii\queue\RetryableJobInterface;
 
 class AddMissingRolesAndMembersToRocket extends ActiveJob implements RetryableJobInterface
@@ -28,7 +27,6 @@ class AddMissingRolesAndMembersToRocket extends ActiveJob implements RetryableJo
 
     /**
      * @inheritdoc
-     * @throws IntegrityException
      */
     public function run()
     {

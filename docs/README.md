@@ -23,7 +23,7 @@ Humhub and Rocket.chat relationship:
 - Then, user X is removed from the members of HH group "admin". He automatically is removed form the members of RC role "admin".
 
 (2) Use case:
-- In HH Space A settings, you tick the RC channels B and C (today we have this page: https://dev.transition-space.org/s/test-space-for-marc/web-syndication/container-config, but I will change it with checkboxes, one per RC channel)
+- In HH Space A settings, you tick the RC channels B and C
 - Then, user X becomes a member of HH Space A. He automatically becomes a member of RC channels B and C
 - Then, user X is removed from the members of HH Space A. He automatically is removed form the members of RC channels B and C
 

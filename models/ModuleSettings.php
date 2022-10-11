@@ -124,8 +124,8 @@ class ModuleSettings extends Model
     public function attributeHints()
     {
         return [
-            'apiUserLogin' => Yii::t('RocketModule.config', 'This user must have the right to manage users (adding or removing to groups or channels'),
-            'apiUserPassword' => Yii::t('RocketModule.config', 'This user must have the right to manage users (adding or removing to groups or channels'),
+            'apiUserLogin' => Yii::t('RocketModule.config', 'This user must have the right to manage users (adding or removing groups or channels)'),
+            'apiUserPassword' => Yii::t('RocketModule.config', 'This user must have the right to manage users (adding or removing groups or channels)'),
             'webSyndicationRocketChannels' => Yii::t('RocketModule.config', 'See instructions below'),
             'webSyndicationRocketGroups' => Yii::t('RocketModule.config', 'See instructions below'),
             'membersSyncRocketChannels' => Yii::t('RocketModule.config', 'Members synchronization is one way, from Humhub to Rocket.chat'),
