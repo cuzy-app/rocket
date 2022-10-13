@@ -1,6 +1,8 @@
 TODOS 
 =====
 
+`RocketUser::listing()`: manage pagination if more than 50 users.
+
 See TOTO in code
 
 Replace module images in `resources` : to create icon, download an SVG and edit it with Inkscape :

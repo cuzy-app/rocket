@@ -284,11 +284,10 @@ class RocketApi extends Component
     public function getRocketUserId(User $humhubUser)
     {
         $this->initRocketUsers();
-        $rocketUserId = array_search(trim($humhubUser->username), $this->rocketUserUsernames, true) ?: null;
-        if ($rocketUserId !== null) {
-            return $rocketUserId;
-        }
-        return array_search(trim($humhubUser->email), $this->rocketUserEmails, true) ?: null;
+        $rocketUserId = array_search(trim($humhubUser->email), $this->rocketUserEmails, true) ?:
+            null;
+        return $rocketUserId ??
+            array_search(trim($humhubUser->username), $this->rocketUserUsernames, true) ?: null;
     }
 
     /**
