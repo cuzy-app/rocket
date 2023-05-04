@@ -28,6 +28,10 @@ class Events
      */
     public static function onCronDailyRun($event)
     {
+        if (!Yii::$app->getModule('rocket')) {
+            return;
+        }
+
         /** @var CronController $controller */
         $controller = $event->sender;
         $controller->stdout("Rocket.chat module: Adding to jobs Rocket.chat synchronization with the API ");

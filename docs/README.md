@@ -2,6 +2,7 @@
 
 Show Humhub spaces' activity in [Rocket.chat](https://rocket.chat/) and sync Humhub groups.
 
+:warning: **This module is not maintained anymore!**
 
 ## Overview
 
@@ -30,7 +31,7 @@ Humhub and Rocket.chat relationship:
 
 ## Embed a Rocket.chat channel on Humhub
 
-You don't need this module, you can do it with the [Custom pages module](https://www.humhub.com/en/marketplace/custom_pages/), by adding an "iframe" page or a snippet containing this URL (replace uppercase characters): `https://ROCKET_DOMAIN_NAME.TDL/channel/CHANNEL_NAME?layout=embedded`
+You don't need this module, you can do it with the [Custom pages module](https://marketplace.humhub.com/module/custom_pages), by adding an "iframe" page or a snippet containing this URL (replace uppercase characters): `https://ROCKET_DOMAIN_NAME.TDL/channel/CHANNEL_NAME?layout=embedded`
 
 
 ## Configuration

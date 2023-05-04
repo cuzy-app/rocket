@@ -172,9 +172,9 @@ class RocketApi extends Component
         }
 
         if ($flushCache) {
-            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_ROLE);
+            Yii::$app->cache->delete(self::CACHE_KEY_PREFIX_ROLE);
         }
-        $this->rocketRoleNames = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_ROLE, function () {
+        $this->rocketRoleNames = Yii::$app->cache->getOrSet(self::CACHE_KEY_PREFIX_ROLE, function () {
             $roleListing = RocketRole::listing();
             if ($this->resultIsValid($roleListing, RocketRole::class, __METHOD__)) {
                 $roles = [];
@@ -185,7 +185,7 @@ class RocketApi extends Component
                 return $roles;
             }
             return [];
-        }, static::CACHE_DURATION);
+        }, self::CACHE_DURATION);
     }
 
     /**
@@ -193,8 +193,8 @@ class RocketApi extends Component
      */
     public function updateRocketRoleNamesCache()
     {
-        Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_ROLE);
-        Yii::$app->cache->set(static::CACHE_KEY_PREFIX_ROLE, $this->rocketRoleNames, static::CACHE_DURATION);
+        Yii::$app->cache->delete(self::CACHE_KEY_PREFIX_ROLE);
+        Yii::$app->cache->set(self::CACHE_KEY_PREFIX_ROLE, $this->rocketRoleNames, self::CACHE_DURATION);
     }
 
     /**
@@ -284,10 +284,10 @@ class RocketApi extends Component
     public function getRocketUserId(User $humhubUser)
     {
         $this->initRocketUsers();
-        $rocketUserId = array_search(trim($humhubUser->email), $this->rocketUserEmails, true) ?:
+        $rocketUserId = array_search(trim((string)$humhubUser->email), $this->rocketUserEmails, true) ?:
             null;
         return $rocketUserId ??
-            array_search(trim($humhubUser->username), $this->rocketUserUsernames, true) ?: null;
+            array_search(trim((string)$humhubUser->username), $this->rocketUserUsernames, true) ?: null;
     }
 
     /**
@@ -303,9 +303,9 @@ class RocketApi extends Component
         }
 
         if ($flushCache) {
-            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_USER);
+            Yii::$app->cache->delete(self::CACHE_KEY_PREFIX_USER);
         }
-        $users = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_USER, function () {
+        $users = Yii::$app->cache->getOrSet(self::CACHE_KEY_PREFIX_USER, function () {
             $userListing = RocketUser::listing();
             if ($this->resultIsValid($userListing, RocketUser::class, __METHOD__)) {
                 $users = [];
@@ -313,13 +313,13 @@ class RocketApi extends Component
                 foreach ($userListing as $user) {
                     $users[$user->getUserId()] = [
                         'username' => $user->getUsername(),
-                        'email' => trim($user->getEmail()),
+                        'email' => trim((string)$user->getEmail()),
                     ];
                 }
                 return $users;
             }
             return [];
-        }, static::CACHE_DURATION);
+        }, self::CACHE_DURATION);
 
         $this->rocketUserUsernames = [];
         $this->rocketUserEmails = [];
@@ -428,9 +428,9 @@ class RocketApi extends Component
         }
 
         if ($flushCache) {
-            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_CHANNEL);
+            Yii::$app->cache->delete(self::CACHE_KEY_PREFIX_CHANNEL);
         }
-        $this->rocketChannelNames = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_CHANNEL, function () {
+        $this->rocketChannelNames = Yii::$app->cache->getOrSet(self::CACHE_KEY_PREFIX_CHANNEL, function () {
             $channelListing = RocketChannel::listing();
             if ($this->resultIsValid($channelListing, RocketChannel::class, __METHOD__)) {
                 $channels = [];
@@ -448,7 +448,7 @@ class RocketApi extends Component
                 return $channels;
             }
             return [];
-        }, static::CACHE_DURATION);
+        }, self::CACHE_DURATION);
     }
 
     /**
@@ -461,9 +461,9 @@ class RocketApi extends Component
         }
 
         if ($flushCache) {
-            Yii::$app->cache->delete(static::CACHE_KEY_PREFIX_GROUP);
+            Yii::$app->cache->delete(self::CACHE_KEY_PREFIX_GROUP);
         }
-        $this->rocketGroupNames = Yii::$app->cache->getOrSet(static::CACHE_KEY_PREFIX_GROUP, function () {
+        $this->rocketGroupNames = Yii::$app->cache->getOrSet(self::CACHE_KEY_PREFIX_GROUP, function () {
             $groupListing = RocketGroup::listing();
             if ($this->resultIsValid($groupListing, RocketGroup::class, __METHOD__)) {
                 $groups = [];
@@ -481,7 +481,7 @@ class RocketApi extends Component
                 return $groups;
             }
             return [];
-        }, static::CACHE_DURATION);
+        }, self::CACHE_DURATION);
     }
 
     /**

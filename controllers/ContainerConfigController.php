@@ -95,12 +95,12 @@ class ContainerConfigController extends Controller
         }
 
         return $this->render('index', [
-            'model' => $model,
+            'model' => $model ?? null,
             'apiIsValid' => $apiIsValid,
-            'channelItemsForWebSyndication' => $channelItemsForWebSyndication,
-            'groupItemsForWebSyndication' => $groupItemsForWebSyndication,
-            'channelItemsForMembersSync' => $channelItemsForMembersSync,
-            'groupItemsForMembersSync' => $groupItemsForMembersSync,
+            'channelItemsForWebSyndication' => $channelItemsForWebSyndication ?? null,
+            'groupItemsForWebSyndication' => $groupItemsForWebSyndication ?? null,
+            'channelItemsForMembersSync' => $channelItemsForMembersSync ?? null,
+            'groupItemsForMembersSync' => $groupItemsForMembersSync ?? null,
         ]);
     }
 }

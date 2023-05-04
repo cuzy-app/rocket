@@ -175,9 +175,9 @@ class ModuleSettings extends Model
 
         if (!$this->contentContainer instanceof Space) {
             $settings = $module->settings;
-            $settings->set('apiUrl', rtrim(trim($this->apiUrl), "/"));
-            $settings->set('apiUserLogin', trim($this->apiUserLogin));
-            $settings->set('apiUserPassword', trim($this->apiUserPassword));
+            $settings->set('apiUrl', rtrim(trim((string)$this->apiUrl), '/'));
+            $settings->set('apiUserLogin', trim((string)$this->apiUserLogin));
+            $settings->set('apiUserPassword', trim((string)$this->apiUserPassword));
             $settings->set('syncOnGroupAdd', $this->syncOnGroupAdd);
             $settings->set('syncOnGroupRename', $this->syncOnGroupRename);
             $settings->set('syncOnGroupDelete', $this->syncOnGroupDelete);
