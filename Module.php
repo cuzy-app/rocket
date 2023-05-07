@@ -33,8 +33,14 @@ class Module extends ContentContainerModule
      */
     public function getContentContainerTypes()
     {
-        $user = Yii::$app->user->identity;
-        return Yii::$app->request->isConsoleRequest || ($user && $user->can(ManageModules::class)) ? [Space::class] : [];
+        return
+            Yii::$app->request->isConsoleRequest
+            || (
+                !Yii::$app->user->isGuest
+                && Yii::$app->user->can(ManageModules::class)
+            ) ?
+                [Space::class] :
+                [];
     }
 
     public function getName()
