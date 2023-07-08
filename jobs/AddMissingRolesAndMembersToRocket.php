@@ -71,7 +71,9 @@ class AddMissingRolesAndMembersToRocket extends ActiveJob implements RetryableJo
      */
     public function canRetry($attempt, $error)
     {
-        return true;
+        $errorMessage = $error ? $error->getMessage() : '';
+        Yii::error('Error with AddMissingRolesAndMembersToRocket job: ' . $errorMessage, 'rocket');
+        return false;
     }
 
 }

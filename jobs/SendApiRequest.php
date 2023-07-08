@@ -11,6 +11,7 @@ namespace humhub\modules\rocket\jobs;
 
 use humhub\modules\queue\ActiveJob;
 use humhub\modules\rocket\components\RocketApi;
+use Yii;
 use yii\queue\RetryableJobInterface;
 
 class SendApiRequest extends ActiveJob implements RetryableJobInterface
@@ -53,7 +54,9 @@ class SendApiRequest extends ActiveJob implements RetryableJobInterface
      */
     public function canRetry($attempt, $error)
     {
-        return true;
+        $errorMessage = $error ? $error->getMessage() : '';
+        Yii::error('Error with SendApiRequest job: ' . $errorMessage, 'rocket');
+        return false;
     }
 
 }

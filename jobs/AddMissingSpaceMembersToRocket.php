@@ -135,7 +135,9 @@ class AddMissingSpaceMembersToRocket extends ActiveJob implements RetryableJobIn
      */
     public function canRetry($attempt, $error)
     {
-        return true;
+        $errorMessage = $error ? $error->getMessage() : '';
+        Yii::error('Error with AddMissingSpaceMembersToRocket job: ' . $errorMessage, 'rocket');
+        return false;
     }
 
 }
