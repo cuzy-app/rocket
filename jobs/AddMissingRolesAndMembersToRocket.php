@@ -67,7 +67,7 @@ class AddMissingRolesAndMembersToRocket extends ActiveJob implements RetryableJo
     }
 
     /**
-     * @inheritDoc for RetryableJobInterface
+     * @inheritDoc
      */
     public function canRetry($attempt, $error)
     {

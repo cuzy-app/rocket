@@ -74,7 +74,7 @@ class removeChannelsFromSpaceSettings extends ActiveJob implements RetryableJobI
     }
 
     /**
-     * @inheritDoc for RetryableJobInterface
+     * @inheritDoc
      */
     public function canRetry($attempt, $error)
     {

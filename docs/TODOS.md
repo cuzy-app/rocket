@@ -1,7 +1,8 @@
-TODOS 
+TODOS
 =====
 
-`RocketUser::listing()`: manage pagination if more than 50 users.
+- Review ExclusiveJobInterface and RetryableJobInterface implementation for Jobs
+- `RocketUser::listing()`: manage pagination if more than 50 users.
 
 See TOTO in code
 

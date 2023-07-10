@@ -50,7 +50,7 @@ class SendApiRequest extends ActiveJob implements RetryableJobInterface
     }
 
     /**
-     * @inheritDoc for RetryableJobInterface
+     * @inheritDoc
      */
     public function canRetry($attempt, $error)
     {

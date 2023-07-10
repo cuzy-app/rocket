@@ -131,7 +131,7 @@ class AddMissingSpaceMembersToRocket extends ActiveJob implements RetryableJobIn
     }
 
     /**
-     * @inheritDoc for RetryableJobInterface
+     * @inheritDoc
      */
     public function canRetry($attempt, $error)
     {
