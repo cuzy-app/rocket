@@ -17,7 +17,7 @@ humhub.module('rocket', function (module, require, $) {
         if (isPjax) {
             /**
              * Runs only after a pjax page load, but doesn't wait for all elements to be loaded
-             * Once this JS asset file is loaded, this init function runs even on others pages (even in others modules)
+             * Once this JS asset file is loaded, this init function runs even on other pages (even in other modules)
              */
             $(function () {
                 // After all elements are loaded

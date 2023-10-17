@@ -14,8 +14,6 @@ use Yii;
 
 /**
  * ConfigController handles the configuration requests.
- *
- * @author Marc FARRE (marc.fun)
  */
 class ConfigController extends Controller
 {

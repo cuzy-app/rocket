@@ -8,7 +8,7 @@
 
 namespace humhub\modules\rocket\controllers;
 
-use humhub\modules\admin\permissions\ManageModules;
+use humhub\modules\admin\permissions\ManageSettings;
 use humhub\modules\content\models\ContentContainerSetting;
 use humhub\modules\rocket\components\RocketApi;
 use humhub\modules\rocket\models\ModuleSettings;
@@ -25,7 +25,7 @@ class ContainerConfigController extends Controller
     public function getAccessRules()
     {
         return [
-            ['permission' => ManageModules::class],
+            ['permission' => ManageSettings::class],
         ];
     }
 
@@ -53,14 +53,14 @@ class ContainerConfigController extends Controller
             $channelItemsForMembersSync = $api->rocketChannelNames;
             $groupItemsForMembersSync = $api->rocketGroupNames;
 
-            // Remove Rocket channels or groups already in use in others spaces for web syndication
+            // Remove Rocket channels or groups already in use in other spaces for web syndication
             $settings = ContentContainerSetting::find()
                 ->andWhere(['module_id' => 'rocket'])
                 ->andWhere(['or',
                     ['name' => 'webSyndicationRocketChannels'],
                     ['name' => 'webSyndicationRocketGroups'],
                 ])
-                ->andWhere(['not', ['contentcontainer_id' => $this->contentContainer->contentcontainer_id]]) // others spaces only
+                ->andWhere(['not', ['contentcontainer_id' => $this->contentContainer->contentcontainer_id]]) // other spaces only
                 ->all();
             foreach ($settings as $setting) {
                 foreach ((array)Json::decode($setting->value) as $rocketChannelOrGroupId) {
@@ -73,14 +73,14 @@ class ContainerConfigController extends Controller
                 }
             }
 
-            // Remove Rocket channels or groups already in use in others spaces for members sync
+            // Remove Rocket channels or groups already in use in other spaces for members sync
             $settings = ContentContainerSetting::find()
                 ->andWhere(['module_id' => 'rocket'])
                 ->andWhere(['or',
                     ['name' => 'membersSyncRocketChannels'],
                     ['name' => 'membersSyncRocketGroups'],
                 ])
-                ->andWhere(['not', ['contentcontainer_id' => $this->contentContainer->contentcontainer_id]]) // others spaces only
+                ->andWhere(['not', ['contentcontainer_id' => $this->contentContainer->contentcontainer_id]]) // other spaces only
                 ->all();
             foreach ($settings as $setting) {
                 foreach ((array)Json::decode($setting->value) as $rocketChannelOrGroupId) {
