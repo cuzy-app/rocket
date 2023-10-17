@@ -8,7 +8,7 @@
 
 namespace humhub\modules\rocket;
 
-use humhub\modules\admin\permissions\ManageModules;
+use humhub\modules\admin\permissions\ManageSettings;
 use humhub\modules\content\components\ContentContainerActiveRecord;
 use humhub\modules\content\components\ContentContainerModule;
 use humhub\modules\space\models\Space;
@@ -37,7 +37,7 @@ class Module extends ContentContainerModule
             Yii::$app->request->isConsoleRequest
             || (
                 !Yii::$app->user->isGuest
-                && Yii::$app->user->can(ManageModules::class)
+                && Yii::$app->user->can(ManageSettings::class)
             ) ?
                 [Space::class] :
                 [];
@@ -63,7 +63,7 @@ class Module extends ContentContainerModule
      */
     public function getContentContainerConfigUrl(ContentContainerActiveRecord $container)
     {
-        return Yii::$app->user->can(ManageModules::class) ?
+        return Yii::$app->user->can(ManageSettings::class) ?
             $container->createUrl('/rocket/container-config') :
             '';
     }
