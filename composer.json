@@ -1,5 +1,5 @@
 {
-  "name": "funkycram/humhub-modules-rocket",
+  "name": "cuzyapp/humhub-modules-rocket",
   "description": "Rocket.chat module for Humhub",
   "minimum-stability": "stable",
   "type": "library",

@@ -9,8 +9,8 @@
 use humhub\libs\Html;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\rocket\Module;
+use humhub\modules\ui\form\widgets\ActiveForm;
 use humhub\modules\ui\view\components\View;
-use yii\bootstrap\ActiveForm;
 use yii\helpers\Url;
 
 /**
@@ -52,7 +52,7 @@ $module = Yii::$app->getModule('rocket');
                 </ul>
             </div>
 
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['acknowledge' => true]); ?>
             <?= $form->field($model, 'webSyndicationRocketChannels')->checkboxList($channelItemsForWebSyndication) ?>
             <?= $form->field($model, 'webSyndicationRocketGroups')->checkboxList($groupItemsForWebSyndication) ?>
             <?= $form->field($model, 'membersSyncRocketChannels')->checkboxList($channelItemsForMembersSync) ?>

@@ -29,7 +29,7 @@ use humhub\modules\ui\view\components\View;
                 <br><br>
                 <?= Yii::t('RocketModule.config', 'Only system administrators can activate and configure this module in spaces.') ?>
             </div>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['acknowledge' => true]); ?>
 
             <?= $form->field($model, 'apiUrl')->textInput() ?>
             <?= $form->field($model, 'apiUserLogin')->textInput() ?>

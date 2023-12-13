@@ -8,7 +8,7 @@ Show Humhub spaces' activity in [Rocket.chat](https://rocket.chat/) and sync Hum
 
 - Embed Humhub space's activity in a Rocket.Chat channel:
     - If logged out Humhub: you see the activity for guests
-    - If logged in Humhub: you see other user's activity, including private contents
+    - If logged in Humhub: you see other user's activity, including private content
 - Synchronization from Humhub groups and groups' members to Rocket.chat roles and roles' members (1)
 - Synchronization from Humhub spaces' members to Rocket.chat channels' members (2)
 
