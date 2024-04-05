@@ -1,5 +1,5 @@
 {
-  "name": "cuzyapp/humhub-modules-rocket",
+  "name": "cuzyapp/rocket",
   "description": "Rocket.chat module for Humhub",
   "minimum-stability": "stable",
   "type": "library",

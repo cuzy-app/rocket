@@ -30,7 +30,7 @@ private static $installed = array (
     array (
     ),
     'reference' => '0b3670ba3855636c12d1b51b41a99fca017c5361',
-    'name' => 'funkycram/humhub-modules-rocket',
+    'name' => 'funkycram/rocket',
   ),
   'versions' => 
   array (
@@ -70,7 +70,7 @@ private static $installed = array (
       ),
       'reference' => 'ee0db30118f661fb166bcffbf5d82032df484697',
     ),
-    'funkycram/humhub-modules-rocket' => 
+    'funkycram/rocket' => 
     array (
       'pretty_version' => 'dev-master',
       'version' => 'dev-master',
