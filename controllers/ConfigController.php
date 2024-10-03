@@ -29,9 +29,7 @@ class ConfigController extends Controller
         }
 
         return $this->render('index', [
-            'model' => $form
+            'model' => $form,
         ]);
     }
 }
-
-?>

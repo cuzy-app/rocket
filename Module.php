@@ -17,7 +17,6 @@ use yii\helpers\Url;
 
 class Module extends ContentContainerModule
 {
-
     /**
      * @var string defines the icon
      */

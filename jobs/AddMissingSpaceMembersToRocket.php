@@ -8,7 +8,6 @@
 
 namespace humhub\modules\rocket\jobs;
 
-
 use humhub\modules\content\models\ContentContainerSetting;
 use humhub\modules\queue\ActiveJob;
 use humhub\modules\rocket\components\RocketApi;

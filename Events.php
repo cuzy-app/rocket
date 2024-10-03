@@ -62,7 +62,7 @@ class Events
 
         Yii::$app->queue->push(new SendApiRequest([
             'method' => 'createRole',
-            'arguments' => [$group->name]
+            'arguments' => [$group->name],
         ]));
     }
 
@@ -87,7 +87,7 @@ class Events
 
         Yii::$app->queue->push(new SendApiRequest([
             'method' => 'deleteRole',
-            'arguments' => [$group->name]
+            'arguments' => [$group->name],
         ]));
     }
 
@@ -118,7 +118,7 @@ class Events
         if (array_key_exists('name', $changedAttributes)) {
             Yii::$app->queue->push(new SendApiRequest([
                 'method' => 'renameRole',
-                'arguments' => [$changedAttributes['name'], $group->name]
+                'arguments' => [$changedAttributes['name'], $group->name],
             ]));
         }
     }
@@ -150,7 +150,7 @@ class Events
 
         Yii::$app->queue->push(new SendApiRequest([
             'method' => 'addUserToRole',
-            'arguments' => [$user->id, $group->name]
+            'arguments' => [$user->id, $group->name],
         ]));
     }
 
@@ -181,7 +181,7 @@ class Events
 
         Yii::$app->queue->push(new SendApiRequest([
             'method' => 'removeUserFromRole',
-            'arguments' => [$user->id, $group->name]
+            'arguments' => [$user->id, $group->name],
         ]));
     }
 
@@ -211,13 +211,13 @@ class Events
         foreach ($membersSyncRocketChannels as $rocketChannelId) {
             Yii::$app->queue->push(new SendApiRequest([
                 'method' => 'inviteUserToChannel',
-                'arguments' => [$user->id, $rocketChannelId]
+                'arguments' => [$user->id, $rocketChannelId],
             ]));
         }
         foreach ($membersSyncRocketGroups as $rocketGroupId) {
             Yii::$app->queue->push(new SendApiRequest([
                 'method' => 'inviteUserToGroup',
-                'arguments' => [$user->id, $rocketGroupId]
+                'arguments' => [$user->id, $rocketGroupId],
             ]));
         }
     }
@@ -249,13 +249,13 @@ class Events
         foreach ($membersSyncRocketChannels as $rocketChannelId) {
             Yii::$app->queue->push(new SendApiRequest([
                 'method' => 'kickUserOutOfChannel',
-                'arguments' => [$user->id, $rocketChannelId]
+                'arguments' => [$user->id, $rocketChannelId],
             ]));
         }
         foreach ($membersSyncRocketGroups as $rocketGroupId) {
             Yii::$app->queue->push(new SendApiRequest([
                 'method' => 'kickUserOutOfGroup',
-                'arguments' => [$user->id, $rocketGroupId]
+                'arguments' => [$user->id, $rocketGroupId],
             ]));
         }
     }

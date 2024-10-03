@@ -16,7 +16,6 @@ use humhub\modules\space\models\Space;
 use Yii;
 use yii\base\Model;
 
-
 class ModuleSettings extends Model
 {
     /**
@@ -166,7 +165,7 @@ class ModuleSettings extends Model
     /**
      * Saves the current model values to the current user or globally.
      *
-     * @return boolean success
+     * @return bool success
      */
     public function save()
     {

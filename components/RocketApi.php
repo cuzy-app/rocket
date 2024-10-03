@@ -20,7 +20,6 @@ use Yii;
 use yii\base\Component;
 use yii\helpers\BaseInflector;
 
-
 /**
  * Rocket.chat API PHP Wrapper Library doc: https://github.com/alekseykuleshov/rocket-chat
  * Rocket.chat API doc: https://developer.rocket.chat/reference/api/rest-api/endpoints/team-collaboration-endpoints
@@ -33,7 +32,7 @@ class RocketApi extends Component
 {
     public const ERRORS_TO_IGNORE = [
         '[error-user-already-in-role]',
-        '[error-user-not-in-role]'
+        '[error-user-not-in-role]',
     ];
 
     protected const CACHE_KEY_PREFIX_USER = 'rocketApiUser';

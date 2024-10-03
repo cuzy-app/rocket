@@ -16,7 +16,6 @@ use humhub\modules\space\modules\manage\components\Controller;
 use Yii;
 use yii\helpers\Json;
 
-
 class ContainerConfigController extends Controller
 {
     /**

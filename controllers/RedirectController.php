@@ -15,10 +15,8 @@ use humhub\modules\space\models\Space;
 use Yii;
 use yii\web\Response;
 
-
 class RedirectController extends Controller
 {
-
     /**
      * @return \yii\console\Response|Response|string
      * @throws \yii\db\IntegrityException

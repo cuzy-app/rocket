@@ -21,6 +21,6 @@ class Assets extends AssetBundle
     ];
 
     public $js = [
-//        'js/humhub.rocket.js',
+        //        'js/humhub.rocket.js',
     ];
 }

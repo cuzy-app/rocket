@@ -10,7 +10,6 @@ namespace humhub\modules\rocket\controllers;
 
 use humhub\modules\content\components\ContentContainerController;
 
-
 /**
  * IndexController
  */
