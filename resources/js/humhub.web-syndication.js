@@ -1,13 +1,13 @@
 humhub.module('rocket', function (module, require, $) {
 
     // Get varName
-    // Caution : value is not set right away 
+    // Caution : value is not set right away
     var varName = module.config.varName;
 
     module.initOnPjaxLoad = true;
 
     /**
-     * The init function will be called once all Humhub scripts are available.
+     * The init function will be called once all HumHub scripts are available.
      * Caution!!! if coming from an other page, init function is loaded BEFORE pjax has loaded document!
      *
      * @param isPjax
@@ -38,7 +38,7 @@ humhub.module('rocket', function (module, require, $) {
 
     /**
      * Outside of init some modules may not be available, so make sure to follow one of the other migration options
-     * when using requiring a js module included in CoreAssetBundle.
+     * when using requiring a js module included in AssetBundle.
      */
 
     module.export({

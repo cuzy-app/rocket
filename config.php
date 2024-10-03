@@ -6,8 +6,6 @@
  * @author [Marc FARRE](https://marc.fun)
  */
 
-/** @noinspection MissedFieldInspection */
-
 use humhub\commands\CronController;
 use humhub\modules\rocket\Events;
 use humhub\modules\space\models\Membership;

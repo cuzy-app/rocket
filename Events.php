@@ -195,7 +195,7 @@ class Events
             return;
         }
 
-        // Get Humhub user and space
+        // Get HumHub user and space
         $membership = $event; // not $event->sender as it is executed by queue/run
         /** @var User $user */
         $user = $membership->user;
@@ -233,7 +233,7 @@ class Events
             return;
         }
 
-        // Get Humhub user and space
+        // Get HumHub user and space
         $membership = $event; // not $event->sender as it is executed by queue/run
         /** @var User $user */
         $user = $membership->user;

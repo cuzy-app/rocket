@@ -25,7 +25,7 @@ use yii\helpers\BaseInflector;
  * Rocket.chat API PHP Wrapper Library doc: https://github.com/alekseykuleshov/rocket-chat
  * Rocket.chat API doc: https://developer.rocket.chat/reference/api/rest-api/endpoints/team-collaboration-endpoints
  *
- * Role on Rocket.chat is equivalent to groups in Humhub
+ * Role on Rocket.chat is equivalent to groups in HumHub
  * Channel on Rocket.chat is a public channel
  * Group on Rocket.chat is a private channel
  */
@@ -98,31 +98,6 @@ class RocketApi extends Component
         }
 
         parent::init();
-    }
-
-    /**
-     * @param $result
-     * @param $classNameOrObject
-     * @param string|null $methodName
-     * @return bool
-     */
-    protected function resultIsValid($result, $classNameOrObject, ?string $methodName = null)
-    {
-        if (!$result) {
-            $error = is_string($classNameOrObject) ? $classNameOrObject::getError() : $classNameOrObject->getError();
-            $ignoreError = false;
-            foreach (self::ERRORS_TO_IGNORE as $errorToIgnore) {
-                if (strpos($error, $errorToIgnore) !== false) {
-                    $ignoreError = true;
-                    break;
-                }
-            }
-            if (!$ignoreError) {
-                Yii::error('Error on API request' . ($methodName ? ' (' . $methodName . ')' : '') . ': ' . $error, 'rocket');
-            }
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -277,7 +252,7 @@ class RocketApi extends Component
     }
 
     /**
-     * Search Rocket User ID from Humhub email and username
+     * Search Rocket User ID from HumHub email and username
      * @param User $humhubUser
      * @return null|string
      */
@@ -538,6 +513,31 @@ class RocketApi extends Component
         if ($this->loggedIn) {
             RocketChat::logout();
         }
+    }
+
+    /**
+     * @param $result
+     * @param $classNameOrObject
+     * @param string|null $methodName
+     * @return bool
+     */
+    protected function resultIsValid($result, $classNameOrObject, ?string $methodName = null)
+    {
+        if (!$result) {
+            $error = is_string($classNameOrObject) ? $classNameOrObject::getError() : $classNameOrObject->getError();
+            $ignoreError = false;
+            foreach (self::ERRORS_TO_IGNORE as $errorToIgnore) {
+                if (strpos($error, $errorToIgnore) !== false) {
+                    $ignoreError = true;
+                    break;
+                }
+            }
+            if (!$ignoreError) {
+                Yii::error('Error on API request' . ($methodName ? ' (' . $methodName . ')' : '') . ': ' . $error, 'rocket');
+            }
+            return false;
+        }
+        return true;
     }
 
     /**
