@@ -28,7 +28,9 @@ class Events
      */
     public static function onCronDailyRun($event)
     {
-        if (!Yii::$app->getModule('rocket')) {
+        /** @var Module $module */
+        $module = Yii::$app->getModule('rocket');
+        if (!$module?->isEnabled) {
             return;
         }
 

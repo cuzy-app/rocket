@@ -6,10 +6,10 @@
  * @author [Marc FARRE](https://marc.fun)
  */
 
-use humhub\libs\Html;
+use humhub\components\View;
+use humhub\helpers\Html;
 use humhub\modules\mass_notification\models\ModuleSettings;
-use humhub\modules\ui\form\widgets\ActiveForm;
-use humhub\modules\ui\view\components\View;
+use humhub\widgets\form\ActiveForm;
 
 /**
  * @var $this View
@@ -24,7 +24,7 @@ use humhub\modules\ui\view\components\View;
         </div>
 
         <div class="panel-body">
-            <div class="alert alert-info">
+            <div class="alert alert-info" role="alert">
                 <?= Yii::t('RocketModule.config', 'To synchronize the members of a Humhub space with the members of one or more Rocket.chat channels, or to display the activity of a space in a channel, you must activate this module in the spaces concerned and configure it.') ?>
                 <br><br>
                 <?= Yii::t('RocketModule.config', 'Only system administrators can activate and configure this module in spaces.') ?>

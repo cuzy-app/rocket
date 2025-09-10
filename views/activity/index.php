@@ -9,7 +9,7 @@
 use humhub\modules\activity\widgets\ActivityStreamViewer;
 use humhub\modules\rocket\assets\Assets;
 use humhub\modules\space\models\Space;
-use humhub\modules\ui\view\components\View;
+use humhub\components\View;
 
 /**
  * @var $this View

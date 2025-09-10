@@ -6,11 +6,11 @@
  * @author [Marc FARRE](https://marc.fun)
  */
 
-use humhub\libs\Html;
+use humhub\components\View;
+use humhub\helpers\Html;
 use humhub\modules\rocket\models\ModuleSettings;
 use humhub\modules\rocket\Module;
-use humhub\modules\ui\form\widgets\ActiveForm;
-use humhub\modules\ui\view\components\View;
+use humhub\widgets\form\ActiveForm;
 use yii\helpers\Url;
 
 /**
@@ -38,13 +38,13 @@ $module = Yii::$app->getModule('rocket');
     <div class="panel-body">
 
         <?php if (!$apiIsValid): ?>
-            <div class="alert alert-danger">
+            <div class="alert alert-danger" role="alert">
                 <?= Yii::t('RocketModule.config', 'No Rocket channels found. Please check the API values in the module settings.') ?>
             </div>
 
         <?php else: ?>
 
-            <div class="alert alert-info">
+            <div class="alert alert-info" role="alert">
                 <p><?= Yii::t('RocketModule.config', 'Some channels may not displayed here:') ?></p>
                 <ul>
                     <li><?= Yii::t('RocketModule.config', 'if they are already in use in other spaces') ?></li>

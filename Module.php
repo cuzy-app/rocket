@@ -23,11 +23,6 @@ class Module extends ContentContainerModule
     public $icon = 'commenting-o';
 
     /**
-     * @var string defines path for resources, including the screenshots path for the marketplace
-     */
-    public $resourcesPath = 'resources';
-
-    /**
      * @inheritdoc
      */
     public function getContentContainerTypes()

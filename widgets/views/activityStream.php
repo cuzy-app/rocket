@@ -9,7 +9,7 @@ use humhub\modules\activity\assets\ActivityAsset;
 use humhub\widgets\PanelMenu;
 use yii\helpers\Html;
 
-/* @var $this humhub\modules\ui\view\components\View */
+/* @var $this humhub\components\View */
 /* @var $streamUrl string */
 /* @var $options array */
 
@@ -21,6 +21,6 @@ ActivityAsset::register($this);
         <?= Yii::t('RocketModule.base', 'What\'s new on Humhub\'s “{SpaceName}” space?', ['SpaceName' => Html::encode(Yii::$app->controller->contentContainer->name)]) ?>
     </div>
     <?= Html::beginTag('div', $options) ?>
-    <ul id="activityContents" class="media-list activities" data-stream-content style="max-height: none"></ul>
+    <div id="activityContents" class="hh-list activities" data-stream-content></div>
     <?= Html::endTag('div') ?>
 </div>
