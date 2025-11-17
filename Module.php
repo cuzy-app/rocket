@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rocket
  * @link https://www.cuzy.app
@@ -32,9 +33,9 @@ class Module extends ContentContainerModule
             || (
                 !Yii::$app->user->isGuest
                 && Yii::$app->user->can(ManageSettings::class)
-            ) ?
-                [Space::class] :
-                [];
+            )
+                ? [Space::class]
+                : [];
     }
 
     public function getName()
@@ -57,8 +58,8 @@ class Module extends ContentContainerModule
      */
     public function getContentContainerConfigUrl(ContentContainerActiveRecord $container)
     {
-        return Yii::$app->user->can(ManageSettings::class) ?
-            $container->createUrl('/rocket/container-config') :
-            '';
+        return Yii::$app->user->can(ManageSettings::class)
+            ? $container->createUrl('/rocket/container-config')
+            : '';
     }
 }

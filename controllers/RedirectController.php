@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rocket
  * @link https://www.cuzy.app
@@ -33,9 +34,9 @@ class RedirectController extends Controller
         $rocketChannelNames = (array)$settings->getSerialized('rocketChannelNames');
         $rocketGroupNames = (array)$settings->getSerialized('rocketGroupNames');
 
-        $rocketChannelOrGroupId =
-            array_search($rocketChannel, $rocketChannelNames, true) ?:
-                array_search($rocketChannel, $rocketGroupNames, true);
+        $rocketChannelOrGroupId
+            = array_search($rocketChannel, $rocketChannelNames, true)
+                ?: array_search($rocketChannel, $rocketGroupNames, true);
 
         if (!$rocketChannelOrGroupId) {
             return '';
