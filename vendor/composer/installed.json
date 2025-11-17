@@ -1148,6 +1148,6 @@
             "install-path": "../symfony/polyfill-php72"
         }
     ],
-    "dev": true,
+    "dev": false,
     "dev-package-names": []
 }

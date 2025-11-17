@@ -16,7 +16,7 @@ use yii\helpers\Html;
 ActivityAsset::register($this);
 ?>
 <div class="panel panel-default panel-activities" id="panel-activities">
-    <?= PanelMenu::widget(['id' => 'panel-activities']) ?>
+    <?= PanelMenu::widget(['id' => 'rocket-panel-activities']) ?>
     <div class="panel-heading">
         <?= Yii::t('RocketModule.base', 'What\'s new on Humhub\'s “{SpaceName}” space?', ['SpaceName' => Html::encode(Yii::$app->controller->contentContainer->name)]) ?>
     </div>
