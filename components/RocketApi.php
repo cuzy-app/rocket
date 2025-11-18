@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Rocket
  * @link https://www.cuzy.app
@@ -258,10 +259,10 @@ class RocketApi extends Component
     public function getRocketUserId(User $humhubUser)
     {
         $this->initRocketUsers();
-        $rocketUserId = array_search(trim((string)$humhubUser->email), $this->rocketUserEmails, true) ?:
-            null;
-        return $rocketUserId ??
-            array_search(trim((string)$humhubUser->username), $this->rocketUserUsernames, true) ?: null;
+        $rocketUserId = array_search(trim((string)$humhubUser->email), $this->rocketUserEmails, true)
+            ?: null;
+        return $rocketUserId
+            ?? array_search(trim((string)$humhubUser->username), $this->rocketUserUsernames, true) ?: null;
     }
 
     /**
