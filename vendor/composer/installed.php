@@ -3,7 +3,7 @@
         'name' => 'cuzyapp/rocket',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0ddc683bed87b5b80cc5c7c968dcdc35eec6ae99',
+        'reference' => '9770b064e9f579a23b227be3e90e488a5828f1c8',
         'type' => 'humhub-module',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -58,7 +58,7 @@
         'cuzyapp/rocket' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0ddc683bed87b5b80cc5c7c968dcdc35eec6ae99',
+            'reference' => '9770b064e9f579a23b227be3e90e488a5828f1c8',
             'type' => 'humhub-module',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -119,9 +119,9 @@
             'dev_requirement' => true,
         ),
         'friendsofphp/php-cs-fixer' => array(
-            'pretty_version' => 'v3.89.2',
-            'version' => '3.89.2.0',
-            'reference' => '7569658f91e475ec93b99bd5964b059ad1336dcf',
+            'pretty_version' => 'v3.90.0',
+            'version' => '3.90.0.0',
+            'reference' => 'ad732c2e9299c9743f9c55ae53cc0e7642ab1155',
             'type' => 'application',
             'install_path' => __DIR__ . '/../friendsofphp/php-cs-fixer',
             'aliases' => array(),
@@ -342,7 +342,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '070af2db86d1502f430fd627a045e7b078abf63f',
+            'reference' => 'f5a58d09ea64ab1d080876ee3abbd3b90dd022d6',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
@@ -351,9 +351,9 @@
             'dev_requirement' => true,
         ),
         'sebastian/diff' => array(
-            'pretty_version' => '7.0.0',
-            'version' => '7.0.0.0',
-            'reference' => '7ab1ea946c012266ca32390913653d844ecd085f',
+            'pretty_version' => '6.0.2',
+            'version' => '6.0.2.0',
+            'reference' => 'b4ccd857127db5d41a5b676f24b51371d76d8544',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/diff',
             'aliases' => array(),
