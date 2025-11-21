@@ -3,7 +3,7 @@
         'name' => 'cuzyapp/rocket',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'ad6bd7193fed5d71b6c3e79e78a82b72b5bfc11a',
+        'reference' => '10af9deb42a55b59662805a43a1fda0dbe0ff682',
         'type' => 'humhub-module',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -58,7 +58,7 @@
         'cuzyapp/rocket' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'ad6bd7193fed5d71b6c3e79e78a82b72b5bfc11a',
+            'reference' => '10af9deb42a55b59662805a43a1fda0dbe0ff682',
             'type' => 'humhub-module',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
