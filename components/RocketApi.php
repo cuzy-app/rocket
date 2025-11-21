@@ -527,7 +527,7 @@ class RocketApi extends Component
             $error = is_string($classNameOrObject) ? $classNameOrObject::getError() : $classNameOrObject->getError();
             $ignoreError = false;
             foreach (self::ERRORS_TO_IGNORE as $errorToIgnore) {
-                if (strpos($error, $errorToIgnore) !== false) {
+                if (str_contains($error, $errorToIgnore)) {
                     $ignoreError = true;
                     break;
                 }
