@@ -86,7 +86,7 @@ class RocketApi extends Component
     {
         $this->settings = new ModuleSettings();
 
-        if (!class_exists('ATDev\RocketChat\Chat')) {
+        if (!class_exists(\ATDev\RocketChat\Chat::class)) {
             require Yii::getAlias('@rocket/vendor/autoload.php');
         }
 
