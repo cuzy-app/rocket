@@ -3,7 +3,7 @@
         'name' => 'cuzyapp/rocket',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '7ff11cc91f4f451e2144d0a2e0c1c8513f27f5a5',
+        'reference' => '882cedfdca073afea47f6df5c3eaaa0a17dab481',
         'type' => 'humhub-module',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -58,7 +58,7 @@
         'cuzyapp/rocket' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '7ff11cc91f4f451e2144d0a2e0c1c8513f27f5a5',
+            'reference' => '882cedfdca073afea47f6df5c3eaaa0a17dab481',
             'type' => 'humhub-module',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -119,9 +119,9 @@
             'dev_requirement' => true,
         ),
         'friendsofphp/php-cs-fixer' => array(
-            'pretty_version' => 'v3.90.0',
-            'version' => '3.90.0.0',
-            'reference' => 'ad732c2e9299c9743f9c55ae53cc0e7642ab1155',
+            'pretty_version' => 'v3.91.2',
+            'version' => '3.91.2.0',
+            'reference' => 'f171dc216bc8a4192d5a0876a899cce6f9e379d6',
             'type' => 'application',
             'install_path' => __DIR__ . '/../friendsofphp/php-cs-fixer',
             'aliases' => array(),
@@ -331,9 +331,9 @@
             'dev_requirement' => true,
         ),
         'rector/rector' => array(
-            'pretty_version' => '2.2.8',
-            'version' => '2.2.8.0',
-            'reference' => '303aa811649ccd1d32e51e62d5c85949d01b5f1b',
+            'pretty_version' => '2.2.11',
+            'version' => '2.2.11.0',
+            'reference' => '7bd21a40b0332b93d4bfee284093d7400696902d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../rector/rector',
             'aliases' => array(),
@@ -342,7 +342,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '3f393e137e490ecb2ac77989a692129c31192de7',
+            'reference' => '114fdb88709703f1e43a022f08844798d11439f4',
             'type' => 'metapackage',
             'install_path' => null,
             'aliases' => array(
