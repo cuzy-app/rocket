@@ -3,8 +3,12 @@
     "description": "Rocket.chat module for HumHub",
     "minimum-stability": "stable",
     "type": "humhub-module",
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    },
     "require": {
-        "php": ">=8.2",
         "atdev/rocket-chat": "~1.0"
     },
     "repositories": [{

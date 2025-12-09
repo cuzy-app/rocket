@@ -11,8 +11,6 @@ namespace humhub\modules\rocket\assets;
 
 use humhub\components\assets\AssetBundle;
 
-// not yii\web\AssetBundle for deferred script loading - see https://docs.humhub.org/docs/develop/modules-migrate/#asset-management
-
 class Assets extends AssetBundle
 {
     public $sourcePath = '@rocket/resources';
