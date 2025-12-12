@@ -21,63 +21,42 @@ return [
         [
             'class' => CronController::class,
             'event' => CronController::EVENT_ON_DAILY_RUN,
-            'callback' => [Events::class, 'onCronDailyRun'],
+            'callback' => Events::onCronDailyRun(...),
         ],
         [
             'class' => Group::class,
             'event' => Group::EVENT_AFTER_INSERT,
-            'callback' => [
-                Events::class,
-                'onModelGroupAfterInsert',
-            ],
+            'callback' => Events::onModelGroupAfterInsert(...),
         ],
         [
             'class' => Group::class,
             'event' => Group::EVENT_AFTER_DELETE,
-            'callback' => [
-                Events::class,
-                'onModelGroupAfterDelete',
-            ],
+            'callback' => Events::onModelGroupAfterDelete(...),
         ],
         [
             'class' => Group::class,
             'event' => Group::EVENT_AFTER_UPDATE,
-            'callback' => [
-                Events::class,
-                'onModelGroupAfterUpdate',
-            ],
+            'callback' => Events::onModelGroupAfterUpdate(...),
         ],
         [
             'class' => GroupUser::class,
             'event' => GroupUser::EVENT_AFTER_INSERT,
-            'callback' => [
-                Events::class,
-                'onModelGroupUserAfterInsert',
-            ],
+            'callback' => Events::onModelGroupUserAfterInsert(...),
         ],
         [
             'class' => GroupUser::class,
             'event' => GroupUser::EVENT_AFTER_DELETE,
-            'callback' => [
-                Events::class,
-                'onModelGroupUserAfterDelete',
-            ],
+            'callback' => Events::onModelGroupUserAfterDelete(...),
         ],
         [
             'class' => Membership::class,
             'event' => Membership::EVENT_MEMBER_ADDED,
-            'callback' => [
-                Events::class,
-                'onModelSpaceMembershipMemberAdded',
-            ],
+            'callback' => Events::onModelSpaceMembershipMemberAdded(...),
         ],
         [
             'class' => Membership::class,
             'event' => Membership::EVENT_MEMBER_REMOVED,
-            'callback' => [
-                Events::class,
-                'onModelSpaceMembershipMemberRemoved',
-            ],
+            'callback' => Events::onModelSpaceMembershipMemberRemoved(...),
         ],
     ],
 ];
