@@ -22,7 +22,7 @@ class ContainerConfigController extends Controller
     /**
      * @inheritdoc
      */
-    public function getAccessRules()
+    protected function getAccessRules()
     {
         return [
             ['permission' => ManageSettings::class],
