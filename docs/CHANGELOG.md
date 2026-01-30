@@ -8,6 +8,10 @@ Unreleased
 - Enh: Add GitHub HumHub PHP workflows (tests & CS fixer)
 - Enh: Migration to BS5 and HumHub 1.18
 
+0.1-beta.3 (Unreleased)
+-----------------------
+- Enh: Automated code refactoring for HumHub 1.18 using Rector
+
 0.1-beta.2 (April 15, 2022)
 --------------------
 - Enh: Group synchronization

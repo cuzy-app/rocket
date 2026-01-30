@@ -3,7 +3,7 @@
     "name": "Rocket.chat",
     "description": "",
     "keywords": [],
-    "version": "0.1-beta-2",
+    "version": "0.1-beta.3",
     "humhub": {
         "minVersion": "1.18"
     },
@@ -15,6 +15,5 @@
             "role": "Developer"
         }
     ],
-    "screenshots": [
-    ]
+    "screenshots": []
 }
