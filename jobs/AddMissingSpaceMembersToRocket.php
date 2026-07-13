@@ -95,15 +95,14 @@ class AddMissingSpaceMembersToRocket extends ActiveJob implements RetryableJobIn
      * @return Space|null
      * @throws IntegrityException
      */
-    protected function getSpace(ContentContainerSetting $setting)
+    protected function getSpace(ContentContainerSetting $setting): ?Space
     {
-        if (
-            ($contentContainer = $setting->contentcontainer) !== null
-            && ($space = $contentContainer->getPolymorphicRelation()) instanceof Space
-        ) {
-            return $space;
+        $contentContainer = $setting->contentcontainer;
+        if ($contentContainer === null) {
+            return null;
         }
-        return null;
+        $space = $contentContainer->getPolymorphicRelation();
+        return $space instanceof Space ? $space : null;
     }
 
     /**

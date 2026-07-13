@@ -6,7 +6,7 @@
  * @author [Marc FARRE](https://marc.fun)
  */
 
-use humhub\modules\activity\widgets\ActivityStreamViewer;
+use humhub\modules\activity\widgets\ActivityBox;
 use humhub\modules\rocket\assets\Assets;
 use humhub\modules\space\models\Space;
 use humhub\components\View;
@@ -21,7 +21,6 @@ Assets::register($this);
 
 <base target="_blank">
 
-<?= ActivityStreamViewer::widget([
+<?= ActivityBox::widget([
     'contentContainer' => $space,
-    'view' => '@rocket/widgets/views/activityStream',
 ]) ?>
