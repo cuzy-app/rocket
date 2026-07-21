@@ -1,27 +1,34 @@
 {
-    "name": "cuzyapp/rocket",
-    "description": "Rocket.chat module for HumHub",
-    "minimum-stability": "stable",
-    "type": "humhub-module",
-    "config": {
-        "platform": {
-            "php": "8.2"
-        }
-    },
-    "require": {
-        "atdev/rocket-chat": "~1.0"
-    },
-    "repositories": [{
-        "name": "humhub-module-coding-standards",
-        "type": "vcs",
-        "url": "https://github.com/humhub/module-coding-standards.git"
-    }],
-    "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "humhub/module-coding-standards": "dev-main"
-    },
-    "scripts": {
-        "rector": "vendor/bin/rector process --config=vendor/humhub/module-coding-standards/rector.php",
-        "fixer": "vendor/bin/php-cs-fixer fix --config=vendor/humhub/module-coding-standards/php-cs-fixer.php"
+  "name": "cuzyapp/rocket",
+  "description": "Rocket.chat module for HumHub",
+  "minimum-stability": "stable",
+  "type": "humhub-module",
+  "autoload": {
+    "psr-4": {
+      "humhub\\modules\\rocket\\": ""
     }
+  },
+  "config": {
+    "platform": {
+      "php": "8.2"
+    }
+  },
+  "require": {
+    "atdev/rocket-chat": "~1.0"
+  },
+  "repositories": [
+    {
+      "name": "humhub-module-coding-standards",
+      "type": "vcs",
+      "url": "https://github.com/humhub/module-coding-standards.git"
+    }
+  ],
+  "require-dev": {
+    "roave/security-advisories": "dev-latest",
+    "humhub/module-coding-standards": "dev-main"
+  },
+  "scripts": {
+    "rector": "vendor/bin/rector process --config=vendor/humhub/module-coding-standards/rector.php",
+    "fixer": "vendor/bin/php-cs-fixer fix --config=vendor/humhub/module-coding-standards/php-cs-fixer.php"
+  }
 }
