@@ -33,7 +33,10 @@ use humhub\widgets\form\ActiveForm;
 
             <?= $form->field($model, 'apiUrl')->textInput() ?>
             <?= $form->field($model, 'apiUserLogin')->textInput() ?>
-            <?= $form->field($model, 'apiUserPassword')->textInput(['type' => 'password']) ?>
+            <?php // A stored password is never echoed into HTML: the field carries the bullet
+                  // placeholder, and submitting it unchanged keeps the real value (see
+                  // ConfigController::actionIndex()). ?>
+            <?= $form->field($model, 'apiUserPassword')->textInput(['type' => 'password', 'autocomplete' => 'new-password']) ?>
             <?= $form->field($model, 'syncOnGroupAdd')->checkbox() ?>
             <?= $form->field($model, 'syncOnGroupRename')->checkbox() ?>
             <?= $form->field($model, 'syncOnGroupDelete')->checkbox() ?>

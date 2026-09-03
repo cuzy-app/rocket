@@ -20,6 +20,14 @@ use yii\base\Model;
 class ModuleSettings extends Model
 {
     /**
+     * What a stored secret (the API admin password) renders as once saved. Submitting this value
+     * unchanged keeps the stored password; clearing the field and submitting empty deletes it.
+     * Never echo the real stored password back into the form: any other admin could read or copy
+     * it via the password field's reveal icon.
+     */
+    public const SECRET_PLACEHOLDER = '••••••••';
+
+    /**
      * @var ContentContainerActiveRecord
      */
     public $contentContainer;
@@ -131,6 +139,31 @@ class ModuleSettings extends Model
             'membersSyncRocketChannels' => Yii::t('RocketModule.config', 'Members synchronization is one way, from Humhub to Rocket.chat'),
             'membersSyncRocketGroups' => Yii::t('RocketModule.config', 'Members synchronization is one way, from Humhub to Rocket.chat'),
         ];
+    }
+
+    /**
+     * Replaces the stored password with the placeholder for display. This class doubles as
+     * {@see \humhub\modules\rocket\components\RocketApi}'s settings accessor (it builds its own
+     * `new ModuleSettings()` for every API call), so masking cannot live in {@see init()} — that
+     * would hand the literal placeholder to Rocket.chat as the admin login password. Only the
+     * config controller may call this, and only right before rendering the form.
+     */
+    public function maskApiUserPasswordForDisplay(): void
+    {
+        if ((string)$this->apiUserPassword !== '') {
+            $this->apiUserPassword = self::SECRET_PLACEHOLDER;
+        }
+    }
+
+    /**
+     * If the submitted password is still the placeholder, the admin left it untouched: restore
+     * the real value so {@see save()} does not overwrite it with the placeholder bullets.
+     */
+    public function restoreApiUserPasswordIfUnchanged(?string $stored): void
+    {
+        if ($this->apiUserPassword === self::SECRET_PLACEHOLDER) {
+            $this->apiUserPassword = $stored;
+        }
     }
 
     /**

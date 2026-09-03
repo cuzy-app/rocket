@@ -24,10 +24,18 @@ class ConfigController extends Controller
     public function actionIndex()
     {
         $form = new ModuleSettings();
+        $storedApiUserPassword = $form->apiUserPassword;
 
-        if ($form->load(Yii::$app->request->post()) && $form->validate() && $form->save()) {
-            $this->view->saved();
+        if ($form->load(Yii::$app->request->post())) {
+            $form->restoreApiUserPasswordIfUnchanged($storedApiUserPassword);
+            if ($form->validate() && $form->save()) {
+                $this->view->saved();
+            }
         }
+
+        // Never echo the real stored password back into the form: any other admin could read or
+        // copy it via the password field's reveal icon.
+        $form->maskApiUserPasswordForDisplay();
 
         return $this->render('index', [
             'model' => $form,
