@@ -35,3 +35,7 @@ You don't need this module, you can do it with the [Custom pages module](https:/
 ## Configuration
 
 Go to "Administration" -> "Settings" -> "Rocket.chat"
+
+## Hosting
+
+This module is installed and updated for you on [CUZY Hosting](https://www.cuzy.app/hosting), managed HumHub hosting with every CUZY module included.
